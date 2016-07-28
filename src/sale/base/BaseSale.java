@@ -60,8 +60,9 @@ public class BaseSale extends ActionSupport implements Serializable{
 	
 	public List<String> getListPage(int index, int total){
 		List<String> result = new LinkedList<>();
-		if(total <= 5){
-			for(int i=0; i<=5; i++){
+		result.add("<<");
+		if(total <= 7){
+			for(int i=1; i<=total; i++){
 				result.add(String.valueOf(i));
 			}
 		}
@@ -70,11 +71,49 @@ public class BaseSale extends ActionSupport implements Serializable{
 				result.add("1");
 				result.add("2");
 				result.add("3");
+				result.add("4");
+				result.add("...");
+				result.add(String.valueOf(total-1));
+				result.add(String.valueOf(total));
+			}
+			else if(index == 3){
+				result.add("1");
+				result.add("2");
+				result.add("3");
+				result.add("4");
+				result.add("...");
+				result.add(String.valueOf(total-1));
+				result.add(String.valueOf(total));
+			}
+			else if(index <= total-2){
+				result.add("1");
+				result.add("2");
+				result.add("...");
+				result.add(String.valueOf(total-3));
+				result.add(String.valueOf(total-2));
+				result.add(String.valueOf(total-1));
+				result.add(String.valueOf(total-0));
+			}
+			else if(index <= total-1){
+				result.add("1");
+				result.add("2");
+				result.add("...");
+				result.add(String.valueOf(total-3));
+				result.add(String.valueOf(total-2));
+				result.add(String.valueOf(total-1));
+				result.add(String.valueOf(total-0));
+			}
+			else if(index < total){
+				result.add("1");
+				result.add("...");
+				result.add(String.valueOf(index-1));
+				result.add(String.valueOf(index));
+				result.add(String.valueOf(index+1));
 				result.add("...");
 				result.add(String.valueOf(total));
 			}
-			else if(index <= total-1)
 		}
+		result.add(">>");
 		return result;
 	}
 	

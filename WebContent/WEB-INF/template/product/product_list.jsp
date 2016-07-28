@@ -68,14 +68,9 @@
 				
 				<div class="paginator" style="margin: 20px 0 40px 0">
 					<ul class="pagination">
-					  <li><a href="#">«</a></li>
-					  <li><a href="#">1</a></li>
-					  <li><a class="active" href="#">2</a></li>
-					  <li><a href="#">3</a></li>
-					  <li><a href="#">...</a></li>
-					  <li><a href="#">6</a></li>
-					  <li><a href="#">7</a></li>
-					  <li><a href="#">»</a></li>
+						<s:iterator value="listPage" status="pageItr">
+					  		<li><a href="#" class="active"><s:property/></a></li>
+					  	</s:iterator>
 					</ul>
 				</div>
 			</div>

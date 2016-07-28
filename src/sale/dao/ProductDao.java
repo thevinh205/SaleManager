@@ -100,6 +100,12 @@ public class ProductDao {
 		return null;
 	}
 	
+	public int getCountProduct(){
+		String sql = "select count(*) from product";
+		int result = jdbcTemplateObject.queryForObject(sql, Integer.class);
+		return result;
+	}
+	
 	public List<CategoryProduct> getListCategoryProduct(){
 		if(null == listcategory){
 			reloadCategoryProduct();

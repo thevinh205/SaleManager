@@ -18,25 +18,59 @@ public class ProductListController extends BaseSale{
 	private String idProdSearch;
 	private String nameProdSearch;
 	private String groupProduct;
+	private List<String> listPage;
+	private String indexPage;
 	
 	public String productList(){
 		if(null == userUtil.getMember())
 			return ERROR;
+		String page = findParam("page");
+		if(null != page && !page.trim().equals(indexPage)){
+			getProductListByPage(page.trim());
+		}
 		setActionURL(getPath());
 		return SUCCESS;
 	}
 	
+	public void getProductListByPage(String index){
+		try{
+			indexPage = index;
+			int countProduct = lookupBean.getProductDao().getCountProduct();
+			int total = countProduct/10;
+			if(countProduct%10 > 0) total += 1;
+			listPage = getListPage(Integer.parseInt(indexPage), total);
+			int groupId = getGroupId();
+			productList = lookupBean.getProductDao().searchProduct(idProdSearch, nameProdSearch, groupId, 10, (Integer.parseInt(index)-1)*10);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	public String searchProductList(){
-		idProdSearch = idProdSearch.trim();
-		nameProdSearch = nameProdSearch.trim();
+		try{
+			idProdSearch = idProdSearch.trim();
+			nameProdSearch = nameProdSearch.trim();
+			int groupId = getGroupId();
+			productList = lookupBean.getProductDao().searchProduct(idProdSearch, nameProdSearch, groupId, 10, 0);
+			indexPage = "1";
+			int countProduct = lookupBean.getProductDao().getCountProduct();
+			int total = countProduct/10;
+			if(countProduct%10 > 0) total += 1;
+			listPage = getListPage(Integer.parseInt(indexPage), 7);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	public int getGroupId(){
 		int groupId = 0;
 		if(null != groupProduct){
 			CategoryProduct categoryProduct = lookupBean.getProductDao().getCategoryByName(groupProduct);
 			if(null != categoryProduct)
 				groupId = categoryProduct.getId();
 		}
-		productList = lookupBean.getProductDao().searchProduct(idProdSearch, nameProdSearch, groupId);
-		return SUCCESS;
+		return groupId;
 	}
 	
 	public List<CategoryProduct> getCategoryList() {
@@ -109,7 +143,21 @@ public class ProductListController extends BaseSale{
 	public void setGroupProduct(String groupProduct) {
 		this.groupProduct = groupProduct;
 	}
-	
-	
 
+	public List<String> getListPage() {
+		return listPage;
+	}
+
+	public void setListPage(List<String> listPage) {
+		this.listPage = listPage;
+	}
+
+	public String getIndexPage() {
+		return indexPage;
+	}
+
+	public void setIndexPage(String indexPage) {
+		this.indexPage = indexPage;
+	}
+	
 }
