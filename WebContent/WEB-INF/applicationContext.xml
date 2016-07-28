@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xmlns:mvc="http://www.springframework.org/schema/mvc"
+ xsi:schemaLocation="http://www.springframework.org/schema/beans
+					 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+					 http://www.springframework.org/schema/mvc
+					 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+					 http://www.springframework.org/schema/aop
+					 http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+					 http://www.springframework.org/schema/context
+					 http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <context:component-scan base-package="sale.controller" />
+
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/template/" />
+      <property name="suffix" value=".jsp" />
+   </bean>
+   
+   <bean id="webController" class="sale.controller.WebController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="loginController" class="sale.controller.LoginController" scope="request">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="registerMemberController" class="sale.controller.member.RegisterMemberController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   
+   <bean id="userUtil" class="sale.util.UserUtil" scope="session">
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="customerController" class="sale.controller.member.CustomerController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="editMemberController" class="sale.controller.member.EditMemberController" scope="session">
+   		<property name="customerController"  ref="customerController" />
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="addProductController" class="sale.controller.product.AddProductController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="productListController" class="sale.controller.product.ProductListController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="uploadImage" class="sale.servlet.UploadImage">
+   		<property name="lookupBean"  ref="lookupBean" />
+   </bean>
+   
+   <bean id="imageAction" class="sale.servlet.ImageAction" scope="prototype">
+   </bean>
+   
+   <bean id="customImageBytesResult" class="sale.servlet.CustomImageBytesResult">
+   </bean>
+ 
+ 	<bean id="lookupBean" class="sale.util.LookupBean" scope="singleton"/>
+</beans>

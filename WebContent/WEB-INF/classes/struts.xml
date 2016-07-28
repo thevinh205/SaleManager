@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+<constant name="struts.devMode" value="true" />
+	
+	<package name="default" extends="struts-default">
+		<result-types>
+	        <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+	        <result-type name="imageResult" class="customImageBytesResult" />
+	    </result-types>
+	
+		<default-action-ref name="index" />
+		
+		<action name="index" class="webController" method="index">
+			<result name="success">/WEB-INF/template/index.jsp</result>
+			<result name="error" type="redirect">login</result>
+		</action>
+      
+      	<action name="login" class="loginController" method="login">
+			<result name="success">/WEB-INF/template/login.jsp</result>
+			<result name="error" type="redirect">/index</result>
+		</action>
+		
+		<action name="loginAction" class="loginController" method="loginAction">
+			<result name="success" type="redirect">/index</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="logoutAction" class="loginController" method="logoutAction">
+			<result name="success" type="redirect">/login</result>
+		</action>
+		
+		<action name="uploadImage" class="uploadImage" method="uploadImage">
+			<result type="json">
+				
+			</result>
+		</action>
+		
+		<action name="ImageAction" class="imageAction">
+			<result type="imageResult">
+			</result>
+		</action>
+	</package>
+	
+
+   <package name="customer" extends="struts-default" namespace="/customer">
+   		<result-types>
+	        <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+	    </result-types>
+	    <interceptors>
+            <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+        </interceptors>
+   				
+		<action name="register_member" class="registerMemberController" method="registerMember">
+			<result name="success">/WEB-INF/template/cs/register_member.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="registerMemberAction" class="registerMemberController" method="registerMemberAction">
+			<result name="success" type="redirect">/customer/customer_list</result>
+			<result name="error" type="redirect">/customer/register_member</result>
+		</action>
+		
+		<action name="customer_list" class="customerController" method="customerList">
+			<result name="success">/WEB-INF/template/cs/customer_list.jsp</result>
+			<result name="error" type="redirect">/customer/login</result>
+		</action>
+		
+		<action name="searchCustomer" class="customerController" method="searchCustomer">
+			<result name="success" type="redirect">/customer/customer_list</result>
+			<result name="error" type="redirect">/customer/customer_list</result>
+		</action>
+		
+		<action name="deleteCustomer" class="customerController" method="deleteCustomer">
+			<result name="success" type="json"/>
+		</action>
+		
+		<action name="editMember" class="editMemberController" method="editMember">
+			<result name="success">/WEB-INF/template/cs/edit_member.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="editMemberAction" class="editMemberController" method="editMemberAction">
+			<result name="success" type="redirect">/customer/customer_list</result>
+			<result name="error" type="redirect">/customer/editMember</result>
+		</action>
+   </package>
+   
+   
+   <package name="product" extends="struts-default" namespace="/product">
+   		<result-types>
+	        <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+	    </result-types>
+	    
+   		<action name="addProduct" class="addProductController" method="addProduct">
+			<result name="success">/WEB-INF/template/product/add_product.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="addProductAction" class="addProductController" method="addProductAction">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
+		
+		<action name="productList" class="productListController" method="productList">
+			<result name="success">/WEB-INF/template/product/product_list.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="searchProductList" class="productListController" method="searchProductList">
+			<result name="success" type="redirect">/product/productList</result>
+		</action>
+   </package>
+
+</struts>

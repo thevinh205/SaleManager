@@ -1,0 +1,125 @@
+.ax-browse-c {
+    background-color: #5BB75B;
+    background: -webkit-linear-gradient(top, #62C462, #51A351);
+}
+
+.ax-button {
+    margin-right: 0.3em;
+    margin-bottom: 0.3em;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #696969;
+    border-radius: 4px 4px 4px 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    line-height: 1.4em;
+    padding: 0.3em 0.5em;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #FFFFFF;
+}
+
+.ax-plus-icon {
+    background: url(/SaleManager/resources/images/icon/icons.png) no-repeat 0px -332px;
+}
+
+.ax-icon {
+    display: inline-block;
+    height: 14px;
+    line-height: 14px;
+    vertical-align: text-top;
+    width: 14px;
+}
+
+input[type="file"] {
+    height: 30px;
+    line-height: 30px;
+}
+
+.ax-browse {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+    height: 64px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.productContentExtend a:hover{
+	color: white;		
+}
+.ax-upload-all {
+    background-color: #0074CC;
+    background: -webkit-linear-gradient(top, #0088CC, #0055CC);
+}
+
+.ax-upload-icon {
+    background: url(/SaleManager/resources/images/icon/icons.png) no-repeat -48px -332px;
+}
+
+.ax-clear {
+    background-color: #DA4F49;
+    background: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
+}
+
+.ax-clear-icon {
+    background: url(/SaleManager/resources/images/icon/icons.png) no-repeat -216px -332px;
+}
+
+.productContentExtend{
+	margin: 10px 0 0 50px;
+	border: 1px solid #c0c0c0;
+	width: calc(100% - 120px);
+	min-height: 150px;
+}
+
+.contentAddProduct{
+	margin: 20px 0 0 20px; 
+	float:left; 
+	width: calc(100% - 20px);
+}
+
+.imgProductPreview{
+	border: 1px solid green;
+    width: 95%;
+    min-height: 150px;
+    padding: 15px 0 15px 20px;
+    margin: 10px 0 0 10px;
+    display: none;
+}
+
+.imgPreview{
+	width: 150px;
+	height: 150px;
+	margin-left: 10px;
+	border: 1px solid #c0c0c0;
+}
+
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+ul.pagination li a:hover:not(.active) {background-color: #ddd;}
