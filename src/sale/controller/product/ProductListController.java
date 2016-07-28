@@ -20,6 +20,7 @@ public class ProductListController extends BaseSale{
 	private String groupProduct;
 	private List<String> listPage;
 	private String indexPage;
+	private int totalPage;
 	
 	public String productList(){
 		if(null == userUtil.getMember())
@@ -36,9 +37,9 @@ public class ProductListController extends BaseSale{
 		try{
 			indexPage = index;
 			int countProduct = lookupBean.getProductDao().getCountProduct();
-			int total = countProduct/10;
-			if(countProduct%10 > 0) total += 1;
-			listPage = getListPage(Integer.parseInt(indexPage), total);
+			totalPage = countProduct/10;
+			if(countProduct%10 > 0) totalPage += 1;
+			listPage = getListPage(Integer.parseInt(indexPage), totalPage);
 			int groupId = getGroupId();
 			productList = lookupBean.getProductDao().searchProduct(idProdSearch, nameProdSearch, groupId, 10, (Integer.parseInt(index)-1)*10);
 		}catch(Exception e){
@@ -54,9 +55,9 @@ public class ProductListController extends BaseSale{
 			productList = lookupBean.getProductDao().searchProduct(idProdSearch, nameProdSearch, groupId, 10, 0);
 			indexPage = "1";
 			int countProduct = lookupBean.getProductDao().getCountProduct();
-			int total = countProduct/10;
-			if(countProduct%10 > 0) total += 1;
-			listPage = getListPage(Integer.parseInt(indexPage), 7);
+			totalPage = countProduct/10;
+			if(countProduct%10 > 0) totalPage += 1;
+			listPage = getListPage(Integer.parseInt(indexPage), totalPage);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,6 +159,14 @@ public class ProductListController extends BaseSale{
 
 	public void setIndexPage(String indexPage) {
 		this.indexPage = indexPage;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
 	}
 	
 }

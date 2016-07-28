@@ -1,5 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 
 <html>
 	<head>
@@ -68,9 +69,23 @@
 				
 				<div class="paginator" style="margin: 20px 0 40px 0">
 					<ul class="pagination">
-						<s:iterator value="listPage" status="pageItr">
-					  		<li><a href="#" class="active"><s:property/></a></li>
+						<li><a href="productList?page=1">&lt;&lt;</a></li>
+						<s:iterator value="listPage" status="pageItr" var="pageVar">	
+							<s:if test="#pageVar == '...' ">
+								<li><a href="javascript:void(0)"><s:property/></a></li>
+							</s:if>
+						  	<s:else>
+						  		<li>
+						  			<s:if test="#pageVar == indexPage">
+						  				<a href="productList?page=<s:property/>" class="active"><s:property/></a>
+						  			</s:if>
+							  		<s:else>
+							  			<a href="productList?page=<s:property/>"><s:property/></a>
+							  		</s:else>
+						  		</li>
+						  	</s:else>	
 					  	</s:iterator>
+					  	<li><a href="productList?page=<s:property value='totalPage'/>">&gt;&gt;</a></li>
 					</ul>
 				</div>
 			</div>

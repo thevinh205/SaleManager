@@ -60,7 +60,6 @@ public class BaseSale extends ActionSupport implements Serializable{
 	
 	public List<String> getListPage(int index, int total){
 		List<String> result = new LinkedList<>();
-		result.add("<<");
 		if(total <= 7){
 			for(int i=1; i<=total; i++){
 				result.add(String.valueOf(i));
@@ -85,7 +84,7 @@ public class BaseSale extends ActionSupport implements Serializable{
 				result.add(String.valueOf(total-1));
 				result.add(String.valueOf(total));
 			}
-			else if(index <= total-2){
+			else if(index >= total-1){
 				result.add("1");
 				result.add("2");
 				result.add("...");
@@ -94,7 +93,7 @@ public class BaseSale extends ActionSupport implements Serializable{
 				result.add(String.valueOf(total-1));
 				result.add(String.valueOf(total-0));
 			}
-			else if(index <= total-1){
+			else if(index >= total-2){
 				result.add("1");
 				result.add("2");
 				result.add("...");
@@ -113,7 +112,6 @@ public class BaseSale extends ActionSupport implements Serializable{
 				result.add(String.valueOf(total));
 			}
 		}
-		result.add(">>");
 		return result;
 	}
 	
