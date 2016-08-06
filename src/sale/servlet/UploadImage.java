@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -33,7 +34,7 @@ public class UploadImage extends BaseSale{
 	            }
 				ImageIO.write(image, "png", fileUpload);
 				Image imageUpload = new Image();
-				imageUpload.setCreateDate(new Date());
+				imageUpload.setCreateDate(new Timestamp(new Date().getTime()));
 				imageUpload.setUrl(fileName);
 				imageUpload.setType(typeUpload);
 				imageUpload.setParent(parentId);
