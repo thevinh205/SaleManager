@@ -200,6 +200,7 @@ ul{
 	width:270px;
 	border-radius: 5px;
 	height: 30px;
+	padding-left: 5px;
 }
 
 .ax-button:hover{

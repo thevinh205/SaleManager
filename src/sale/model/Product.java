@@ -9,7 +9,8 @@ public class Product implements Serializable{
 	private String productName;
 	private int groupId; //category
 	private List<Price> listPriceSell;
-	private Price priceBuy;
+	private Long priceBuy;
+	private Long priceSell;
 	private String description;
 	private Date createDate;
 	private String type;
@@ -17,7 +18,7 @@ public class Product implements Serializable{
 	private String size;
 	private int weight;
 	private String style;
-	private List<String> images;
+	private List<Image> images;
 	private String avatar;
 	private String status;
 	private String categoryName;
@@ -34,7 +35,7 @@ public class Product implements Serializable{
 	public List<Price> getListPriceSell() {
 		return listPriceSell;
 	}
-	public Price getPriceBuy() {
+	public Long getPriceBuy() {
 		return priceBuy;
 	}
 	public String getDescription() {
@@ -70,7 +71,7 @@ public class Product implements Serializable{
 	public void setListPriceSell(List<Price> listPriceSell) {
 		this.listPriceSell = listPriceSell;
 	}
-	public void setPriceBuy(Price priceBuy) {
+	public void setPriceBuy(Long priceBuy) {
 		this.priceBuy = priceBuy;
 	}
 	public void setDescription(String description) {
@@ -94,13 +95,13 @@ public class Product implements Serializable{
 	public void setStyle(String style) {
 		this.style = style;
 	}
-	public List<String> getImages() {
+	public List<Image> getImages() {
 		return images;
 	}
 	public String getAvatar() {
 		return avatar;
 	}
-	public void setImages(List<String> images) {
+	public void setImages(List<Image> images) {
 		this.images = images;
 	}
 	public void setAvatar(String avatar) {
@@ -118,5 +119,12 @@ public class Product implements Serializable{
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	public Long getPriceSell() {
+		return priceSell;
+	}
+	public void setPriceSell(Long priceSell) {
+		this.priceSell = priceSell;
+	}
 
+	
 }

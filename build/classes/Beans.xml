@@ -25,7 +25,7 @@
    </bean>
    
    <bean id="productDao" class="sale.dao.ProductDao" scope="singleton">
-      <property name="dataSource"  ref="dataSource" />    
+      <property name="dataSource"  ref="dataSource" />   
    </bean>
    
    <bean id="imageDao" class="sale.dao.ImageDao" scope="singleton">

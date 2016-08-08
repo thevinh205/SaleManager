@@ -1,5 +1,6 @@
 package sale.dao;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -20,7 +21,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import sale.base.BaseDao;
 import sale.model.Image;
 import sale.model.Member;
+import sale.model.Product;
 import sale.model.mapper.MemberMapper;
+import sale.util.URLUtil;
 
 
 public class ImageDao extends BaseDao{
@@ -44,19 +47,46 @@ public class ImageDao extends BaseDao{
 	}
 	
 	public void createImage(Image image){
-		String sql = "insert into image "
-				+ "(url, parent, type, party_id, create_date) "
-				+ "values (:url, :parent, :type, :party_id, :create_date)";
 		 Session session = getSessionFactory().openSession();
 		 Transaction tx = session.beginTransaction();
-		 
+		 session.save(image);
+		 tx.commit();
+		 session.close();
+	}
+	
+	public void deleteImageProduct(String productId){
+		 deleteImageFromDisk(productId);
+		 Session session = getSessionFactory().openSession();
+		 Transaction tx = session.beginTransaction();
+		 String sql = "delete from " + Image.class.getName() + " where parent=:parent";
 		 Query query = session.createQuery(sql);
-		 query.setParameter("url", image.getUrl());
-		 query.setParameter("parent", image.getParent());
-		 query.setParameter("type", image.getType());
-		 query.setParameter("party_id", image.getPartyId());
-		 query.setParameter("create_date", image.getCreateDate());
-		tx.commit();
-		session.close();
+	     query.setString("parent", productId);
+	     query.executeUpdate();
+		 tx.commit();
+		 session.close();
+	}
+	
+	public void deleteImageProduct(String productId, String url){
+		 File fileDelete = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + url);
+		 fileDelete.delete();
+		 Session session = getSessionFactory().openSession();
+		 Transaction tx = session.beginTransaction();
+		 String sql = "delete from " + Image.class.getName() + " where parent=:parent and url = :url";
+		 Query query = session.createQuery(sql);
+	     query.setString("parent", productId);
+	     query.setString("url", url);
+	     query.executeUpdate();
+		 tx.commit();
+		 session.close();
+	}
+	
+	public void deleteImageFromDisk(String productId){
+		Product product = getProductDao().getProduct(productId);
+		if(null != product && null != product.getImages()){
+			for(Image image : product.getImages()){
+				File fileDelete = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + image.getUrl());
+				fileDelete.delete();
+			}
+		}
 	}
 }

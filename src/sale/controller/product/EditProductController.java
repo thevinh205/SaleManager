@@ -10,12 +10,13 @@ import com.opensymphony.xwork2.ActionContext;
 
 import sale.base.BaseSale;
 import sale.model.CategoryProduct;
+import sale.model.Image;
 import sale.model.Price;
 import sale.model.Product;
 import sale.util.LookupBean;
 import sale.util.UserUtil;
 
-public class AddProductController extends BaseSale{
+public class EditProductController extends BaseSale{
 	private UserUtil userUtil;
 	private LookupBean lookupBean;
 	private String productId;
@@ -27,18 +28,36 @@ public class AddProductController extends BaseSale{
 	private String errorMessage;
 	private String description;
 	private String typeAvatar;
+	private List<Image> listImage;
+	private ProductListController productListController;
+	private String totalFile;
 	
 	private List<CategoryProduct> categoryList;
 	
 	
-	public String addProduct(){
+	public String editProduct(){
 		if(null == userUtil.getMember())
 			return ERROR;
+		loadContentEdit();
 		setActionURL(getPath());
 		return SUCCESS;
 	}
 	
-	public String addProductAction(){
+	public void loadContentEdit(){
+		productId = findParam("id");
+		if(null != productId){
+			Product product = lookupBean.getProductDao().getProduct(productId);
+			if(null != product){
+				productName = product.getProductName();
+				description = product.getDescription();
+				listImage = product.getImages();
+				sellPrice = product.getPriceSell().toString();
+				buyPrice = product.getPriceBuy().toString();
+			}
+		}
+	}
+	
+	public String editProductAction(){
 		try{
 		errorMessage = null;
 		ActionContext context = ActionContext.getContext();
@@ -49,10 +68,12 @@ public class AddProductController extends BaseSale{
 		groupProduct = findParam(params, "groupProduct");
 		buyPrice = findParam(params, "buyPrice");
 		inventory = findParam(params, "inventory");
+		if(null == inventory || inventory.trim().length() == 0)
+			inventory = "0";
 		description = findParam(params, "description");
 		String result = validateInput();
 		if(SUCCESS.equals(result))
-			createProduct();
+			updateProduct();
 		}catch (Exception e) {
 			e.printStackTrace();
 			errorMessage = "Có lỗi trong quá trình tạo mới sản phẩm!";
@@ -60,26 +81,59 @@ public class AddProductController extends BaseSale{
 		return SUCCESS;
 	}
 	
-	public void createProduct(){
-		Product product = new Product();
-		product.setId(productId);
-		product.setProductName(productName);
-		CategoryProduct categoryProduct = lookupBean.getProductDao().getCategoryByName(groupProduct);
-		if(null != categoryProduct)
-			product.setGroupId(categoryProduct.getId());
-		else product.setGroupId(0);
-		product.setCreateDate(new Date());
-		product.setPriceBuy(Long.parseLong(buyPrice));
-		List<Price> priceSells = new LinkedList<>();
-		Price priceSell = new Price();
-		priceSell.setPrice(Long.parseLong(sellPrice));
-		priceSells.add(priceSell);
-		product.setListPriceSell(priceSells);
-		product.setStatus("open");
-		product.setDescription(description);
-		product.setAvatar(productId + "_0." + typeAvatar);
-		product.setCategoryName(groupProduct);
-		lookupBean.getProductDao().createProduct(product, Integer.parseInt(inventory));
+	public void updateProduct(){
+		try{
+			checkDeleteImage(productId, Integer.parseInt(totalFile));
+			Product product = new Product();
+			product.setId(productId);
+			product.setProductName(productName);
+			CategoryProduct categoryProduct = lookupBean.getProductDao().getCategoryByName(groupProduct);
+			if(null != categoryProduct)
+				product.setGroupId(categoryProduct.getId());
+			else product.setGroupId(0);
+			product.setPriceBuy(Long.parseLong(buyPrice));
+			product.setPriceSell(Long.parseLong(sellPrice));
+			product.setStatus("open");
+			product.setDescription(description);
+			product.setAvatar(productId + "_0." + typeAvatar);
+			product.setCategoryName(groupProduct);
+			lookupBean.getProductDao().updateProduct(product, Integer.parseInt(inventory));
+			reloadListProduct(product);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void checkDeleteImage(String productId, int countFile){
+		Product product = lookupBean.getProductDao().getProduct(productId);
+		if(null != product && null != product.getImages()){
+			if(countFile < product.getImages().size()){
+				for(int i=countFile; i< product.getImages().size(); i++){
+					lookupBean.getImageDao().deleteImageProduct(productId, product.getImages().get(i).getUrl());
+				}
+			}
+		}
+	}
+	
+	public void reloadListProduct(Product productUpdate){
+		if(null != productUpdate){
+			List<Product> listProduct = productListController.getProductList();
+			if(null != listProduct){
+				for(Product product : listProduct){
+					if(product.getId().equals(productUpdate.getId())){
+						product.setProductName(productUpdate.getProductName());
+						product.setGroupId(productUpdate.getGroupId());
+						product.setPriceBuy(productUpdate.getPriceBuy());
+						product.setPriceSell(productUpdate.getPriceSell());
+						product.setStatus(productUpdate.getStatus());
+						product.setDescription(productUpdate.getDescription());
+						product.setAvatar(productUpdate.getAvatar());
+						product.setCategoryName(productUpdate.getCategoryName());
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	public List<CategoryProduct> getCategoryList() {
@@ -99,11 +153,6 @@ public class AddProductController extends BaseSale{
 		sellPrice = sellPrice.trim();
 		buyPrice = buyPrice.trim();
 		inventory = inventory.trim();
-		
-		if(productId.length() > 0 && null != lookupBean.getProductDao().getProduct(productId)){
-			errorMessage = "Mã sản phẩm này đã tồn tại!";
-			return ERROR;
-		}
 		
 		if(productName.length() == 0){
 			errorMessage = "Tên sản phẩm không được để trống!";
@@ -222,4 +271,25 @@ public class AddProductController extends BaseSale{
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
+
+	public List<Image> getListImage() {
+		return listImage;
+	}
+
+	public void setListImage(List<Image> listImage) {
+		this.listImage = listImage;
+	}
+
+	public void setProductListController(ProductListController productListController) {
+		this.productListController = productListController;
+	}
+
+	public String getTotalFile() {
+		return totalFile;
+	}
+
+	public void setTotalFile(String totalFile) {
+		this.totalFile = totalFile;
+	}
+	
 }

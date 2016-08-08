@@ -1,6 +1,11 @@
 var userNameCustomerDelete;
 var host = "http://" + window.location.host;
 
+$(document).ready(function() {
+	initMenu();
+	
+});
+
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -48,9 +53,6 @@ $("#menu-toggle").click(function(e) {
       }
     );
   }
-$(document).ready(function() {
-	initMenu();
-});
 
 function setDeleteCustomer(userName){
 	userNameCustomerDelete = userName;

@@ -114,6 +114,21 @@
 		<action name="searchProductList" class="productListController" method="searchProductList">
 			<result name="success" type="redirect">/product/productList</result>
 		</action>
+		
+		<action name="editProduct" class="editProductController" method="editProduct">
+			<result name="success">/WEB-INF/template/product/edit_product.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="editProductAction" class="editProductController" method="editProductAction">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
+		
+		<action name="deleteProduct" class="productListController" method="deleteProduct">
+			<result name="success" type="json"/>
+		</action>
    </package>
 
 </struts>

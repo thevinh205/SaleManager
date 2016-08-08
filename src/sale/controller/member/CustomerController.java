@@ -52,6 +52,8 @@ public class CustomerController extends BaseSale{
 	
 	public String deleteCustomer(){
 		try{
+			if(null == userUtil.getMember())
+				return ERROR;
 			ActionContext context = ActionContext.getContext();
 			Map<String, Object> params = context.getParameters();
 			String userNameDelete = findParam("userNameDelete");

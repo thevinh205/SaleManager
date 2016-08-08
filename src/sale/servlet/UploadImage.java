@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 
 import sale.base.BaseSale;
 import sale.model.Image;
+import sale.model.Product;
 import sale.util.LookupBean;
 import sale.util.URLUtil;
 
@@ -44,7 +45,6 @@ public class UploadImage extends BaseSale{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		return SUCCESS;
 	}
@@ -92,5 +92,4 @@ public class UploadImage extends BaseSale{
 	public void setLookupBean(LookupBean lookupBean) {
 		this.lookupBean = lookupBean;
 	}
-
 }

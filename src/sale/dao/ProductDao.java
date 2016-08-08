@@ -9,13 +9,16 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import sale.base.BaseDao;
 import sale.model.CategoryProduct;
+import sale.model.Image;
 import sale.model.Product;
 import sale.model.mapper.CategoryProductMapper;
 import sale.model.mapper.ProductMapper;
+import sale.util.LookupBean;
 
 
-public class ProductDao {
+public class ProductDao extends BaseDao{
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
 	private HashMap<String, Product> productCache = new LinkedHashMap<>();
@@ -36,10 +39,24 @@ public class ProductDao {
 		return product;
 	}
 	
+	public void reloadProduct(String productId){
+		if(productCache.containsKey(productId))
+			productCache.remove(productId);
+		Product product = getProductDB(productId);
+		if(null != product){
+			productCache.put(productId, product);
+		}
+	}
+	
 	public Product getProductDB(String productId){
 		try{
 			String sql = "select * from product where id = " + productId;
 			Product product = jdbcTemplateObject.queryForObject(sql, new ProductMapper());
+			if(null != product){
+				List<Image> listImage = getImageDao().getListImageForProduct(productId);
+				if(null != listImage)
+					product.setImages(listImage);
+			}
 			return product;
 		}catch (Exception e) {
 			
@@ -89,6 +106,27 @@ public class ProductDao {
 		List<Product> result = jdbcTemplateObject.query(sql, new ProductMapper());
 		return result;
 	} 
+	
+	public void updateProduct(Product product, int inventory){
+		String sql = "update product set ";
+		sql += " name = '" + product.getProductName()+ "'";
+		sql += ", description = '" + product.getDescription() + "'";
+		sql += ", group_id = " + product.getGroupId();
+		sql += ", category_name = '" + product.getCategoryName()+ "'";
+		sql += ", price_buy = " + product.getPriceBuy();
+		sql += ", price_sell = " + product.getPriceSell();
+		sql += ", avatar = '" + product.getAvatar() + "'";
+		sql += " where id = '" + product.getId() + "'" ;
+		jdbcTemplateObject.update(sql);
+		reloadProduct(product.getId());
+	}
+	
+	public void deleteProduct(String productId){
+		String sql = "delete from product where id=" + productId;
+		jdbcTemplateObject.update(sql);
+		getImageDao().deleteImageProduct(productId);
+		reloadProduct(productId);
+	}
 	
 	public CategoryProduct getCategoryByName(String categoryName){
 		if(null != getListCategoryProduct()){

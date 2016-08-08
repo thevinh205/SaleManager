@@ -47,7 +47,7 @@
 						<th style="text-align: center"></th>
 					</tr>
 					<s:iterator value="productList" status="product">
-						<tr id="rowCus<s:property value='userName'/>">
+						<tr id="rowPro<s:property value='id'/>">
 							<td><s:property value="id"/></td>
 							<td><s:property value="productName"/></td>
 							<td><s:property value="categoryName"/></td>
@@ -59,9 +59,9 @@
 								<img src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='avatar'/></s:param></s:url>" style="width:100px; height: 100px"/>
 							</td>
 							<td>
-							 	<a style="margin-right: 5px" href="editMember?username=<s:property value='id'/>">Sửa</a>
+							 	<a style="margin-right: 5px" href="editProduct?id=<s:property value='id'/>">Sửa</a>
 							  |	<a style="margin-left: 5px" href="javascipt:void(0)" data-toggle="modal" 
-							  	   onclick="setDeleteCustomer('<s:property value="id"/>')" data-target="#myModal">Xóa</a>
+							  	   onclick="setDeleteProduct('<s:property value="id"/>')" data-target="#myModal">Xóa</a>
 							</td>
 						</tr>
 					</s:iterator>
@@ -90,5 +90,24 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog modal-sm">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Xóa sản phẩm</h4>
+	        </div>
+	        <div class="modal-body">
+	          <p>Bạn có muốn xóa sản phẩm này</p>
+	        </div>
+	        <div class="modal-footer">
+	          <a class="btn btn-default" data-dismiss="modal" href="javascrip:void(0)" onclick="deleteProduct()">Đồng ý</a>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  
 	</body>
 </html>

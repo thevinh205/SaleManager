@@ -23,13 +23,17 @@ public class ProductListController extends BaseSale{
 	private int totalPage;
 	
 	public String productList(){
-		if(null == userUtil.getMember())
-			return ERROR;
-		String page = findParam("page");
-		if(null != page && !page.trim().equals(indexPage)){
-			getProductListByPage(page.trim());
+		try{
+			if(null == userUtil.getMember())
+				return ERROR;
+			String page = findParam("page");
+			if(null != page && !page.trim().equals(indexPage)){
+				getProductListByPage(page.trim());
+			}
+			setActionURL(getPath());
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-		setActionURL(getPath());
 		return SUCCESS;
 	}
 	
@@ -58,6 +62,20 @@ public class ProductListController extends BaseSale{
 			totalPage = countProduct/10;
 			if(countProduct%10 > 0) totalPage += 1;
 			listPage = getListPage(Integer.parseInt(indexPage), totalPage);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+	public String deleteProduct(){
+		try{
+			if(null == userUtil.getMember())
+				return ERROR;
+			String productIdDelete = findParam("productIdDelete");
+			if(null != productIdDelete){
+				lookupBean.getProductDao().deleteProduct(productIdDelete);
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
