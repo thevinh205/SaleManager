@@ -133,12 +133,14 @@ function uploadImage(productId){
 	if(null != filesUpload && filesUpload.length > 0){
 		var countFile = filesUpload.length;
 		var sizeImage = $("p[id*='sizeImage']").text();
+		if(isNaN(sizeImage) || sizeImage.length == 0)
+			sizeImage = "0";
 		sizeImage = parseInt(sizeImage);
 		for(var i=0; i<countFile; i++){
 			try{
 				var fileTypes = filesUpload[i].name.split('.');
 			    var type = fileTypes[fileTypes.length - 1];
-			    var fileName = productId + "_" + (i + sizeImage) + "." + type;
+			    var fileName = productId + "_" + (i + sizeImage);
 			    
 				var data = new FormData();
 			    data.append("file", filesUpload[i]);

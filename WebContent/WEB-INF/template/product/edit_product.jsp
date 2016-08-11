@@ -82,8 +82,8 @@
 			      			<s:iterator value="listImage" status="image">
 			      				<img class="imgPreview" src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='url'/></s:param></s:url>"/>	
 			      			</s:iterator>
-			      			<p id="sizeImage" style="display:none"><s:property value ="listImage.size()"/></p>
 			      		</div>
+			      		<p id="sizeImage" style="display:none"><s:property value ="listImage.size()"/></p>
 			      		<div style="margin: 0 0 10px 10px">
 				      		<h3 >Mô tả</h3>
 				      		<textarea name="descriptionPro" id="descriptionPro" style="width: 95%;height: 200px"><s:property value="description"/></textarea>

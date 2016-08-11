@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -29,17 +30,27 @@ public class UploadImage extends BaseSale{
 		if(null != file){
 			try {
 				BufferedImage image = ImageIO.read(file);
-				File fileUpload = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + fileName);
+				File fileUpload = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + fileName + "." + type);
 				if (!fileUpload.exists()) {
 					fileUpload.mkdirs();
 	            }
-				ImageIO.write(image, "png", fileUpload);
+				ImageIO.write(image, type, fileUpload);
 				Image imageUpload = new Image();
 				imageUpload.setCreateDate(new Timestamp(new Date().getTime()));
-				imageUpload.setUrl(fileName);
+				imageUpload.setUrl(fileName + "." + type);
 				imageUpload.setType(typeUpload);
 				imageUpload.setParent(parentId);
 				imageUpload.setPartyId(0);
+				Product product = lookupBean.getProductDao().getProduct(parentId);
+				if(null != product){
+					List<Image> listImage = product.getImages();
+					if(null != listImage){
+						for(Image imagecheck : listImage){
+							if(imagecheck.getUrl().contains(fileName))
+								return SUCCESS;
+						}
+					}
+				}
 				lookupBean.getImageDao().createImage(imageUpload);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
