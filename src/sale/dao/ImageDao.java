@@ -55,20 +55,26 @@ public class ImageDao extends BaseDao{
 	}
 	
 	public void deleteImageProduct(String productId){
-		 deleteImageFromDisk(productId);
-		 Session session = getSessionFactory().openSession();
-		 Transaction tx = session.beginTransaction();
-		 String sql = "delete from " + Image.class.getName() + " where parent=:parent";
-		 Query query = session.createQuery(sql);
-	     query.setString("parent", productId);
-	     query.executeUpdate();
-		 tx.commit();
-		 session.close();
+		try{
+			 deleteImageFromDisk(productId);
+			 Session session = getSessionFactory().openSession();
+			 Transaction tx = session.beginTransaction();
+			 String sql = "delete from " + Image.class.getName() + " where parent=:parent";
+			 Query query = session.createQuery(sql);
+		     query.setString("parent", productId);
+		     query.executeUpdate();
+			 tx.commit();
+			 session.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void deleteImageProduct(String productId, String url){
+	public void deleteImageProduct(String productId, String url, String urlThumb){
 		 File fileDelete = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + url);
 		 fileDelete.delete();
+		 File fileThumbDelete = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + urlThumb);
+		 fileThumbDelete.delete();
 		 Session session = getSessionFactory().openSession();
 		 Transaction tx = session.beginTransaction();
 		 String sql = "delete from " + Image.class.getName() + " where parent=:parent and url = :url";
@@ -81,12 +87,19 @@ public class ImageDao extends BaseDao{
 	}
 	
 	public void deleteImageFromDisk(String productId){
-		Product product = getProductDao().getProduct(productId);
-		if(null != product && null != product.getImages()){
-			for(Image image : product.getImages()){
-				File fileDelete = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + image.getUrl());
-				fileDelete.delete();
+		try{
+			Product product = getProductDao().getProduct(productId);
+			if(null != product && null != product.getImages()){
+				for(Image image : product.getImages()){
+					File fileDelete = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + image.getUrl());
+					fileDelete.delete();
+					
+					File fileThumbDelete = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + image.getUrlThumb());
+					fileThumbDelete.delete();
+				}
 			}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

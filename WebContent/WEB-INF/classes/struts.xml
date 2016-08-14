@@ -129,6 +129,34 @@
 		<action name="deleteProduct" class="productListController" method="deleteProduct">
 			<result name="success" type="json"/>
 		</action>
+		
+		<action name="listCategory" class="categoryProductController" method="listCategory">
+			<result name="success">/WEB-INF/template/product/category_list.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="addCategory" class="categoryProductController" method="addCategory">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
+		
+		<action name="deleteCategory" class="categoryProductController" method="deleteCategory">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
+		
+		<action name="updateCategory" class="categoryProductController" method="updateCategory">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
+		
+		<action name="productDetail" class="productDetailController" method="productDetail">
+			<result name="success">/WEB-INF/template/product/product_detail.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
    </package>
 
 </struts>

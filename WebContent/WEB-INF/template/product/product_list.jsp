@@ -42,19 +42,17 @@
 						<th style="text-align: center">Giá mua</th>
 						<th style="text-align: center">Giá bán</th>
 						<th style="text-align: center">Ngày tạo</th>
-						<th style="text-align: center">Mô tả</th>
 						<th style="text-align: center">Hình ảnh</th>
 						<th style="text-align: center"></th>
 					</tr>
 					<s:iterator value="productList" status="product">
 						<tr id="rowPro<s:property value='id'/>">
-							<td><s:property value="id"/></td>
+							<td><a href="productDetail?productId=<s:property value='id'/>" target="_blank"><s:property value="id"/></a></td>
 							<td><s:property value="productName"/></td>
 							<td><s:property value="categoryName"/></td>
 							<td><s:property value="priceBuy"/></td>
 							<td><s:property value="priceBuy"/></td>
 							<td><s:date name="createDate" format="dd/MM/yyyy" /></td>
-							<td style="max-width: 300px"><s:property value="description" escapeHtml="false"/></td>
 							<td>
 								<img src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='avatar'/></s:param></s:url>" style="width:100px; height: 100px"/>
 							</td>

@@ -1,5 +1,6 @@
 package sale.servlet;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,18 +30,22 @@ public class UploadImage extends BaseSale{
 	public String uploadImage(){
 		if(null != file){
 			try {
+				String path = URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT;
 				BufferedImage image = ImageIO.read(file);
-				File fileUpload = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT + fileName + "." + type);
+				File fileUpload = new File(path + fileName + "." + type);
 				if (!fileUpload.exists()) {
 					fileUpload.mkdirs();
 	            }
 				ImageIO.write(image, type, fileUpload);
+				saveFileThumb(path, fileName, type);
+				
 				Image imageUpload = new Image();
 				imageUpload.setCreateDate(new Timestamp(new Date().getTime()));
 				imageUpload.setUrl(fileName + "." + type);
 				imageUpload.setType(typeUpload);
 				imageUpload.setParent(parentId);
 				imageUpload.setPartyId(0);
+				imageUpload.setUrlThumb(fileName + "_thumb." + type);
 				Product product = lookupBean.getProductDao().getProduct(parentId);
 				if(null != product){
 					List<Image> listImage = product.getImages();
@@ -59,6 +64,22 @@ public class UploadImage extends BaseSale{
 		}
 		return SUCCESS;
 	}
+	
+	private void saveFileThumb(String path, String fileName, String fileType) throws IOException {
+        BufferedImage originalImage = ImageIO.read(new File(path + fileName + "." + fileType));
+        int type1 = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+        BufferedImage resizeImageJpgThumb = resizeImage(originalImage, type1, 220, 220);
+        ImageIO.write(resizeImageJpgThumb, fileType, new File(path + fileName + "_thumb." + fileType));
+    }
+	
+	private static BufferedImage resizeImage(BufferedImage originalImage, int type, int IMG_WIDTH, int IMG_HEIGHT) {
+        BufferedImage thumbnail = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = thumbnail.createGraphics();
+        g.drawImage(originalImage.getScaledInstance(IMG_WIDTH, IMG_HEIGHT, java.awt.Image.SCALE_SMOOTH), 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
+        g.dispose();
+        return thumbnail;
+    }
+
 
 	public File getFile() {
 		return file;

@@ -1,6 +1,7 @@
 package sale.dao;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -59,7 +60,7 @@ public class ProductDao extends BaseDao{
 			}
 			return product;
 		}catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		return null;
 		
@@ -67,7 +68,7 @@ public class ProductDao extends BaseDao{
 	
 	public void createProduct(Product product, int inventory){
 		String sql = "insert into product "
-				+ "(id, name, group_id, description, create_date, status,category_name, avatar) "
+				+ "(id, name, group_id, description, create_date, status,category_name, avatar, price_buy, price_sell) "
 				+ "values ('"
 				+ product.getId() + "','"
 				+ product.getProductName() + "','"
@@ -76,7 +77,9 @@ public class ProductDao extends BaseDao{
 				+ "',?, '"
 				+ product.getStatus() + "','"
 				+ product.getCategoryName() + "','"
-				+ product.getAvatar() 
+				+ product.getAvatar() + "','" 
+				+ product.getPriceBuy() + "','" 
+				+ product.getPriceSell()
 				+ "')";
 		Timestamp createDate = new Timestamp(product.getCreateDate().getTime());
 		jdbcTemplateObject.update(sql, new Object[]{createDate});
@@ -122,9 +125,9 @@ public class ProductDao extends BaseDao{
 	}
 	
 	public void deleteProduct(String productId){
+		getImageDao().deleteImageProduct(productId);
 		String sql = "delete from product where id=" + productId;
 		jdbcTemplateObject.update(sql);
-		getImageDao().deleteImageProduct(productId);
 		reloadProduct(productId);
 	}
 	
@@ -154,5 +157,44 @@ public class ProductDao extends BaseDao{
 	public void reloadCategoryProduct(){
 		String sql = "select * from category_product";
 		listcategory = jdbcTemplateObject.query(sql, new CategoryProductMapper());		
+	}
+	
+	public void addCategory(CategoryProduct categoryProduct){
+		String sql = "insert into category_product "
+				+ "(name, status, create_date, description) "
+				+ "values ('"
+				+ categoryProduct.getName() + "','"
+				+ categoryProduct.getStatus()+ "',"
+				+ "?, '"
+				+ categoryProduct.getDescription()
+				+ "')";
+		Timestamp createDate = new Timestamp(new Date().getTime());
+		jdbcTemplateObject.update(sql, new Object[]{createDate});
+		reloadCategoryProduct();
+	}
+	
+	public void deleteCategory(int categoryId){
+		String sql = "delete from category_product where id = " + categoryId;
+		jdbcTemplateObject.update(sql);
+		
+		//reload list category
+		if(null != listcategory){
+			for(CategoryProduct categoryProduct : listcategory){
+				if(categoryProduct.getId() == categoryId){
+					listcategory.remove(categoryProduct);
+					return;
+				}
+			}
+		}
+	}
+	
+	public void updateCategory(CategoryProduct categoryProduct){
+		String sql = "update category_product set ";
+		sql += " name = '" + categoryProduct.getName() + "'";
+		sql += " ,description = '" + categoryProduct.getDescription() + "'";
+		sql += " ,status = '" + categoryProduct.getStatus() + "'";
+		sql += " where id=" + categoryProduct.getId();
+		jdbcTemplateObject.update(sql);
+		reloadCategoryProduct();
 	}
 }

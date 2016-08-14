@@ -31,7 +31,7 @@ public class EditProductController extends BaseSale{
 	private List<Image> listImage;
 	private ProductListController productListController;
 	private String totalFile;
-	
+	private CategoryProductController categoryProductController;
 	private List<CategoryProduct> categoryList;
 	
 	
@@ -95,7 +95,7 @@ public class EditProductController extends BaseSale{
 			product.setPriceSell(Long.parseLong(sellPrice));
 			product.setStatus("open");
 			product.setDescription(description);
-			product.setAvatar(productId + "_0." + typeAvatar);
+			product.setAvatar(productId + "_0_thumb." + typeAvatar);
 			product.setCategoryName(groupProduct);
 			lookupBean.getProductDao().updateProduct(product, Integer.parseInt(inventory));
 			reloadListProduct(product);
@@ -109,7 +109,9 @@ public class EditProductController extends BaseSale{
 		if(null != product && null != product.getImages()){
 			if(countFile < product.getImages().size()){
 				for(int i=countFile; i< product.getImages().size(); i++){
-					lookupBean.getImageDao().deleteImageProduct(productId, product.getImages().get(i).getUrl());
+					lookupBean.getImageDao().deleteImageProduct(productId, 
+																product.getImages().get(i).getUrl(),
+																product.getImages().get(i).getUrlThumb());
 				}
 			}
 		}
@@ -137,13 +139,7 @@ public class EditProductController extends BaseSale{
 	}
 	
 	public List<CategoryProduct> getCategoryList() {
-		try{
-		if(null == categoryList){
-			categoryList = lookupBean.getProductDao().getListCategoryProduct();
-		}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		categoryList = categoryProductController.getListCategoryActive();
 		return categoryList;
 	}
 
@@ -292,4 +288,7 @@ public class EditProductController extends BaseSale{
 		this.totalFile = totalFile;
 	}
 	
+	public void setCategoryProductController(CategoryProductController categoryProductController) {
+		this.categoryProductController = categoryProductController;
+	}
 }

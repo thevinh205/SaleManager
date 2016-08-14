@@ -30,6 +30,9 @@ public class Image implements Serializable{
 	@Column(name="party_id")
 	private int partyId;
 	
+	@Column(name="url_thumb")
+	private String urlThumb;
+	
 	public int getId() {
 		return id;
 	}
@@ -66,6 +69,10 @@ public class Image implements Serializable{
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
-	
-	
+	public String getUrlThumb() {
+		return urlThumb;
+	}
+	public void setUrlThumb(String urlThumb) {
+		this.urlThumb = urlThumb;
+	}
 }

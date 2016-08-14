@@ -115,4 +115,9 @@ public class BaseSale extends ActionSupport implements Serializable{
 		return result;
 	}
 	
+	public Boolean isBlankOrNull(String text){
+		if(null == text || text.trim().length() == 0)
+			return true;
+		return false;
+	}
 }

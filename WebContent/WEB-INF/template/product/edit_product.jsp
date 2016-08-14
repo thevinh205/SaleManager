@@ -80,7 +80,7 @@
 			      		
 			      		<div id="imgProductPreview" class="imgProductPreview" style="display:<s:if test='listImage.size() > 0'>block</s:if>">
 			      			<s:iterator value="listImage" status="image">
-			      				<img class="imgPreview" src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='url'/></s:param></s:url>"/>	
+			      				<img class="imgPreview" src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='urlThumb'/></s:param></s:url>"/>	
 			      			</s:iterator>
 			      		</div>
 			      		<p id="sizeImage" style="display:none"><s:property value ="listImage.size()"/></p>

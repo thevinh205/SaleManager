@@ -58,6 +58,7 @@
    <bean id="addProductController" class="sale.controller.product.AddProductController" scope="session">
    		<property name="userUtil"  ref="userUtil" />
    		<property name="lookupBean"  ref="lookupBean" />
+   		<property name="categoryProductController"  ref="categoryProductController" />
    		<aop:scoped-proxy/>
    </bean>
    
@@ -65,10 +66,23 @@
    		<property name="userUtil"  ref="userUtil" />
    		<property name="lookupBean"  ref="lookupBean" />
    		<property name="productListController"  ref="productListController" />
+   		<property name="categoryProductController"  ref="categoryProductController" />
    		<aop:scoped-proxy/>
    </bean>
    
    <bean id="productListController" class="sale.controller.product.ProductListController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="categoryProductController" class="sale.controller.product.CategoryProductController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="productDetailController" class="sale.controller.product.ProductDetailController" scope="request">
    		<property name="userUtil"  ref="userUtil" />
    		<property name="lookupBean"  ref="lookupBean" />
    		<aop:scoped-proxy/>

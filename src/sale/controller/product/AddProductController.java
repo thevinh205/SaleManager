@@ -17,6 +17,7 @@ import sale.util.UserUtil;
 
 public class AddProductController extends BaseSale{
 	private UserUtil userUtil;
+	private CategoryProductController categoryProductController;
 	private LookupBean lookupBean;
 	private String productId;
 	private String productName;
@@ -77,19 +78,15 @@ public class AddProductController extends BaseSale{
 		product.setListPriceSell(priceSells);
 		product.setStatus("open");
 		product.setDescription(description);
-		product.setAvatar(productId + "_0." + typeAvatar);
+		product.setAvatar(productId + "_0_thumb." + typeAvatar);
 		product.setCategoryName(groupProduct);
+		product.setPriceBuy(Long.parseLong(buyPrice));
+		product.setPriceSell(Long.parseLong(sellPrice));
 		lookupBean.getProductDao().createProduct(product, Integer.parseInt(inventory));
 	}
 	
 	public List<CategoryProduct> getCategoryList() {
-		try{
-		if(null == categoryList){
-			categoryList = lookupBean.getProductDao().getListCategoryProduct();
-		}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		categoryList = categoryProductController.getListCategoryActive();
 		return categoryList;
 	}
 
@@ -222,4 +219,10 @@ public class AddProductController extends BaseSale{
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
+
+	public void setCategoryProductController(CategoryProductController categoryProductController) {
+		this.categoryProductController = categoryProductController;
+	}
+	
+	
 }

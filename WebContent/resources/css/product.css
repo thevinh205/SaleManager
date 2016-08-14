@@ -123,3 +123,102 @@ ul.pagination li a.active {
 }
 
 ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+
+.titleAddProduct{
+	color: #fff;
+    font-family: "Arial";
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0;
+    background: none;
+    padding: 6px;
+    margin-left:  20px;
+    width: 300px;
+    float: left;
+}
+
+.contentAddProduct h3 {
+	font-size: 16px;
+    color: #006fa9;
+    padding: 10px 15px;
+    font-weight: bold;
+    margin: 20px 0 0 0;
+}
+
+.linkAddCategory{
+	font-size: 16px;
+	color:white;	
+	float:right;	
+	margin: 7px 10px;
+}
+
+.headerAddProduct a:hover{
+	color: white !important;		
+}
+
+.titleProduct{
+	font-size: 19px;
+	font-weight: bold;
+	padding: 10px 0 10px 20px;
+}
+
+.titleProductDiv{
+	width: 100%;
+	border-bottom: 1px solid #ddd;
+}
+
+.imageProduct{
+	width: 35%;
+	float:left;
+}
+
+.contentProduct{
+	width: 65%;
+	float:right;	
+	padding-left: 20px;	
+}
+
+.imageProductShowDiv{
+	margin: 10px 0 10px 10px;
+	height: calc(100% - 170px);
+}
+
+.imageProductShow{
+	max-height: calc(100% - 90px); 
+	max-width: 100%;
+}
+
+.desProduct{
+	padding: 50px 20px 0 20px;	
+	font-size: 16px;
+}
+
+.divPriceProduct{
+	border-top: 1px solid #ddd;	
+	margin-top:20px;
+	font-size: 17px;
+	padding: 20px 20px 0 20px;	
+	width: 95%;
+}
+
+.priceProduct{
+	font-size: 17px;
+	font-weight: bold;
+	color: #e41b4e;
+	padding-left: 40px;
+}
+
+.imageSmall{
+	margin: 10px 0 0 0;
+	position: relative;
+}
+
+.imgThumb{
+	width:80px; 
+	height: 80px;
+	margin-top: 5px;
+}
+
+.imgSelect{
+	border: 1px solid red;
+}

@@ -56,7 +56,6 @@ public class ImageAction extends ActionSupport implements ServletRequestAware {
 	}
 
 	private File getImageFile(String imageId) {
-		//String filePath = servletRequest.getSession().getServletContext().getRealPath("/");
 		if("".equals(imageId))
 			imageId = null;
 		File file = new File(URLUtil.PATH_SAVE_DIR + URLUtil.TYPE_PRODUCT, imageId);
