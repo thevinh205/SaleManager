@@ -41,12 +41,12 @@
 			   			</li>
 			   			<li>
 			   				<span class="titleFr">Giá bán (VNĐ)</span>
-			   				<input type="text" name="sellPrice" class="txtFormAddProduct" step="0.01" min="0"
+			   				<input type="text" name="sellPrice" class="txtFormAddProduct number" step="0.01" min="0"
 			   				 onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
 			   			</li>
 			   			<li>
 			   				<span class="titleFr">Giá vốn (VNĐ)</span>
-			   				<input type="text" name="buyPrice" class="txtFormAddProduct" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+			   				<input type="text" name="buyPrice" class="txtFormAddProduct number" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
 			   			</li>
 			   			<li>
 			   				<span class="titleFr">Tồn kho</span>

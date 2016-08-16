@@ -1,5 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 
 <html>
@@ -50,8 +51,12 @@
 							<td><a href="productDetail?productId=<s:property value='id'/>" target="_blank"><s:property value="id"/></a></td>
 							<td><s:property value="productName"/></td>
 							<td><s:property value="categoryName"/></td>
-							<td><s:property value="priceBuy"/></td>
-							<td><s:property value="priceBuy"/></td>
+							<td>
+								<fmt:formatNumber groupingUsed="true" value="${priceBuy}" /> VNĐ
+							</td>
+							<td>
+								<fmt:formatNumber groupingUsed="true" value="${priceSell}" /> VNĐ
+							</td>
 							<td><s:date name="createDate" format="dd/MM/yyyy" /></td>
 							<td>
 								<img src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='avatar'/></s:param></s:url>" style="width:100px; height: 100px"/>

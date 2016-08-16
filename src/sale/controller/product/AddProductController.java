@@ -93,8 +93,8 @@ public class AddProductController extends BaseSale{
 	public String validateInput(){
 		productId = productId.trim();
 		productName = productName.trim();
-		sellPrice = sellPrice.trim();
-		buyPrice = buyPrice.trim();
+		sellPrice = sellPrice.trim().replaceAll(",", "");;
+		buyPrice = buyPrice.trim().replaceAll(",", "");
 		inventory = inventory.trim();
 		
 		if(productId.length() > 0 && null != lookupBean.getProductDao().getProduct(productId)){

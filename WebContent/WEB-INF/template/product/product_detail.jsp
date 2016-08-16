@@ -1,5 +1,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 
 <html>
@@ -47,12 +48,12 @@
 						<td><s:property value="product.productName"/></td>
 					</tr>
 					<tr>
-						<td style="float:right;"><span class="priceProduct">Giá bán :</span></td>
-						<td><s:property value="product.priceSell"/> VND</td>
+						<td style="float:right;"><span class="priceProduct">Giá mua :</span></td>
+						<td><fmt:formatNumber groupingUsed="true" value="${product.priceBuy}" /> VNĐ</td>
 					</tr>
 					<tr>
-						<td style="float:right;"><span class="priceProduct">Giá mua :</span></td>
-						<td><s:property value="product.priceBuy"/> VND</td>
+						<td style="float:right;"><span class="priceProduct">Giá bán :</span></td>
+						<td><fmt:formatNumber groupingUsed="true" value="${product.priceSell}" /> VNĐ</td>
 					</tr>
 					<tr>
 						<td style="float:right;"><span class="priceProduct">Tình trạng :</span></td>

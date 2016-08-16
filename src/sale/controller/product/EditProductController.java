@@ -146,8 +146,8 @@ public class EditProductController extends BaseSale{
 	public String validateInput(){
 		productId = productId.trim();
 		productName = productName.trim();
-		sellPrice = sellPrice.trim();
-		buyPrice = buyPrice.trim();
+		sellPrice = sellPrice.trim().replaceAll(",", "");
+		buyPrice = buyPrice.trim().replaceAll(",", "");
 		inventory = inventory.trim();
 		
 		if(productName.length() == 0){

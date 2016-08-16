@@ -72,9 +72,9 @@ public class ProductDao extends BaseDao{
 				+ "values ('"
 				+ product.getId() + "','"
 				+ product.getProductName() + "','"
-				+ product.getGroupId() + "','"
-				+ product.getDescription() 
-				+ "',?, '"
+				+ product.getGroupId() + "'"
+				+ ",?"
+				+ ",?, '"
 				+ product.getStatus() + "','"
 				+ product.getCategoryName() + "','"
 				+ product.getAvatar() + "','" 
@@ -82,7 +82,7 @@ public class ProductDao extends BaseDao{
 				+ product.getPriceSell()
 				+ "')";
 		Timestamp createDate = new Timestamp(product.getCreateDate().getTime());
-		jdbcTemplateObject.update(sql, new Object[]{createDate});
+		jdbcTemplateObject.update(sql, new Object[]{product.getDescription(),createDate});
 	}
 	
 	public List<Product> searchProduct(String productId, String productName, int category){
@@ -113,14 +113,14 @@ public class ProductDao extends BaseDao{
 	public void updateProduct(Product product, int inventory){
 		String sql = "update product set ";
 		sql += " name = '" + product.getProductName()+ "'";
-		sql += ", description = '" + product.getDescription() + "'";
+		sql += ", description = ?" ;
 		sql += ", group_id = " + product.getGroupId();
 		sql += ", category_name = '" + product.getCategoryName()+ "'";
 		sql += ", price_buy = " + product.getPriceBuy();
 		sql += ", price_sell = " + product.getPriceSell();
 		sql += ", avatar = '" + product.getAvatar() + "'";
 		sql += " where id = '" + product.getId() + "'" ;
-		jdbcTemplateObject.update(sql);
+		jdbcTemplateObject.update(sql, new Object[]{product.getDescription()});
 		reloadProduct(product.getId());
 	}
 	
