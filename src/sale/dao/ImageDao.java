@@ -27,14 +27,8 @@ import sale.util.URLUtil;
 
 
 public class ImageDao extends BaseDao{
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplateObject;
 	private HashMap<String, Image> imageCache = new LinkedHashMap<>();
    
-	public void setDataSource(DataSource dataSource) {
-	  this.dataSource = dataSource;
-	  this.jdbcTemplateObject = new JdbcTemplate(dataSource);
-	}
 	
 	public List<Image> getListImageForProduct(String productId){
 		 Session session = getSessionFactory().openSession();

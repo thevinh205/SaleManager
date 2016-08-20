@@ -11,11 +11,30 @@ public class EmployeeController extends BaseSale{
 	private UserUtil userUtil;
 	private LookupBean lookupBean;
 	private List<Member> listEmployee;
+	private String errorMessage;
+	private String nameSearch;
+	private String emailSearch;
+	private String phoneNumberSearch;
 	
 	public String listEmployee(){
 		if(null == userUtil.getMember())
 			return ERROR;
 		setActionURL(getPath());
+		return SUCCESS;
+	}
+	
+	public String searchCustomer(){
+		try{
+			
+			if(null != phoneNumberSearch && phoneNumberSearch.trim().length() > 0 && !isNumeric(phoneNumberSearch)){
+				errorMessage = "Số điện thoại không được là chữ!";
+				return SUCCESS;
+			}
+			listEmployee = lookupBean.getMemberDao().searchCustomer(nameSearch, emailSearch, phoneNumberSearch);
+			errorMessage = "";
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return SUCCESS;
 	}
 	
@@ -31,5 +50,38 @@ public class EmployeeController extends BaseSale{
 	public void setLookupBean(LookupBean lookupBean) {
 		this.lookupBean = lookupBean;
 	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public String getNameSearch() {
+		return nameSearch;
+	}
+
+	public String getEmailSearch() {
+		return emailSearch;
+	}
+
+	public String getPhoneNumberSearch() {
+		return phoneNumberSearch;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	public void setNameSearch(String nameSearch) {
+		this.nameSearch = nameSearch;
+	}
+
+	public void setEmailSearch(String emailSearch) {
+		this.emailSearch = emailSearch;
+	}
+
+	public void setPhoneNumberSearch(String phoneNumberSearch) {
+		this.phoneNumberSearch = phoneNumberSearch;
+	}
+	
 	
 }

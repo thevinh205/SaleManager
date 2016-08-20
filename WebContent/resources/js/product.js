@@ -239,7 +239,7 @@ function addCategory(){
 		var categoryName = $("input[name*='categoryName']").val();
 		var description = $("textArea[name*='description']").val();
 		var groupStatus = $("select[name*='groupStatus']").val();
-		if(null == name || name.trim().length == 0){
+		if(null == categoryName || categoryName.trim().length == 0){
 			alert("Tên danh mục không được để trống!");
 		}else{
 			var formData = new FormData();

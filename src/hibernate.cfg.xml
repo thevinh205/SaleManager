@@ -22,5 +22,6 @@
    </property>
    
    <mapping class="sale.model.Image"></mapping>
+   <mapping class="sale.model.Member"></mapping>
 </session-factory>
 </hibernate-configuration>

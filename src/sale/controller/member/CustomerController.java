@@ -58,7 +58,7 @@ public class CustomerController extends BaseSale{
 			Map<String, Object> params = context.getParameters();
 			String userNameDelete = findParam("userNameDelete");
 			if(null != userNameDelete){
-				lookupBean.getMemberDao().deleteCustomer(userNameDelete);
+				lookupBean.getMemberDao().deleteMember(userNameDelete);
 				if(null != memberList){
 					int index = 0;
 					for(Member member : memberList){

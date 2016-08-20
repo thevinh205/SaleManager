@@ -6,25 +6,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-
+import sale.base.BaseDao;
 import sale.model.Member;
 import sale.model.mapper.MemberMapper;
 
 
-public class MemberDao {
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplateObject;
+public class MemberDao extends BaseDao{
 	private HashMap<String, Member> memberCache = new LinkedHashMap<>();
-   
-	public void setDataSource(DataSource dataSource) {
-	  this.dataSource = dataSource;
-	  this.jdbcTemplateObject = new JdbcTemplate(dataSource);
-	}
 	
 	public Member getMember(String userName){
 		Member member = memberCache.get(userName);
@@ -48,8 +40,14 @@ public class MemberDao {
 	
 	public Member getMemberDB(String userName){
 		try{
-			String sql = "select * from member where username = ?";
-			Member member = jdbcTemplateObject.queryForObject(sql, new Object[]{userName}, new MemberMapper());
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select m from " + Member.class.getName() + " m where username = :userName";
+			Query query = session.createQuery(sql);
+			query.setParameter("userName", userName);
+			Member member = (Member)query.uniqueResult();
+			tx.commit();
+			session.close();
 			return member;
 		}catch (Exception e) {
 			return null;
@@ -58,11 +56,19 @@ public class MemberDao {
 	
 	public Member getMemberDB(String userName, String pass){
 		try{
-			String sql = "select * from member where username = ? and password = ?";
-			Member member = jdbcTemplateObject.queryForObject(sql, new Object[]{userName, pass}, new MemberMapper());
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select m from " + Member.class.getName() + " m where username = :userName and password = :pass";
+			Query query = session.createQuery(sql);
+			query.setParameter("userName", userName);
+			query.setParameter("pass", pass);
+			Member member = (Member)query.uniqueResult();
 			if(null != member && !memberCache.containsKey(userName)){
+				member.setPassword(null);
 				memberCache.put(userName, member);
 			}
+			tx.commit();
+			session.close();
 			return member;
 		}catch (Exception e) {
 			return null;
@@ -70,75 +76,110 @@ public class MemberDao {
 	}
 	
 	public void registerMember(Member member, String password){
-		String sql = "insert into member "
-				+ "(username, email, phone_number, name, address, level, state, birthday, create_date, gender, password, role) "
-				+ "values (?, ?, ?, ?, ?, ? ,? , ?, ?, ?, ?, ?)";
-		jdbcTemplateObject.update( sql, member.getUserName(), 
-										member.getEmail(), 
-										member.getPhoneNumber(),
-										member.getName(),
-										member.getAddress(),
-										member.getLevel(),
-										member.getState(),
-										null == member.getBirthDate() ? null : new Timestamp(member.getBirthDate().getTime()),
-										new Timestamp(member.getCreateDate().getTime()),
-										member.getGender(),
-										password,
-										member.getRole());
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		member.setPassword(password);
+		session.save(member);
+		tx.commit();
+		session.close();
 	}
 	
 	public List<Member> searchCustomer(String name, String email, String phoneNumber){
-		String sql = "select * from member where 1=1 ";
+		String sql = "select m from " + Member.class.getName() + " m where 1=1 ";
 		int index = 0;
 		if(null != name && name.trim().length() > 0){
-			sql += "and name like ? ";
+			sql += "and name like :name ";
 			index++;
 		}
 		if(null != email && email.trim().length() > 0){
-			sql += "and email like ?";
+			sql += "and email like :email";
 			index++;
 		}
 		if(null != phoneNumber && phoneNumber.trim().length() > 0){
-			sql += "and phone_number like ?";
+			sql += "and phone_number like :phoneNumber";
 			index++;
 		}
 		
-		Object[] objects = new Object[index];
-		index = 0;
-		if(null != name && name.trim().length() > 0){
-			objects[index] = "%" + name + "%";
-			index++;
-		}
-		if(null != email && email.trim().length() > 0){
-			objects[index] = "%" + email + "%";
-			index++;
-		}
-		if(null != phoneNumber && phoneNumber.trim().length() > 0){
-			objects[index] = "%" + phoneNumber + "%";
-		}
-		List<Member> memberList = jdbcTemplateObject.query(sql, objects, new MemberMapper());
+		sql += "and role = 'customer'";
+		
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery(sql);
+		if(null != name && name.trim().length() > 0)
+			query.setParameter("name", "%" + name + "%");
+		if(null != email && email.trim().length() > 0)
+			query.setParameter("email", "%" + email + "%");
+		if(null != phoneNumber && phoneNumber.trim().length() > 0)
+			query.setParameter("phoneNumber", "%" + phoneNumber + "%");
+		List<Member> memberList = query.list();
+		tx.commit();
+		session.close();
 		return memberList;
 	}
 	
-	public void deleteCustomer(String userName){
-		String sql = "delete from member where username = '" + userName + "'";
-		jdbcTemplateObject.update(sql);
+	public List<Member> searchEmployee(String name, String email, String phoneNumber){
+		String sql = "select m from " + Member.class.getName() + " m where 1=1 ";
+		int index = 0;
+		if(null != name && name.trim().length() > 0){
+			sql += "and name like :name ";
+			index++;
+		}
+		if(null != email && email.trim().length() > 0){
+			sql += "and email like :email";
+			index++;
+		}
+		if(null != phoneNumber && phoneNumber.trim().length() > 0){
+			sql += "and phone_number like :phoneNumber";
+			index++;
+		}
+		
+		sql += "and role = 'employee'";
+		
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery(sql);
+		if(null != name && name.trim().length() > 0)
+			query.setParameter("name", "%" + name + "%");
+		if(null != email && email.trim().length() > 0)
+			query.setParameter("email", "%" + email + "%");
+		if(null != phoneNumber && phoneNumber.trim().length() > 0)
+			query.setParameter("phoneNumber", "%" + phoneNumber + "%");
+		List<Member> memberList = query.list();
+		tx.commit();
+		session.close();
+		return memberList;
+	}
+	
+	public void deleteMember(String userName){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		String sql = "delete from " + Member.class.getName() + " where username = '" + userName + "'";
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		tx.commit();
+		session.close();
 		reloadMember(userName);
 	}
 	
 	public void updateMember(Member member, String password){
-		String sql = "update member set ";
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		String sql = "update " + Member.class.getName() + " set ";
 		sql += " email = '" + member.getEmail() + "'";
 		sql += ", phone_number = '" + member.getPhoneNumber() + "'";
 		sql += ", name = '" + member.getName() + "'";
 		sql += ", address = '" + member.getAddress() + "'";
-		sql += ", birthday = ? ";
+		sql += ", birthday = :birthday ";
 		sql += " ,gender = '" + member.getGender() + "'";
 		if(null != password && password.length() > 0)
 			sql += ", password = '" + password + "'";
 		sql += " where username = '" + member.getUserName() + "'" ;
 		Timestamp birthDay = (null == member.getBirthDate() ? null : new Timestamp(member.getBirthDate().getTime()));
-		jdbcTemplateObject.update(sql, new Object[]{birthDay});
+		Query query = session.createQuery(sql);
+		query.setParameter("birthday", birthDay);
+		query.executeUpdate();
+		tx.commit();
+		session.close();
 		reloadMember(member.getUserName());
 	}
 }

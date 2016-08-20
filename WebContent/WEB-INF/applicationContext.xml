@@ -48,6 +48,12 @@
    		<aop:scoped-proxy/>
    </bean>
    
+   <bean id="employeeController" class="sale.controller.employee.EmployeeController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
    <bean id="editMemberController" class="sale.controller.member.EditMemberController" scope="session">
    		<property name="customerController"  ref="customerController" />
    		<property name="userUtil"  ref="userUtil" />

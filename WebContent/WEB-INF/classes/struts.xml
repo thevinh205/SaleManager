@@ -66,7 +66,7 @@
 		
 		<action name="customer_list" class="customerController" method="customerList">
 			<result name="success">/WEB-INF/template/cs/customer_list.jsp</result>
-			<result name="error" type="redirect">/customer/login</result>
+			<result name="error" type="redirect">/login</result>
 		</action>
 		
 		<action name="searchCustomer" class="customerController" method="searchCustomer">
@@ -158,5 +158,18 @@
 			<result name="error" type="redirect">/login</result>
 		</action>
    </package>
-
+	
+	<package name="employee" extends="struts-default" namespace="/employee">
+		<result-types>
+	        <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+	    </result-types>
+	    <interceptors>
+            <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+        </interceptors>	
+        
+        <action name="employeeList" class="employeeController" method="listEmployee">
+			<result name="success">/WEB-INF/template/employee/employee_list.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+	</package>
 </struts>

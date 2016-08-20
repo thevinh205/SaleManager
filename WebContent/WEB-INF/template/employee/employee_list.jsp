@@ -27,7 +27,7 @@
 				</form>
 			</div>
 			<div id="listCustomer">
-				<p align="center" style="font-size: 20px; font-weight: bold;">Danh sách khách hàng</p>
+				<p align="center" style="font-size: 20px; font-weight: bold;">Danh sách nhân viên</p>
 				<table class="tftable" border="1" style="text-align: center">
 					<tr >
 						<th style="text-align: center">Tên</th>

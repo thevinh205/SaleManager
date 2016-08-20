@@ -63,7 +63,7 @@
            	</div>
            	
            	<div class="divShop" id="shop7">
-				<a href="#" align="center">
+				<a href="employee/employeeList" align="center">
                     <div class="sapo_services_item">
                     	<img class="imageIconShop" src="<s:url value='/resources/images/nhan_su.png' />"/>	
                     </div>
