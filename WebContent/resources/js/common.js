@@ -93,6 +93,27 @@ function deleteCustomer(){
 	
 }
 
+function deleteEmployee(){
+	var url = host + "/SaleManager/employee/deleteEmployee";
+	var formData = new FormData();
+	formData.append('userNameDelete', userNameCustomerDelete);
+	$.ajax(
+		{	
+		    type: 'POST', 
+		    url: url, 
+		    data: formData,
+		    cache: false,
+		    contentType: false,
+            processData: false,
+		    success: function(data){         
+		    	$("tr[id*=rowCus" + userNameCustomerDelete  +"]").remove();
+		    },
+		    error: function(XMLHttpRequest, textStatus, errorThrown){
+		        alert('Không thể xóa được nhân viên này,vui lòng thử lại ');
+		    }
+		}); 
+}
+
 function showIconLoading(){
 	$("#loadingIcon").show();
 }

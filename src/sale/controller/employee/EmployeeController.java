@@ -1,6 +1,9 @@
 package sale.controller.employee;
 
 import java.util.List;
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
 
 import sale.base.BaseSale;
 import sale.model.Member;
@@ -23,19 +26,45 @@ public class EmployeeController extends BaseSale{
 		return SUCCESS;
 	}
 	
-	public String searchCustomer(){
+	public String searchEmployee(){
 		try{
 			
 			if(null != phoneNumberSearch && phoneNumberSearch.trim().length() > 0 && !isNumeric(phoneNumberSearch)){
 				errorMessage = "Số điện thoại không được là chữ!";
 				return SUCCESS;
 			}
-			listEmployee = lookupBean.getMemberDao().searchCustomer(nameSearch, emailSearch, phoneNumberSearch);
+			listEmployee = lookupBean.getMemberDao().searchEmployee(nameSearch, emailSearch, phoneNumberSearch);
 			errorMessage = "";
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return SUCCESS;
+	}
+	
+	public String deleteEmployee(){
+		try{
+			if(null == userUtil.getMember())
+				return ERROR;
+			ActionContext context = ActionContext.getContext();
+			Map<String, Object> params = context.getParameters();
+			String userNameDelete = findParam("userNameDelete");
+			if(null != userNameDelete){
+				lookupBean.getMemberDao().deleteMember(userNameDelete);
+				if(null != listEmployee){
+					int index = 0;
+					for(Member member : listEmployee){
+						if(member.getUserName().equals(userNameDelete)){
+							listEmployee.remove(index);
+							return SUCCESS;
+						}
+						index++;
+					}
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ERROR;
 	}
 	
 	public List<Member> getListEmployee() {
