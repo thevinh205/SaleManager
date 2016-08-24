@@ -201,4 +201,16 @@
 			<result name="success" type="json"/>
 		</action>
 	</package>
+	
+	<package name="shop" extends="struts-default" namespace="/shop">
+		<action name="listShop" class="shopController" method="shopList">
+			<result name="success">/WEB-INF/template/shop/shop_list.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="shopDetail" class="shopDetailController" method="shopDetail">
+			<result name="success">/WEB-INF/template/shop/shop_detail.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+	</package>
 </struts>

@@ -12,7 +12,6 @@ import org.hibernate.Transaction;
 
 import sale.base.BaseDao;
 import sale.model.Member;
-import sale.model.mapper.MemberMapper;
 
 
 public class MemberDao extends BaseDao{

@@ -107,6 +107,18 @@
    		<aop:scoped-proxy/>
    </bean>
    
+   <bean id="shopController" class="sale.controller.shop.ShopController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="shopDetailController" class="sale.controller.shop.ShopDetailController" scope="session">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
    <bean id="uploadImage" class="sale.servlet.UploadImage">
    		<property name="lookupBean"  ref="lookupBean" />
    </bean>

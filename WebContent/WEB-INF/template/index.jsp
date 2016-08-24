@@ -9,7 +9,7 @@
 		<s:include value="/WEB-INF/template/header/header.jsp"></s:include>
 		<div stype="width:100%" id="shop1">
 			<div class="divShop">
-				<a href="#">
+				<a href="/SaleManager/shop/listShop">
                     <div class="sapo_services_item">
                     	<img class="imageIconShop" src="<s:url value='/resources/images/cua_hang.png' />"/>
                     </div>
@@ -18,7 +18,7 @@
            	</div>
            	
            	<div class="divShop" id="shop2">
-				<a href="product/productList">
+				<a href="/SaleManager/product/productList">
                     <div class="sapo_services_item">
                     	<img class="imageIconShop" src="<s:url value='/resources/images/san_pham.png' />"/>	
                     </div>
@@ -54,7 +54,7 @@
            	</div>
            	
            	<div class="divShop" id="shop6">
-				<a href="customer/customer_list" align="center">
+				<a href="/SaleManager/customer/customer_list" align="center">
                     <div class="sapo_services_item">
                     	<img class="imageIconShop" src="<s:url value='/resources/images/cham_soc_khach_hang.png' />"/>	
                     </div>
@@ -63,7 +63,7 @@
            	</div>
            	
            	<div class="divShop" id="shop7">
-				<a href="employee/employeeList" align="center">
+				<a href="/SaleManager/employee/employeeList" align="center">
                     <div class="sapo_services_item">
                     	<img class="imageIconShop" src="<s:url value='/resources/images/nhan_su.png' />"/>	
                     </div>

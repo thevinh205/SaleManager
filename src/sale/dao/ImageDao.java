@@ -22,7 +22,6 @@ import sale.base.BaseDao;
 import sale.model.Image;
 import sale.model.Member;
 import sale.model.Product;
-import sale.model.mapper.MemberMapper;
 import sale.util.URLUtil;
 
 
