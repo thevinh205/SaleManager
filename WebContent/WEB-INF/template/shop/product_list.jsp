@@ -6,6 +6,7 @@
 <html>
 	<body>
 		<div>
+			<p align="center" style="font-size: 20px; font-weight: bold;">Danh sách sản phẩm</p>
 			 <div id=searchCustomer style="margin:10px 0 0 10px; width: calc(100% - 10px)" align="center">
 				<s:if test="errorMessage != null">
 					<p style="color: red" align="center"><s:property value="errorMessage"/></p>

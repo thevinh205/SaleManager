@@ -23,5 +23,6 @@
    
    <mapping class="sale.model.Image"></mapping>
    <mapping class="sale.model.Member"></mapping>
+   <mapping class="sale.model.Shop"></mapping>
 </session-factory>
 </hibernate-configuration>

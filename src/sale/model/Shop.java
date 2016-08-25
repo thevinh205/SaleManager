@@ -4,14 +4,38 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="shop")
 public class Shop implements Serializable{
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="description")
 	private String description;
+	
+	@Column(name="address")
 	private String address;
+	
+	@Column(name="phone_number")
 	private long phoneNumber;
+	
 	private List<Member> listEmployee;
+	
 	private List<Product> listProduct;
+	
+	@Column(name="create_date")
 	private Date createDate;
 	
 	public int getId() {

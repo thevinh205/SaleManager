@@ -15,7 +15,7 @@
 		</div> 
 		<div class="divContent" style="min-height: calc(100% - 85px); border-bottom: none">
 		
-			<div class="container" style="padding-left: 0px">
+			<div class="" style="padding-left: 0px">
 			  <ul class="nav nav-tabs">
 			    <li class="active"><a href="#product">Sản phẩm</a></li>
 			    <li><a href="#employee">Nhân viên</a></li>
@@ -24,14 +24,13 @@
 			  </ul>
 			
 			  <div class="tab-content">
-			    <div id="product" class="tab-pane fade in active" style="    width: calc(100% - 110px);">
+			    <div id="product" class="tab-pane fade in active" style="width: 100%">
 			      <s:include value="/WEB-INF/template/shop/product_list.jsp"></s:include>
 			    </div>
-			    <div id="employee" class="tab-pane fade">
-			      <h3>Menu 1</h3>
-			      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			    <div id="employee" class="tab-pane fade" style="width: 100%">
+			      <s:include value="/WEB-INF/template/shop/employee_list.jsp"/>
 			    </div>
-			    <div id="order" class="tab-pane fade">
+			    <div id="order" class="tab-pane fade" style="width: 100%">
 			      <h3>Menu 2</h3>
 			      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 			    </div>
