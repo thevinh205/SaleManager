@@ -70,6 +70,7 @@ public class MemberDao extends BaseDao{
 			session.close();
 			return member;
 		}catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

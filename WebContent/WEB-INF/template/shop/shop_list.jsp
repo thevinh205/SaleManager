@@ -14,23 +14,16 @@
 			<p class="titleAddProduct">Danh sách shop</p>
 		</div> 
 		<div class="divContent" style="min-height: calc(100% - 85px); border-bottom: none">
-			<div class="divShop">
-				<a href="shopDetail?id=1">
-                    <div class="sapo_services_item">
-                    	<img class="imageIconShop" src="<s:url value='/resources/images/cua_hang.png' />"/>
-                    </div>
-                    <span align="center" class="titleShop">Cửa hàng quận 12</span>
-           		</a>
-           	</div> 
-
-			<div class="divShop">
-				<a href="shopDetail?id=2">
-                    <div class="sapo_services_item">
-                    	<img class="imageIconShop" src="<s:url value='/resources/images/cua_hang.png' />"/>
-                    </div>
-                    <span align="center" class="titleShop">Cửa hàng Lý Thường Kiệt</span>
-           		</a>
-           	</div>
+			<s:iterator value="listShop" status="shop">
+				<div class="divShop">
+					<a href="shopDetail?id=1">
+	                    <div class="sapo_services_item">
+	                    	<img class="imageIconShop" src="<s:url value='/resources/images/cua_hang.png' />"/>
+	                    </div>
+	                    <span align="center" class="titleShop"><s:property value="name"/></span>
+	           		</a>
+	           	</div> 
+           	</s:iterator>
 		</div>
 	</body>
 </html>

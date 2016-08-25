@@ -29,5 +29,6 @@
    
    <bean id="imageDao" class="sale.dao.ImageDao" scope="singleton">
    </bean>
-      
+   
+   <bean id="shopDao" class="sale.dao.ShopDao" scope="singleton"/>  
 </beans>

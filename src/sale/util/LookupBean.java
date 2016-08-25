@@ -6,12 +6,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sale.dao.ImageDao;
 import sale.dao.MemberDao;
 import sale.dao.ProductDao;
+import sale.dao.ShopDao;
 
 public class LookupBean {
 	private ApplicationContext context;
 	private MemberDao memberDao;
 	private ProductDao productDao;
 	private ImageDao imageDao;
+	private ShopDao shopDao;
 	
 	public ApplicationContext getContext(){
 		if(null == context)
@@ -37,5 +39,9 @@ public class LookupBean {
 		return imageDao;
 	}
 
-	
+	public ShopDao getShopDao() {
+		if(null == shopDao)
+			shopDao = (ShopDao)getContext().getBean("shopDao");
+		return shopDao;
+	}
 }

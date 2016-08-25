@@ -13,8 +13,14 @@ public class ShopController extends BaseSale{
 	private List<Shop> listShop;
 	
 	public String shopList(){
-		if(null == userUtil.getMember())
-			return ERROR;
+		try{
+			if(null == userUtil.getMember())
+				return ERROR;
+			if(null == listShop)
+				listShop = lookupBean.getShopDao().getListShop();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return SUCCESS;
 	}
 

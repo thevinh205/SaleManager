@@ -31,10 +31,6 @@ public class Shop implements Serializable{
 	@Column(name="phone_number")
 	private long phoneNumber;
 	
-	private List<Member> listEmployee;
-	
-	private List<Product> listProduct;
-	
 	@Column(name="create_date")
 	private Date createDate;
 	
@@ -67,18 +63,6 @@ public class Shop implements Serializable{
 	}
 	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-	public List<Member> getListEmployee() {
-		return listEmployee;
-	}
-	public void setListEmployee(List<Member> listEmployee) {
-		this.listEmployee = listEmployee;
-	}
-	public List<Product> getListProduct() {
-		return listProduct;
-	}
-	public void setListProduct(List<Product> listProduct) {
-		this.listProduct = listProduct;
 	}
 	public Date getCreateDate() {
 		return createDate;
