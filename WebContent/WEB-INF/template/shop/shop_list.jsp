@@ -10,13 +10,13 @@
 	<body>
 		<s:include value="/WEB-INF/template/header/header.jsp"></s:include>
 		<s:include value="/WEB-INF/template/product/left_menu.jsp"></s:include>
-		<div class="headerAddProduct" style="    width: calc(100% - 230px); float:right">
+		<div class="headerAddProduct" style=" width: calc(100% - 230px); float:right">
 			<p class="titleAddProduct">Danh sách shop</p>
 		</div> 
 		<div class="divContent" style="min-height: calc(100% - 85px); border-bottom: none">
 			<s:iterator value="listShop" status="shop">
 				<div class="divShop">
-					<a href="shopDetail?id=1">
+					<a href="shopDetail?shopId=<s:property value='id'/>" target="_blank">
 	                    <div class="sapo_services_item">
 	                    	<img class="imageIconShop" src="<s:url value='/resources/images/cua_hang.png' />"/>
 	                    </div>

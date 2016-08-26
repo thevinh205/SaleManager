@@ -22,8 +22,6 @@ public class ProductTable implements Serializable{
 	@Column(name="group_id")
 	private int groupId; //category
 	
-	private List<Price> listPriceSell;
-	
 	@Column(name="price_buy")
 	private Long priceBuy;
 	
@@ -51,8 +49,6 @@ public class ProductTable implements Serializable{
 	@Column(name="style")
 	private String style;
 	
-	private List<Image> images;
-	
 	@Column(name="avatar")
 	private String avatar;
 	
@@ -70,9 +66,6 @@ public class ProductTable implements Serializable{
 	}
 	public int getGroupId() {
 		return groupId;
-	}
-	public List<Price> getListPriceSell() {
-		return listPriceSell;
 	}
 	public Long getPriceBuy() {
 		return priceBuy;
@@ -107,9 +100,6 @@ public class ProductTable implements Serializable{
 	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
-	public void setListPriceSell(List<Price> listPriceSell) {
-		this.listPriceSell = listPriceSell;
-	}
 	public void setPriceBuy(Long priceBuy) {
 		this.priceBuy = priceBuy;
 	}
@@ -134,14 +124,8 @@ public class ProductTable implements Serializable{
 	public void setStyle(String style) {
 		this.style = style;
 	}
-	public List<Image> getImages() {
-		return images;
-	}
 	public String getAvatar() {
 		return avatar;
-	}
-	public void setImages(List<Image> images) {
-		this.images = images;
 	}
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;

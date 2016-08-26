@@ -22,6 +22,7 @@ public class Product implements Serializable{
 	private String avatar;
 	private String status;
 	private String categoryName;
+	private Integer count;
 	
 	public String getId() {
 		return id;
@@ -125,6 +126,10 @@ public class Product implements Serializable{
 	public void setPriceSell(Long priceSell) {
 		this.priceSell = priceSell;
 	}
-
-	
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 }

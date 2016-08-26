@@ -7,6 +7,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import sale.dao.ImageDao;
 import sale.dao.ProductDao;
+import sale.model.Product;
+import sale.model.ProductTable;
 
 public class BaseDao {
 	private SessionFactory factory;
@@ -40,4 +42,23 @@ public class BaseDao {
 		return productDao;
 	}
 
+	public Product converToProductView(ProductTable productTable){
+		Product product = new Product();
+		product.setId(productTable.getId());
+		product.setProductName(productTable.getProductName());
+		product.setGroupId(productTable.getGroupId());
+		product.setDescription(productTable.getDescription());
+		product.setCreateDate(productTable.getCreateDate());
+		product.setType(productTable.getType());
+		product.setColor(productTable.getColor());
+		product.setSize(productTable.getSize());
+		product.setWeight(productTable.getWeight());
+		product.setStyle(productTable.getStyle());
+		product.setAvatar(productTable.getAvatar());
+		product.setStatus(productTable.getStatus());
+		product.setCategoryName(productTable.getCategoryName());
+		product.setPriceBuy(productTable.getPriceBuy());
+		product.setPriceSell(productTable.getPriceSell());
+		return product;
+	}
 }

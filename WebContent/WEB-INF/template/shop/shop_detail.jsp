@@ -11,7 +11,7 @@
 		<s:include value="/WEB-INF/template/header/header.jsp"></s:include>
 		<s:include value="/WEB-INF/template/product/left_menu.jsp"></s:include>
 		<div class="headerAddProduct" style="    width: calc(100% - 230px); float:right">
-			<p class="titleAddProduct">Shop quận 12</p>
+			<p class="titleAddProduct"><s:property value="shopView.shop.name"/></p>
 		</div> 
 		<div class="divContent" style="min-height: calc(100% - 85px); border-bottom: none">
 		

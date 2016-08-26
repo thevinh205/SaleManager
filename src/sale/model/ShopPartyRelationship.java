@@ -30,6 +30,9 @@ public class ShopPartyRelationship implements Serializable{
 	@Column(name="create_date")
 	private Date createDate;
 	
+	@Column(name="count")
+	private int count;
+	
 	public int getShopId() {
 		return shopId;
 	}
@@ -66,5 +69,10 @@ public class ShopPartyRelationship implements Serializable{
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 }

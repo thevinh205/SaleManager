@@ -6,19 +6,23 @@
 <html>
 	<body>
 		<div>
-			<p align="center" style="font-size: 20px; font-weight: bold;">Danh sách sản phẩm</p>
+			<div>
+				<p align="center" style="font-size: 20px; font-weight: bold;">Danh sách sản phẩm</p>
+				<a style="margin-right: 5px; float: right" href="editProduct?id=<s:property value='id'/>">Thêm mới</a>
+			</div>
+			
 			 <div id=searchCustomer style="margin:10px 0 0 10px; width: calc(100% - 10px)" align="center">
 				<s:if test="errorMessage != null">
 					<p style="color: red" align="center"><s:property value="errorMessage"/></p>
 				</s:if>
-				<form method="POST" action="searchProductList">
+				<form method="POST" action="searchProduct">
 					<strong>Mã sản phẩm:</strong> 
 					<input type="text" name="idProdSearch" value="<s:property value='idProdSearch'/>" style="margin-right:15px"/>
 					
 					<strong>Tên sản phẩm:</strong> 
 					<input type="text" name="nameProdSearch" value="<s:property value='nameProdSearch'/>" style="margin-right:15px"/>
 					
-					<strong>Loại:</strong> 
+					<strong>Nhóm sản phẩm:</strong> 
 					<select class="btnDropDown" name="groupProduct">
 						<s:iterator value="categoryList" status="category">
 							  <option ><s:property value="name"/></option>
@@ -35,22 +39,22 @@
 						<th style="text-align: center">Nhóm sản phẩm</th>
 						<th style="text-align: center">Giá mua</th>
 						<th style="text-align: center">Giá bán</th>
-						<th style="text-align: center">Ngày tạo</th>
+						<th style="text-align: center">Số lượng</th>
 						<th style="text-align: center">Hình ảnh</th>
 						<th style="text-align: center"></th>
 					</tr>
 					<s:iterator value="productList" status="product">
 						<tr id="rowPro<s:property value='id'/>">
-							<td><a href="productDetail?productId=<s:property value='id'/>" target="_blank"><s:property value="id"/></a></td>
+							<td><a href="/SaleManager/product/productDetail?productId=<s:property value='id'/>" target="_blank"><s:property value="id"/></a></td>
 							<td><s:property value="productName"/></td>
 							<td><s:property value="categoryName"/></td>
 							<td>
-								<fmt:formatNumber groupingUsed="true" value="${priceBuy}" /> VNĐ
+								<fmt:formatNumber groupingUsed="true" value="${priceBuy}" />  VNĐ							
 							</td>
 							<td>
 								<fmt:formatNumber groupingUsed="true" value="${priceSell}" /> VNĐ
 							</td>
-							<td><s:date name="createDate" format="dd/MM/yyyy" /></td>
+							<td><s:property value="count"/></td>
 							<td>
 								<img src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='avatar'/></s:param></s:url>" style="width:100px; height: 100px"/>
 							</td>

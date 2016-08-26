@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2016 at 02:15 AM
+-- Generation Time: Aug 26, 2016 at 01:13 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -166,7 +166,7 @@ CREATE TABLE `product` (
   `type` varchar(20) DEFAULT NULL,
   `color` varchar(20) DEFAULT NULL,
   `size` varchar(20) DEFAULT NULL,
-  `weight` int(10) DEFAULT NULL,
+  `weight` int(10) NOT NULL,
   `style` varchar(50) DEFAULT NULL,
   `avatar` varchar(100) DEFAULT NULL,
   `status` varchar(20) NOT NULL,
@@ -180,24 +180,24 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `group_id`, `description`, `create_date`, `type`, `color`, `size`, `weight`, `style`, `avatar`, `status`, `category_name`, `price_buy`, `price_sell`) VALUES
-('001', 'test001', 1, 'GrabPay - Tính năng thanh toán bằng thẻ qua ứng dụng Grab cho 2 dịch vụ GrabCar và GrabBike vừa mới ra mắt chưa lâu. Có lẽ vì vậy mà nhiều bạn vẫn chưa biết cách làm sao để nhập thông tin thẻ vào GrabPay, nhân đây Grab hướng dẫn bạn qua 4 bước đơn giản sau nha:✅ Bước 1: Chọn biểu tượng ba dấu gạch ngang ở góc trên cùng bên trái ứng dụng✅ Bước 2: Chọn GrabPay ✅ Bước 3: Chọn Thêm thẻ tín dụng/Thẻ ghi nợ (hoặc Add Credit/Debit Card)', '2016-08-14 09:00:01', NULL, NULL, NULL, NULL, NULL, '001_0_thumb.jpg', 'open', 'Laptop', 1000000, 20000000),
-('002', 'ngon', 1, 'When the question is specific, it makes sense for the answer to be specific.<div><br></div><div>&nbsp;As for NumberFormat.getInstance potentially not returning DecimalFormat - yes, that''s a possibility.&nbsp;</div><div><br></div><div>I''m not sure the best way round that, to be honest; the API isn''t particularly useful there :(</div>', '2016-08-14 09:13:17', NULL, NULL, NULL, NULL, NULL, '002_0_thumb.jpg', 'open', 'Laptop', 10000000, 30000000),
-('003', 'sản phẩm ngon', 1, 'I haven''t bothered&nbsp;<div><br></div><div>with&nbsp;locales since you specifically&nbsp;</div><div><br></div><div>stated you wanted commas				            </div>', '2016-08-14 09:12:45', NULL, NULL, NULL, NULL, NULL, '003_0_thumb.jpg', 'open', 'Laptop', 2222222, 4444444),
-('005', 'điện thoại samsung', 1, 'test 10', '2016-08-14 08:39:36', NULL, NULL, NULL, NULL, NULL, '005_0_thumb.jpg', 'open', 'Laptop', 2132132, 1234567),
-('006', 'iphone 6', 1, '<p>điện thoại iphone 6 trung quốc chính hãng</p>\r\n', '2016-08-14 06:40:32', NULL, NULL, NULL, NULL, NULL, '006_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('007', 'macbook', 1, 'máy tính macbook giá rẻ', '2016-08-14 06:59:10', NULL, NULL, NULL, NULL, NULL, '007_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('008', 'test', 1, 'fadfdsa fdsaf123', '2016-08-14 07:18:32', NULL, NULL, NULL, NULL, NULL, '008_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('009', 'máy tính asus', 1, 'máy tính asus', '2016-08-14 06:59:53', NULL, NULL, NULL, NULL, NULL, '009_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('010', 'máy tính samsung', 1, '123 test thôi', '2016-08-14 06:40:18', NULL, NULL, NULL, NULL, NULL, '010_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('011', 'test 011', 1, 'hehe', '2016-08-14 07:00:19', NULL, NULL, NULL, NULL, NULL, '011_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('013', 'laptop hp', 1, 'máy tính hp test<div>hi</div>', '2016-08-14 07:00:51', NULL, NULL, NULL, NULL, NULL, '013_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('014', 'vertu', 1, 'điện thoại vetu', '2016-08-14 07:01:09', NULL, NULL, NULL, NULL, NULL, '014_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('015', 'điện thoại cục gạch', 1, 'test điện thoại cục gạch', '2016-08-07 10:56:22', NULL, NULL, NULL, NULL, NULL, '015_0.jpg', 'open', 'Laptop', 0, 0),
-('016', 'htc', 1, 'điện thoại htc', '2016-08-07 11:05:19', NULL, NULL, NULL, NULL, NULL, '016_0.jpg', 'open', 'Laptop', 0, 0),
-('017', 'test 017', 1, 'test sản phẩm', '2016-07-26 14:26:29', NULL, NULL, NULL, NULL, NULL, '017_0.jpg', 'open', 'Laptop', 0, 0),
-('018', 'test018', 1, 'test', '2016-07-26 14:29:57', NULL, NULL, NULL, NULL, NULL, '018_0.jpg', 'open', 'Laptop', 0, 0),
-('019', 'test 019', 1, 'test 019', '2016-07-26 14:31:28', NULL, NULL, NULL, NULL, NULL, '019_0.jpg', 'open', 'Laptop', 0, 0),
-('020', '123tesst', 1, 'hêh test', '2016-07-26 14:34:39', NULL, NULL, NULL, NULL, NULL, '020_0.jpg', 'open', 'Laptop', 0, 0);
+('001', 'test001', 1, 'GrabPay - Tính năng thanh toán bằng thẻ qua ứng dụng Grab cho 2 dịch vụ GrabCar và GrabBike vừa mới ra mắt chưa lâu. Có lẽ vì vậy mà nhiều bạn vẫn chưa biết cách làm sao để nhập thông tin thẻ vào GrabPay, nhân đây Grab hướng dẫn bạn qua 4 bước đơn giản sau nha:✅ Bước 1: Chọn biểu tượng ba dấu gạch ngang ở góc trên cùng bên trái ứng dụng✅ Bước 2: Chọn GrabPay ✅ Bước 3: Chọn Thêm thẻ tín dụng/Thẻ ghi nợ (hoặc Add Credit/Debit Card)', '2016-08-14 09:00:01', NULL, NULL, NULL, 0, NULL, '001_0_thumb.jpg', 'open', 'Laptop', 1000000, 20000000),
+('002', 'ngon', 1, 'When the question is specific, it makes sense for the answer to be specific.<div><br></div><div>&nbsp;As for NumberFormat.getInstance potentially not returning DecimalFormat - yes, that''s a possibility.&nbsp;</div><div><br></div><div>I''m not sure the best way round that, to be honest; the API isn''t particularly useful there :(</div>', '2016-08-14 09:13:17', NULL, NULL, NULL, 0, NULL, '002_0_thumb.jpg', 'open', 'Laptop', 10000000, 30000000),
+('003', 'sản phẩm ngon', 1, 'I haven''t bothered&nbsp;<div><br></div><div>with&nbsp;locales since you specifically&nbsp;</div><div><br></div><div>stated you wanted commas				            </div>', '2016-08-14 09:12:45', NULL, NULL, NULL, 0, NULL, '003_0_thumb.jpg', 'open', 'Laptop', 2222222, 4444444),
+('005', 'điện thoại samsung', 1, 'test 10', '2016-08-14 08:39:36', NULL, NULL, NULL, 0, NULL, '005_0_thumb.jpg', 'open', 'Laptop', 2132132, 1234567),
+('006', 'iphone 6', 1, '<p>điện thoại iphone 6 trung quốc chính hãng</p>\r\n', '2016-08-14 06:40:32', NULL, NULL, NULL, 0, NULL, '006_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('007', 'macbook', 1, 'máy tính macbook giá rẻ', '2016-08-14 06:59:10', NULL, NULL, NULL, 0, NULL, '007_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('008', 'test', 1, 'fadfdsa fdsaf123', '2016-08-14 07:18:32', NULL, NULL, NULL, 0, NULL, '008_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('009', 'máy tính asus', 1, 'máy tính asus', '2016-08-14 06:59:53', NULL, NULL, NULL, 0, NULL, '009_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('010', 'máy tính samsung', 1, '123 test thôi', '2016-08-14 06:40:18', NULL, NULL, NULL, 0, NULL, '010_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('011', 'test 011', 1, 'hehe', '2016-08-14 07:00:19', NULL, NULL, NULL, 0, NULL, '011_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('013', 'laptop hp', 1, 'máy tính hp test<div>hi</div>', '2016-08-14 07:00:51', NULL, NULL, NULL, 0, NULL, '013_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('014', 'vertu', 1, 'điện thoại vetu', '2016-08-14 07:01:09', NULL, NULL, NULL, 0, NULL, '014_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('015', 'điện thoại cục gạch', 1, 'test điện thoại cục gạch', '2016-08-07 10:56:22', NULL, NULL, NULL, 0, NULL, '015_0.jpg', 'open', 'Laptop', 0, 0),
+('016', 'htc', 1, 'điện thoại htc', '2016-08-07 11:05:19', NULL, NULL, NULL, 0, NULL, '016_0.jpg', 'open', 'Laptop', 0, 0),
+('017', 'test 017', 1, 'test sản phẩm', '2016-07-26 14:26:29', NULL, NULL, NULL, 0, NULL, '017_0.jpg', 'open', 'Laptop', 0, 0),
+('018', 'test018', 1, 'test', '2016-07-26 14:29:57', NULL, NULL, NULL, 0, NULL, '018_0.jpg', 'open', 'Laptop', 0, 0),
+('019', 'test 019', 1, 'test 019', '2016-07-26 14:31:28', NULL, NULL, NULL, 0, NULL, '019_0.jpg', 'open', 'Laptop', 0, 0),
+('020', '123tesst', 1, 'hêh test', '2016-07-26 14:34:39', NULL, NULL, NULL, 0, NULL, '020_0.jpg', 'open', 'Laptop', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -219,7 +219,8 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`id`, `name`, `description`, `address`, `phone_number`, `create_date`) VALUES
-(1, 'Shop quận 12', 'Shop cung cấp rượu vang đà lạt, rượu nho Ninh Thuận', '112 Tô Ký, quận 12', 1663810003, '2016-08-24');
+(1, 'Shop quận 12', 'Shop cung cấp rượu vang đà lạt, rượu nho Ninh Thuận', '112 Tô Ký, quận 12', 1663810003, '2016-08-24'),
+(2, 'Shop Tô Hiến Thành', 'Mua bán dày dép phụ nữ giá rẻ', 'Tô Hiến Thành, quận 10, Hồ Chi  minh', 1656502376, '2016-08-24');
 
 -- --------------------------------------------------------
 
@@ -230,11 +231,19 @@ INSERT INTO `shop` (`id`, `name`, `description`, `address`, `phone_number`, `cre
 CREATE TABLE `shop_party_relationship` (
   `shop_id` int(10) NOT NULL,
   `product_id` varchar(20) DEFAULT NULL,
-  `member_id` int(10) DEFAULT NULL,
-  `order_id` int(10) DEFAULT NULL,
+  `member_id` int(10) NOT NULL,
+  `order_id` int(10) NOT NULL,
   `type` varchar(20) NOT NULL,
-  `create_date` date NOT NULL
+  `create_date` date NOT NULL,
+  `count` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `shop_party_relationship`
+--
+
+INSERT INTO `shop_party_relationship` (`shop_id`, `product_id`, `member_id`, `order_id`, `type`, `create_date`, `count`) VALUES
+(1, '001', 0, 0, 'product', '2016-08-02', 4);
 
 --
 -- Indexes for dumped tables
@@ -271,6 +280,12 @@ ALTER TABLE `shop`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `shop_party_relationship`
+--
+ALTER TABLE `shop_party_relationship`
+  ADD PRIMARY KEY (`shop_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -293,7 +308,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

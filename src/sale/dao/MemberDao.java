@@ -62,12 +62,12 @@ public class MemberDao extends BaseDao{
 			query.setParameter("userName", userName);
 			query.setParameter("pass", pass);
 			Member member = (Member)query.uniqueResult();
-			if(null != member && !memberCache.containsKey(userName)){
-				member.setPassword(null);
-				memberCache.put(userName, member);
-			}
 			tx.commit();
 			session.close();
+			if(null != member && !memberCache.containsKey(userName)){
+				member.setPassword("");
+				memberCache.put(userName, member);
+			}
 			return member;
 		}catch (Exception e) {
 			e.printStackTrace();
