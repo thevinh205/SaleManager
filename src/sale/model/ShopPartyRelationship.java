@@ -1,10 +1,12 @@
 package sale.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,14 +14,18 @@ import javax.persistence.Table;
 @Table(name="shop_party_relationship")
 public class ShopPartyRelationship implements Serializable{
 	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
+
 	@Column(name="shop_id")
 	private int shopId;
 	
 	@Column(name="product_id")
 	private String productId;
 	
-	@Column(name="member_id")
-	private int memberId;
+	@Column(name="member_userName")
+	private String memberUserName;
 	
 	@Column(name="order_id")
 	private int orderId;
@@ -33,14 +39,23 @@ public class ShopPartyRelationship implements Serializable{
 	@Column(name="count")
 	private int count;
 	
+	@Column(name="position")
+	private String position;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getShopId() {
 		return shopId;
 	}
 	public String getProductId() {
 		return productId;
 	}
-	public int getMemberId() {
-		return memberId;
+	public String getMemberUserName() {
+		return memberUserName;
 	}
 	public int getOrderId() {
 		return orderId;
@@ -57,8 +72,8 @@ public class ShopPartyRelationship implements Serializable{
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+	public void setMemberUserName(String memberUserName) {
+		this.memberUserName = memberUserName;
 	}
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
@@ -74,5 +89,11 @@ public class ShopPartyRelationship implements Serializable{
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
 	}
 }

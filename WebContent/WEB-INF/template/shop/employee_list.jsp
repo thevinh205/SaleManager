@@ -5,7 +5,10 @@
 	<body>
 		
 		<div id="listCustomer">
-			<p align="center" style="font-size: 20px; font-weight: bold;">Danh sách nhân viên</p>
+			<div style="width: calc(100%); float: right; margin: 10px 0 10px 0">
+				<p  style="font-size: 20px; font-weight: bold; float:left; margin-left: 20px">Danh sách nhân viên</p>
+				<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalAddEmp">Thêm mới</a>
+			</div>
 			<table class="tftable" border="1" style="text-align: center">
 				<tr >
 					<th style="text-align: center">Tên</th>
@@ -18,7 +21,7 @@
 					<th style="text-align: center">Vị trí</th>
 					<th style="text-align: center"></th>
 				</tr>
-				<s:iterator value="memberList" status="memberRow">
+				<s:iterator value="employeeList" status="memberRow">
 					<tr id="rowCus<s:property value='userName'/>">
 						<td><s:property value="name"/></td>
 						<td><s:property value="email"/></td>
@@ -28,9 +31,9 @@
 						<td><s:property value="gender"/></td>
 						<td><s:property value="position"/></td>
 						<td>
-						 	<a style="margin-right: 5px" href="editMember?username=<s:property value='userName'/>">Sửa</a>
+						 	<a style="margin-right: 5px" href="/employee/editMember?username=<s:property value='userName'/>">Sửa</a>
 						  |	<a style="margin-left: 5px" href="javascipt:void(0)" data-toggle="modal" 
-						  	   onclick="setDeleteCustomer('<s:property value="userName"/>')" data-target="#myModal">Xóa</a>
+						  	   onclick="setDeleteCustomer('<s:property value="userName"/>')" data-target="#myModalDeleteEmp">Xóa</a>
 						</td>
 					</tr>
 				</s:iterator>
@@ -38,15 +41,15 @@
 		</div>
 		
 		<!-- Modal -->
-	  <div class="modal fade" id="myModal" role="dialog">
-	    <div class="modal-dialog modal-sm">
+	  <div class="modal fade" id="myModalDeleteEmp" role="dialog">
+	    <div class="modal-dialog modal-sm" style="width:350px">
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal">&times;</button>
-	          <h4 class="modal-title">Xóa khánh hàng</h4>
+	          <h4 class="modal-title">Xóa nhân viên</h4>
 	        </div>
 	        <div class="modal-body">
-	          <p>Bạn có muốn xóa khách hàng này</p>
+	          <p>Bạn có muốn xóa nhân viên này khỏi shop</p>
 	        </div>
 	        <div class="modal-footer">
 	          <a class="btn btn-default" data-dismiss="modal" href="javascrip:void(0)" onclick="deleteCustomer()">Đồng ý</a>
@@ -54,6 +57,53 @@
 	      </div>
 	    </div>
 	  </div>
+	  
+	  <!-- Modal add new -->
+	  <div class="modal fade" id="modalAddEmp" role="dialog">
+		    <div class="modal-dialog" style="width:380px">
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Thêm nhân viên cho shop</h4>
+		        </div>
+		        <div class="modal-body">
+		        	<p style="color: red" align="center" id="msgAddEmp"></p>
+		        	<table>
+			        	<tr>
+			        		<td>
+			        			<strong>Nhân viên:</strong> 
+			        		</td>
+			        		<td>
+			        			<select class="btnDropDown" name="empAdd">
+									<s:iterator value="allEmployee" status="emp">
+										  <option value="<s:property value='userName'/>"><s:property value="name"/></option>
+									</s:iterator>
+								</select>
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Vị trí:</strong> 
+			        		</td>
+			        		<td>
+			        			<select class="btnDropDown" name="empPosition">
+									<s:iterator value="listPositionEmployee" status="position">
+										  <option ><s:property/></option>
+									</s:iterator>
+								</select>
+			        		</td>
+			        	</tr>
+		        	</table>					
+		        </div>
+		        <div class="modal-footer">
+		          <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal" style="background:red; color:white">Hủy bỏ</button>
+		          <button type="button" class="btn btn-default" style="background:green; color:white" onclick="addEmployeeToShop()">Thêm</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
 	  
 	</div>
 	</body>

@@ -54,6 +54,7 @@ public class Member implements Serializable{
 	@Column(name="password")
 	private String password;
 	
+	private String position;
 	
 	public Integer getId() {
 		return id;
@@ -133,4 +134,11 @@ public class Member implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	
 }

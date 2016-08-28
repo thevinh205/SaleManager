@@ -6,26 +6,23 @@
 <html>
 	<body>
 		<div>
-			<div>
-				<p align="center" style="font-size: 20px; font-weight: bold;">Danh sách sản phẩm</p>
-				<a style="margin-right: 5px; float: right" href="editProduct?id=<s:property value='id'/>">Thêm mới</a>
+			<div style="width: calc(100%); float: right;">
+				<p  style="font-size: 20px; font-weight: bold; float:left; margin-left: 20px">Danh sách sản phẩm</p>
+				<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalAddProduct">Thêm mới</a>
 			</div>
 			
-			 <div id=searchCustomer style="margin:10px 0 0 10px; width: calc(100% - 10px)" align="center">
-				<s:if test="errorMessage != null">
-					<p style="color: red" align="center"><s:property value="errorMessage"/></p>
-				</s:if>
+			 <div id=searchCustomer style="margin:10px 0 0 5px; width: calc(100% - 10px)" align="center">
 				<form method="POST" action="searchProduct">
 					<strong>Mã sản phẩm:</strong> 
-					<input type="text" name="idProdSearch" value="<s:property value='idProdSearch'/>" style="margin-right:15px"/>
+					<input type="text" name="idProdSearch" value="<s:property value='idProdSearch'/>" style="margin-right:10px"/>
 					
 					<strong>Tên sản phẩm:</strong> 
-					<input type="text" name="nameProdSearch" value="<s:property value='nameProdSearch'/>" style="margin-right:15px"/>
+					<input type="text" name="nameProdSearch" value="<s:property value='nameProdSearch'/>" style="margin-right:10px"/>
 					
 					<strong>Nhóm sản phẩm:</strong> 
 					<select class="btnDropDown" name="groupProduct">
 						<s:iterator value="categoryList" status="category">
-							  <option ><s:property value="name"/></option>
+							  <option value="2"><s:property value="name"/></option>
 						</s:iterator>
 					</select>
 					
@@ -91,7 +88,7 @@
 			</div>
 		</div>
 		
-		<!-- Modal -->
+		<!-- Modal delete -->
 	  <div class="modal fade" id="myModal" role="dialog">
 	    <div class="modal-dialog modal-sm">
 	      <div class="modal-content">
@@ -108,6 +105,44 @@
 	      </div>
 	    </div>
 	  </div>
+	  
+	  <!-- Modal add new -->
+	  <div class="modal fade" id="modalAddProduct" role="dialog">
+		    <div class="modal-dialog" style="width:380px">
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Thêm sản phẩm tới shop</h4>
+		        </div>
+		        <div class="modal-body">
+		        	<table>
+			        	<tr>
+			        		<td>
+			        			<strong>Mã sản phẩm:</strong> 
+			        		</td>
+			        		<td>
+			        			<input type="text" name="idProdAdd" style="margin-right:15px"/> 	
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Số lượng:</strong> 
+			        		</td>
+			        		<td>
+			        			<input type="number" name="countProduct" style="margin-right:15px"/> 	
+			        		</td>
+			        	</tr>
+		        	</table>					
+		        </div>
+		        <div class="modal-footer">
+		          <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal" style="background:red; color:white">Hủy bỏ</button>
+		          <button type="button" class="btn btn-default" style="background:green; color:white" onclick="addProductToShop()">Thêm</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
 	  
 	</body>
 </html>

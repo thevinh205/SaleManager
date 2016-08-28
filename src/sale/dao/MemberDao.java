@@ -150,6 +150,16 @@ public class MemberDao extends BaseDao{
 		return memberList;
 	}
 	
+	public List<Member> getAllEmployee(){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		String sql = "select m from " + Member.class.getName() + " m where role='employee'";
+		List<Member> listEmployee  = session.createQuery(sql).list();
+		tx.commit();
+		session.close();
+		return listEmployee;
+	}
+	
 	public void deleteMember(String userName){
 		Session session = getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();

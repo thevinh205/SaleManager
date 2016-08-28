@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2016 at 01:13 PM
+-- Generation Time: Aug 28, 2016 at 04:36 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -186,7 +186,7 @@ INSERT INTO `product` (`id`, `name`, `group_id`, `description`, `create_date`, `
 ('005', 'điện thoại samsung', 1, 'test 10', '2016-08-14 08:39:36', NULL, NULL, NULL, 0, NULL, '005_0_thumb.jpg', 'open', 'Laptop', 2132132, 1234567),
 ('006', 'iphone 6', 1, '<p>điện thoại iphone 6 trung quốc chính hãng</p>\r\n', '2016-08-14 06:40:32', NULL, NULL, NULL, 0, NULL, '006_0_thumb.jpg', 'open', 'Laptop', 0, 0),
 ('007', 'macbook', 1, 'máy tính macbook giá rẻ', '2016-08-14 06:59:10', NULL, NULL, NULL, 0, NULL, '007_0_thumb.jpg', 'open', 'Laptop', 0, 0),
-('008', 'test', 1, 'fadfdsa fdsaf123', '2016-08-14 07:18:32', NULL, NULL, NULL, 0, NULL, '008_0_thumb.jpg', 'open', 'Laptop', 0, 0),
+('008', 'test', 2, 'fadfdsa fdsaf123', '2016-08-27 15:58:14', NULL, NULL, NULL, 0, NULL, '008_0_thumb.jpg', 'open', 'Điện thoại', 0, 0),
 ('009', 'máy tính asus', 1, 'máy tính asus', '2016-08-14 06:59:53', NULL, NULL, NULL, 0, NULL, '009_0_thumb.jpg', 'open', 'Laptop', 0, 0),
 ('010', 'máy tính samsung', 1, '123 test thôi', '2016-08-14 06:40:18', NULL, NULL, NULL, 0, NULL, '010_0_thumb.jpg', 'open', 'Laptop', 0, 0),
 ('011', 'test 011', 1, 'hehe', '2016-08-14 07:00:19', NULL, NULL, NULL, 0, NULL, '011_0_thumb.jpg', 'open', 'Laptop', 0, 0),
@@ -229,21 +229,28 @@ INSERT INTO `shop` (`id`, `name`, `description`, `address`, `phone_number`, `cre
 --
 
 CREATE TABLE `shop_party_relationship` (
+  `id` int(10) NOT NULL,
   `shop_id` int(10) NOT NULL,
   `product_id` varchar(20) DEFAULT NULL,
-  `member_id` int(10) NOT NULL,
+  `member_userName` varchar(50) DEFAULT NULL,
   `order_id` int(10) NOT NULL,
   `type` varchar(20) NOT NULL,
   `create_date` date NOT NULL,
-  `count` int(10) NOT NULL
+  `count` int(10) NOT NULL,
+  `position` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `shop_party_relationship`
 --
 
-INSERT INTO `shop_party_relationship` (`shop_id`, `product_id`, `member_id`, `order_id`, `type`, `create_date`, `count`) VALUES
-(1, '001', 0, 0, 'product', '2016-08-02', 4);
+INSERT INTO `shop_party_relationship` (`id`, `shop_id`, `product_id`, `member_userName`, `order_id`, `type`, `create_date`, `count`, `position`) VALUES
+(1, 1, '001', '0', 0, 'product', '2016-08-02', 4, NULL),
+(2, 1, '002', '0', 0, 'product', '2016-08-27', 10, NULL),
+(3, 1, '003', '0', 0, 'product', '2016-08-27', 6, NULL),
+(4, 1, '008', '0', 0, 'product', '2016-08-27', 7, NULL),
+(5, 1, NULL, 'thuytrang', 0, 'employee', '2016-08-04', 0, 'Nhân viên kinh doanh'),
+(8, 1, NULL, 'vinhdeptrai', 0, 'employee', '2016-08-28', 0, 'Nhân viên kinh doanh');
 
 --
 -- Indexes for dumped tables
@@ -283,7 +290,7 @@ ALTER TABLE `shop`
 -- Indexes for table `shop_party_relationship`
 --
 ALTER TABLE `shop_party_relationship`
-  ADD PRIMARY KEY (`shop_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -309,6 +316,11 @@ ALTER TABLE `member`
 --
 ALTER TABLE `shop`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `shop_party_relationship`
+--
+ALTER TABLE `shop_party_relationship`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

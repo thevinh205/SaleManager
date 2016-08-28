@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<s:include value="/WEB-INF/template/header/header.jsp"></s:include>
-		<s:include value="/WEB-INF/template/product/left_menu.jsp"></s:include>
+		<s:include value="/WEB-INF/template/shop/left_menu.jsp"></s:include>
 		<div class="headerAddProduct" style="    width: calc(100% - 230px); float:right">
 			<p class="titleAddProduct"><s:property value="shopView.shop.name"/></p>
 		</div> 

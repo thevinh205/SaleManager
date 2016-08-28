@@ -203,6 +203,13 @@
 	</package>
 	
 	<package name="shop" extends="struts-default" namespace="/shop">
+		<result-types>
+	        <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+	    </result-types>
+	    <interceptors>
+            <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+        </interceptors>	
+        
 		<action name="listShop" class="shopController" method="shopList">
 			<result name="success">/WEB-INF/template/shop/shop_list.jsp</result>
 			<result name="error" type="redirect">/login</result>
@@ -216,6 +223,18 @@
 		<action name="searchProduct" class="shopDetailController" method="searchProduct">
 			<result name="success" type="redirect">/shop/shopDetail</result>
 			<result name="error" type="redirect">/shop/shopDetail</result>
+		</action>
+		
+		<action name="addProductToShop" class="shopDetailController" method="addProductToShop">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
+		
+		<action name="addEmployeeToShop" class="shopDetailController" method="addEmployeeToShop">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
 		</action>
 	</package>
 </struts>

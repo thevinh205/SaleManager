@@ -18,6 +18,7 @@ import sale.model.Member;
 
 public class BaseSale extends ActionSupport implements Serializable{
 	private String actionURL;
+	private List<String> listPositionEmployee;
 	
 	public String findParam(String key) {
 		ActionContext context = ActionContext.getContext();
@@ -119,5 +120,18 @@ public class BaseSale extends ActionSupport implements Serializable{
 		if(null == text || text.trim().length() == 0)
 			return true;
 		return false;
+	}
+	
+	public List<String> getListPositionEmployee(){
+		if(null == listPositionEmployee){
+			listPositionEmployee = new LinkedList<>();
+			listPositionEmployee.add("Nhân viên kinh doanh");
+			listPositionEmployee.add("Nhân viên kỹ thuật");
+			listPositionEmployee.add("Quản lý");
+			listPositionEmployee.add("Kế toán");
+			listPositionEmployee.add("Nhân viên maketing");
+			listPositionEmployee.add("Giám đốc");
+		}
+		return listPositionEmployee;
 	}
 }

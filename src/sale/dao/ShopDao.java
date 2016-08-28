@@ -13,6 +13,7 @@ import com.sun.org.apache.bcel.internal.generic.ISUB;
 
 import sale.base.BaseDao;
 import sale.model.Image;
+import sale.model.Member;
 import sale.model.Product;
 import sale.model.ProductTable;
 import sale.model.Shop;
@@ -97,26 +98,6 @@ public class ShopDao extends BaseDao{
 		}
 	}
 	
-	/**
-	 * Get all product of shop
-	 * @param shopId
-	 * @return
-	 */
-	public List<ProductTable> getListProductOfShop(int shopId){
-		Session session = getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
-		String sql =  "select p from " + ProductTable.class.getName() + " p" + 
-					  "where p.id in (select rl.productId from " + ShopPartyRelationship.class.getName() +" rl " +
-		       						  "where rl.type=:type and rl.shopId=:shopId)";
-		Query query = session.createQuery(sql);
-		query.setParameter("type", "product");
-		query.setParameter("shopId", shopId);
-		List<ProductTable> listProduct = (List<ProductTable>)query.list(); 
-		tx.commit();
-		session.close();
-		return listProduct;
-	}
-	
 	/*
 	 * Search product of shop
 	 * Search by page index
@@ -124,7 +105,7 @@ public class ShopDao extends BaseDao{
 	public List<Product> searchProductOfShop(int shopId, String productId, String productName, String type, int startIndex, int count){
 		Session session = getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		String sql = "select rl.count, p from " + ProductTable.class.getName() + " p, " + ShopPartyRelationship.class.getName() + " rl where 1=1";
+		String sql = "select  rl.count, p from " + ProductTable.class.getName() + " p, " + ShopPartyRelationship.class.getName() + " rl where p.id = rl.productId";
 		if(null == productId || productId.trim().length() == 0)
 			sql += " and p.id in (select rl.productId from " +
 					" rl where rl.type=:type and rl.shopId=:shopId)";
@@ -133,7 +114,7 @@ public class ShopDao extends BaseDao{
 		if(null != productName && productName.trim().length() != 0)
 			sql += " and p.name like :productName ";
 		if(null != type && type.trim().length() != 0)
-			sql += " and p.categoryName = :type";
+			sql += " and p.categoryName = :groupName";
 		Query query = session.createQuery(sql);		
 		query.setParameter("type", "product");
 		query.setParameter("shopId", shopId);
@@ -142,7 +123,7 @@ public class ShopDao extends BaseDao{
 		if(null != productName && productName.trim().length() != 0)
 			query.setParameter("productName", "%" + productName + "%");
 		if(null != type && type.trim().length() != 0)
-			query.setParameter("type", type);
+			query.setParameter("groupName", type);
 		query.setFirstResult(startIndex);
 		query.setMaxResults(count);
 		List<Object[]> listObject = (List<Object[]>)query.list(); 
@@ -157,5 +138,60 @@ public class ShopDao extends BaseDao{
 			}
 		}
 		return listProduct;
+	}
+	
+	public List<Member> getlistEmployeeOfShop(int shopId){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		String sql = "select rl.position, m from " + Member.class.getName() + " m, " 
+				+ ShopPartyRelationship.class.getName() + " rl where m.userName=rl.memberUserName and rl.type=:type and rl.shopId=:shopId";
+		Query query = session.createQuery(sql);
+		query.setParameter("type", "employee");
+		query.setParameter("shopId", shopId);
+		List<Object[]> listObject = (List<Object[]>)query.list();
+		tx.commit();
+		session.close();
+		List<Member> listEmployee = new LinkedList<>();
+		if(null != listObject){
+			for(Object[] object : listObject){
+				Member member = (Member)object[1];
+				member.setPosition((String)object[0]);
+				listEmployee.add(member);
+			}
+		}
+		return listEmployee;
+	}
+	
+	public Boolean checkEmployeeInShop(int shopId, String employeeUserName, String position){
+		try{
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select rl from " + ShopPartyRelationship.class.getName() + 
+					" rl where type='employee' and shopId=:shopId and memberUserName=:employeeUserName and position=:position";
+			Query query = session.createQuery(sql);
+			query.setParameter("shopId", shopId);
+			query.setParameter("employeeUserName", employeeUserName);
+			query.setParameter("position", position);
+			if(null == query.uniqueResult())
+				return false;
+			tx.commit();
+			session.close();
+		}catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void saveShopParyRelationship(ShopPartyRelationship shopPartyRelationship){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		try{
+			session.save(shopPartyRelationship);
+		}catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		}
+		tx.commit();
+		session.close();
 	}
 }
