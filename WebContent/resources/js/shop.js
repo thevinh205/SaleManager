@@ -1,3 +1,8 @@
+var userNameEmpAction;
+var positionEmp;
+var indexRow;
+var prodIdAction;
+
 function addProductToShop(){
 	try{
 		var productId = $("input[name*='idProdAdd']").val();
@@ -23,7 +28,14 @@ function addProductToShop(){
 				    contentType: false,
 		            processData: false,
 				    success: function(data){ 
-				    	$("button[id*='btnCancel']").click();
+				    	if(null == data){
+					    	$("button[id*='btnCancel']").click();
+					    	$("input[name*='idProdAdd']").val("");
+					    	$("input[name*='countProduct']").val("");
+				    	}
+				    	else{
+				    		$("p[id*='msgAddProd']").text(data);
+				    	}
 				    },
 				    error: function(XMLHttpRequest, textStatus, errorThrown){
 				        alert('Không thể thêm mới sản phẩm tới shop ');
@@ -62,6 +74,96 @@ function addEmployeeToShop(){
 				        alert('Không thể thêm nhân viên cho shop ');
 				    }
 				}); 
+	}catch (e) {
+		// TODO: handle exception
+	}
+}
+
+function setEmpDelete( usernameDelete, position, empName, index){
+	userNameEmpAction = usernameDelete;
+	positionEmp = position;
+	indexRow = index;
+	$("strong[id*='nameEmpDelete']").text(empName);
+	$("strong[id*='positionNameDelete']").text(position);
+}
+
+function deleteEmployeeOfShop(){
+	try{
+		if(null != userNameEmpAction){
+			formData = new FormData();
+			formData.append('usernameDelete', userNameEmpAction);
+			formData.append('positionEmp', positionEmp);
+			var url = "/SaleManager/shop/deleteEmployeeInShop"
+				$.ajax({	
+				    type: 'POST', 
+				    url: url, 
+				    data: formData,
+				    cache: false,
+				    contentType: false,
+		            processData: false,
+				    success: function(data){ 
+				    	$("tr[id*=rowCus" + indexRow + "]").remove();
+				    },
+				    error: function(XMLHttpRequest, textStatus, errorThrown){
+				        alert('Không thể xóa nhân viên khỏi shop ');
+				    }
+				}); 
+		}
+	}catch (e) {
+		// TODO: handle exception
+	}
+}
+
+function changeTab(tabName){
+	try{
+		if(null != tabName){
+			var url = "/SaleManager/shop/" + tabName;
+				$.ajax({	
+				    type: 'POST', 
+				    url: url, 
+				    cache: false,
+				    contentType: false,
+		            processData: false,
+				    success: function(data){ 
+				    	$("div[id*='contentTab']").html(data);
+				    },
+				    error: function(XMLHttpRequest, textStatus, errorThrown){
+				    }
+				}); 
+		}
+	}catch (e) {
+		// TODO: handle exception
+	}
+}
+
+function setDeleteProdShop(productId, productName){
+	prodIdAction = productId;
+	$("strong[id*='prodNameDelete']").text(productName);
+	
+} 
+
+function deleteProductInShop(){
+	try{
+		if(null != prodIdAction){
+			$("tr[id*=rowPro" + prodIdAction + "]").remove();
+			var formData = new FormData();
+			formData.append('productIdDelete', prodIdAction);
+			var url = "/SaleManager/shop/deleteProductInShop";
+				$.ajax({	
+				    type: 'POST', 
+				    url: url, 
+				    data: formData,
+				    cache: false,
+				    contentType: false,
+		            processData: false,
+				    success: function(data){ 
+				    	$("tr[id*=rowPro" + prodIdAction + "]").remove();
+				    },
+				    error: function(XMLHttpRequest, textStatus, errorThrown){
+				        alert('Không thể xóa sản phẩm khỏi shop ');
+				    }
+				}); 
+		}
 	}catch (e) {
 		// TODO: handle exception
 	}

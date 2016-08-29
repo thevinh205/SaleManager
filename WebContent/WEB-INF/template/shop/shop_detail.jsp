@@ -17,26 +17,15 @@
 		
 			<div class="" style="padding-left: 0px">
 			  <ul class="nav nav-tabs">
-			    <li class="active"><a href="#product">Sản phẩm</a></li>
-			    <li><a href="#employee">Nhân viên</a></li>
-			    <li><a href="#order">Đơn hàng</a></li>
-			    <li><a href="#statistic">Thống kê</a></li>
+			    <li class="active"><a href="javascript:void(0)" onclick="changeTab('listProduct')"><strong>Sản phẩm</strong></a></li>
+			    <li><a href="javascript:void(0)" onclick="changeTab('listEmployee')"><strong>Nhân viên</strong></a></li>
+			    <li><a href="javascript:void(0)" onclick="changeTab('listOrder')"><strong>Đơn hàng</strong></a></li>
+			    <li><a href="#statistic"><strong>Thống kê</strong></a></li>
 			  </ul>
 			
 			  <div class="tab-content">
-			    <div id="product" class="tab-pane fade in active" style="width: 100%">
+			    <div id="contentTab" class="tab-pane fade in active" style="width: 100%">
 			      <s:include value="/WEB-INF/template/shop/product_list.jsp"></s:include>
-			    </div>
-			    <div id="employee" class="tab-pane fade" style="width: 100%">
-			      <s:include value="/WEB-INF/template/shop/employee_list.jsp"/>
-			    </div>
-			    <div id="order" class="tab-pane fade" style="width: 100%">
-			      <h3>Menu 2</h3>
-			      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-			    </div>
-			    <div id="statistic" class="tab-pane fade">
-			      <h3>Menu 3</h3>
-			      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 			    </div>
 			  </div>
 			</div>

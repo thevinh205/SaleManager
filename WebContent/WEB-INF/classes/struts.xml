@@ -236,5 +236,32 @@
 				<param name="root">errorMessage</param>
 			</result>
 		</action>
+		
+		<action name="deleteEmployeeInShop" class="shopDetailController" method="deleteEmployeeInShop">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
+		
+		<action name="listProduct" class="shopDetailController" method="listProduct">
+			<result name="success">/WEB-INF/template/shop/product_list.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="listEmployee" class="shopDetailController" method="listEmployee">
+			<result name="success">/WEB-INF/template/shop/employee_list.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="listOrder" class="shopDetailController" method="listOrder">
+			<result name="success">/WEB-INF/template/shop/order_list.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
+		<action name="deleteProductInShop" class="shopDetailController" method="deleteProductInShop">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
 	</package>
 </struts>

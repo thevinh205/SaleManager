@@ -107,10 +107,8 @@ public class ShopDao extends BaseDao{
 		Transaction tx = session.beginTransaction();
 		String sql = "select  rl.count, p from " + ProductTable.class.getName() + " p, " + ShopPartyRelationship.class.getName() + " rl where p.id = rl.productId";
 		if(null == productId || productId.trim().length() == 0)
-			sql += " and p.id in (select rl.productId from " +
-					" rl where rl.type=:type and rl.shopId=:shopId)";
-		else sql += " and p.id in (select rl.productId from " + 
-					" rl where rl.type=:type and rl.shopId=:shopId and rl.productId like :productId)"; 
+			sql += " and rl.type=:type and rl.shopId=:shopId";
+		else sql += " and rl.type=:type and rl.shopId=:shopId and rl.productId like :productId"; 
 		if(null != productName && productName.trim().length() != 0)
 			sql += " and p.name like :productName ";
 		if(null != type && type.trim().length() != 0)
@@ -140,6 +138,40 @@ public class ShopDao extends BaseDao{
 		return listProduct;
 	}
 	
+	/*
+	 * get count product of shop
+	 * get count by field productId, productName, type
+	 */
+	public Long getCountProductOfShop(int shopId, String productId, String productName, String type){
+		try{
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select  count(p) from " + ProductTable.class.getName() + " p, " + ShopPartyRelationship.class.getName() + " rl where p.id = rl.productId";
+			if(null == productId || productId.trim().length() == 0)
+				sql += " and rl.type=:type and rl.shopId=:shopId";
+			else sql += " and rl.type=:type and rl.shopId=:shopId and rl.productId like :productId"; 
+			if(null != productName && productName.trim().length() != 0)
+				sql += " and p.name like :productName ";
+			if(null != type && type.trim().length() != 0)
+				sql += " and p.categoryName = :groupName";
+			Query query = session.createQuery(sql);		
+			query.setParameter("type", "product");
+			query.setParameter("shopId", shopId);
+			if(null != productId && productId.trim().length() != 0)
+				query.setParameter("productId", "%" + productId + "%");
+			if(null != productName && productName.trim().length() != 0)
+				query.setParameter("productName", "%" + productName + "%");
+			if(null != type && type.trim().length() != 0)
+				query.setParameter("groupName", type);
+			Long count = (Long)query.uniqueResult();
+			tx.commit();
+			session.close();
+			return count;
+		}catch (Exception e) {
+			return 0L;
+		}
+	}
+	
 	public List<Member> getlistEmployeeOfShop(int shopId){
 		Session session = getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
@@ -154,8 +186,16 @@ public class ShopDao extends BaseDao{
 		List<Member> listEmployee = new LinkedList<>();
 		if(null != listObject){
 			for(Object[] object : listObject){
-				Member member = (Member)object[1];
+				Member member = new Member();
+				member.setId(((Member)object[1]).getId());
 				member.setPosition((String)object[0]);
+				member.setAddress(((Member)object[1]).getAddress());
+				member.setName(((Member)object[1]).getName());
+				member.setEmail(((Member)object[1]).getEmail());
+				member.setPhoneNumber(((Member)object[1]).getPhoneNumber());
+				member.setLevel(((Member)object[1]).getLevel());
+				member.setGender(((Member)object[1]).getGender());
+				member.setUserName(((Member)object[1]).getUserName());
 				listEmployee.add(member);
 			}
 		}
@@ -182,6 +222,25 @@ public class ShopDao extends BaseDao{
 		return true;
 	}
 	
+	public Boolean checkProductInShop(int shopId, String productId){
+		try{
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select rl from " + ShopPartyRelationship.class.getName() + 
+					" rl where type='product' and shopId=:shopId and productId=:productId";
+			Query query = session.createQuery(sql);
+			query.setParameter("shopId", shopId);
+			query.setParameter("productId", productId);
+			if(null == query.uniqueResult())
+				return false;
+			tx.commit();
+			session.close();
+		}catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
 	public void saveShopParyRelationship(ShopPartyRelationship shopPartyRelationship){
 		Session session = getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
@@ -191,6 +250,33 @@ public class ShopDao extends BaseDao{
 			tx.rollback();
 			e.printStackTrace();
 		}
+		tx.commit();
+		session.close();
+	}
+	
+	public void deleteEmployeeInShop(int shopId, String empUsername, String position){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		String sql = "delete from " + ShopPartyRelationship.class.getName() + 
+				" where shopId=:shopId and memberUserName=:empUsername and position=:position";
+		Query query = session.createQuery(sql);
+		query.setParameter("empUsername", empUsername);
+		query.setParameter("shopId", shopId);
+		query.setParameter("position", position);
+		query.executeUpdate();
+		tx.commit();
+		session.close();
+	}
+	
+	public void deleteProductInShop(int shopId, String productId){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		String sql = "delete from " + ShopPartyRelationship.class.getName() + 
+				" where shopId=:shopId and productId=:productId";
+		Query query = session.createQuery(sql);
+		query.setParameter("shopId", shopId);
+		query.setParameter("productId", productId);
+		query.executeUpdate();
 		tx.commit();
 		session.close();
 	}

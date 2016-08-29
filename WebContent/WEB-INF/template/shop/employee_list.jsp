@@ -21,8 +21,8 @@
 					<th style="text-align: center">Vị trí</th>
 					<th style="text-align: center"></th>
 				</tr>
-				<s:iterator value="employeeList" status="memberRow">
-					<tr id="rowCus<s:property value='userName'/>">
+				<s:iterator value="employeeList" status="memberRow" >
+					<tr id="rowCus<s:property value='#memberRow.index'/>">
 						<td><s:property value="name"/></td>
 						<td><s:property value="email"/></td>
 						<td><s:property value="phoneNumber"/></td>
@@ -31,9 +31,10 @@
 						<td><s:property value="gender"/></td>
 						<td><s:property value="position"/></td>
 						<td>
-						 	<a style="margin-right: 5px" href="/employee/editMember?username=<s:property value='userName'/>">Sửa</a>
+						 	<a style="margin-right: 5px" href="/SaleManager/employee/editEmployee?username=<s:property value='userName'/>" target="_blank">Sửa</a>
 						  |	<a style="margin-left: 5px" href="javascipt:void(0)" data-toggle="modal" 
-						  	   onclick="setDeleteCustomer('<s:property value="userName"/>')" data-target="#myModalDeleteEmp">Xóa</a>
+						  	   onclick="setEmpDelete('<s:property value="userName"/>', '<s:property value="position"/>', 
+						  	   		'<s:property value="name"/>', '<s:property value="#memberRow.index"/>')" data-target="#myModalDeleteEmp">Xóa</a>
 						</td>
 					</tr>
 				</s:iterator>
@@ -49,10 +50,11 @@
 	          <h4 class="modal-title">Xóa nhân viên</h4>
 	        </div>
 	        <div class="modal-body">
-	          <p>Bạn có muốn xóa nhân viên này khỏi shop</p>
+	          <p>Tên nhân viên: <strong id="nameEmpDelete">Vinh</strong></p>
+	          <p>Vị trí: <strong id="positionNameDelete"></strong></p>
 	        </div>
 	        <div class="modal-footer">
-	          <a class="btn btn-default" data-dismiss="modal" href="javascrip:void(0)" onclick="deleteCustomer()">Đồng ý</a>
+	          <a class="btn btn-default" data-dismiss="modal" href="javascrip:void(0)" onclick="deleteEmployeeOfShop()">Đồng ý</a>
 	        </div>
 	      </div>
 	    </div>

@@ -4,31 +4,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 
 <html>
-	<head>
-	    <title>Danh sách sản phẩm</title>
-	</head>
 	<body>
-		<s:include value="/WEB-INF/template/header/header.jsp"></s:include>
-		<s:include value="/WEB-INF/template/product/left_menu.jsp"></s:include>
-		<div class="divContent ">
-			 <div class="headerAddProduct">
-			   		<p class="titleAddProduct">Danh sách sản phẩm</p>
-			 </div> 
-			 <div id=searchCustomer style="margin:10px 0 0 10px; width: calc(100% - 10px)" align="center">
-				<s:if test="errorMessage != null">
-					<p style="color: red" align="center"><s:property value="errorMessage"/></p>
-				</s:if>
-				<form method="POST" action="searchProductList">
-					<strong>Mã sản phẩm:</strong> 
-					<input type="text" name="idProdSearch" value="<s:property value='idProdSearch'/>" style="margin-right:15px"/>
+		<div>
+			<div style="width: calc(100%); float: right;">
+				<p  style="font-size: 20px; font-weight: bold; float:left; margin-left: 20px">Danh sách đơn hàng</p>
+				<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalAddProduct">Thêm dơn hàng</a>
+			</div>
+			
+			 <div id=searchCustomer style="margin:10px 0 0 5px; width: calc(100% - 10px)" align="center">
+				<form method="POST" action="searchProduct">
+					<strong>Mã đơn hàng:</strong> 
+					<input type="text" name="idProdSearch" value="<s:property value='idProdSearch'/>" style="margin-right:10px"/>
 					
 					<strong>Tên sản phẩm:</strong> 
-					<input type="text" name="nameProdSearch" value="<s:property value='nameProdSearch'/>" style="margin-right:15px"/>
+					<input type="text" name="nameProdSearch" value="<s:property value='nameProdSearch'/>" style="margin-right:10px"/>
 					
-					<strong>Loại:</strong> 
+					<strong>Nhóm sản phẩm:</strong> 
 					<select class="btnDropDown" name="groupProduct">
 						<s:iterator value="categoryList" status="category">
-							  <option ><s:property value="name"/></option>
+							  <option><s:property value="name"/></option>
 						</s:iterator>
 					</select>
 					
@@ -42,22 +36,22 @@
 						<th style="text-align: center">Nhóm sản phẩm</th>
 						<th style="text-align: center">Giá mua</th>
 						<th style="text-align: center">Giá bán</th>
-						<th style="text-align: center">Ngày tạo</th>
+						<th style="text-align: center">Số lượng</th>
 						<th style="text-align: center">Hình ảnh</th>
 						<th style="text-align: center"></th>
 					</tr>
 					<s:iterator value="productList" status="product">
 						<tr id="rowPro<s:property value='id'/>">
-							<td><a href="productDetail?productId=<s:property value='id'/>" target="_blank"><s:property value="id"/></a></td>
+							<td><a href="/SaleManager/product/productDetail?productId=<s:property value='id'/>" target="_blank"><s:property value="id"/></a></td>
 							<td><s:property value="productName"/></td>
 							<td><s:property value="categoryName"/></td>
 							<td>
-								<fmt:formatNumber groupingUsed="true" value="${priceBuy}" /> VNĐ
+								<fmt:formatNumber groupingUsed="true" value="${priceBuy}" />  VNĐ							
 							</td>
 							<td>
 								<fmt:formatNumber groupingUsed="true" value="${priceSell}" /> VNĐ
 							</td>
-							<td><s:date name="createDate" format="dd/MM/yyyy" /></td>
+							<td><s:property value="count"/></td>
 							<td>
 								<img src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='avatar'/></s:param></s:url>" style="width:100px; height: 100px"/>
 							</td>
@@ -94,7 +88,7 @@
 			</div>
 		</div>
 		
-		<!-- Modal -->
+		<!-- Modal delete -->
 	  <div class="modal fade" id="myModal" role="dialog">
 	    <div class="modal-dialog modal-sm">
 	      <div class="modal-content">
@@ -111,6 +105,44 @@
 	      </div>
 	    </div>
 	  </div>
+	  
+	  <!-- Modal add new -->
+	  <div class="modal fade" id="modalAddProduct" role="dialog">
+		    <div class="modal-dialog" style="width:380px">
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Thêm sản phẩm tới shop</h4>
+		        </div>
+		        <div class="modal-body">
+		        	<table>
+			        	<tr>
+			        		<td>
+			        			<strong>Mã sản phẩm:</strong> 
+			        		</td>
+			        		<td>
+			        			<input type="text" name="idProdAdd" style="margin-right:15px"/> 	
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Số lượng:</strong> 
+			        		</td>
+			        		<td>
+			        			<input type="number" name="countProduct" style="margin-right:15px"/> 	
+			        		</td>
+			        	</tr>
+		        	</table>					
+		        </div>
+		        <div class="modal-footer">
+		          <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal" style="background:red; color:white">Hủy bỏ</button>
+		          <button type="button" class="btn btn-default" style="background:green; color:white" onclick="addProductToShop()">Thêm</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
 	  
 	</body>
 </html>

@@ -10,7 +10,6 @@
 				<p  style="font-size: 20px; font-weight: bold; float:left; margin-left: 20px">Danh sách sản phẩm</p>
 				<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalAddProduct">Thêm mới</a>
 			</div>
-			
 			 <div id=searchCustomer style="margin:10px 0 0 5px; width: calc(100% - 10px)" align="center">
 				<form method="POST" action="searchProduct">
 					<strong>Mã sản phẩm:</strong> 
@@ -22,7 +21,7 @@
 					<strong>Nhóm sản phẩm:</strong> 
 					<select class="btnDropDown" name="groupProduct">
 						<s:iterator value="categoryList" status="category">
-							  <option value="2"><s:property value="name"/></option>
+							  <option><s:property value="name"/></option>
 						</s:iterator>
 					</select>
 					
@@ -56,9 +55,9 @@
 								<img src="<s:url action='ImageAction'><s:param name='imageId'><s:property value='avatar'/></s:param></s:url>" style="width:100px; height: 100px"/>
 							</td>
 							<td>
-							 	<a style="margin-right: 5px" href="editProduct?id=<s:property value='id'/>">Sửa</a>
+							 	<a style="margin-right: 5px" href="/SaleManager/product/editProduct?id=<s:property value='id'/>">Sửa</a>
 							  |	<a style="margin-left: 5px" href="javascipt:void(0)" data-toggle="modal" 
-							  	   onclick="setDeleteProduct('<s:property value="id"/>')" data-target="#myModal">Xóa</a>
+							  	   onclick="setDeleteProdShop('<s:property value="id"/>', '<s:property value="productName"/>')" data-target="#myModal">Xóa</a>
 							</td>
 						</tr>
 					</s:iterator>
@@ -66,23 +65,23 @@
 				
 				<div class="paginator" style="margin: 20px 0 40px 0">
 					<ul class="pagination">
-						<li><a href="productList?page=1">&lt;&lt;</a></li>
-						<s:iterator value="listPage" status="pageItr" var="pageVar">	
+						<li><a href="shopDetail?page=1">&lt;&lt;</a></li>
+						<s:iterator value="listPageProd" status="pageItr" var="pageVar">	
 							<s:if test="#pageVar == '...' ">
 								<li><a href="javascript:void(0)"><s:property/></a></li>
 							</s:if>
 						  	<s:else>
 						  		<li>
 						  			<s:if test="#pageVar == indexPage">
-						  				<a href="productList?page=<s:property/>" class="active"><s:property/></a>
+						  				<a href="shopDetail?page=<s:property/>" class="active"><s:property/></a>
 						  			</s:if>
 							  		<s:else>
-							  			<a href="productList?page=<s:property/>"><s:property/></a>
+							  			<a href="shopDetail?page=<s:property/>"><s:property/></a>
 							  		</s:else>
 						  		</li>
 						  	</s:else>	
 					  	</s:iterator>
-					  	<li><a href="productList?page=<s:property value='totalPage'/>">&gt;&gt;</a></li>
+					  	<li><a href="shopDetail?page=<s:property value='totalPage'/>">&gt;&gt;</a></li>
 					</ul>
 				</div>
 			</div>
@@ -90,17 +89,17 @@
 		
 		<!-- Modal delete -->
 	  <div class="modal fade" id="myModal" role="dialog">
-	    <div class="modal-dialog modal-sm">
+	    <div class="modal-dialog modal-sm" style="width:400px">
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal">&times;</button>
 	          <h4 class="modal-title">Xóa sản phẩm</h4>
 	        </div>
 	        <div class="modal-body">
-	          <p>Bạn có muốn xóa sản phẩm này</p>
+	          <p>Bạn có muốn xóa sản phẩm <strong id="prodNameDelete"></strong></p>
 	        </div>
 	        <div class="modal-footer">
-	          <a class="btn btn-default" data-dismiss="modal" href="javascrip:void(0)" onclick="deleteProduct()">Đồng ý</a>
+	          <a class="btn btn-default" data-dismiss="modal" href="javascrip:void(0)" onclick="deleteProductInShop()">Đồng ý</a>
 	        </div>
 	      </div>
 	    </div>
@@ -116,6 +115,7 @@
 		          <h4 class="modal-title">Thêm sản phẩm tới shop</h4>
 		        </div>
 		        <div class="modal-body">
+		        	<p style="color: red" align="center" id="msgAddProd"></p>
 		        	<table>
 			        	<tr>
 			        		<td>
@@ -130,7 +130,7 @@
 			        			<strong>Số lượng:</strong> 
 			        		</td>
 			        		<td>
-			        			<input type="number" name="countProduct" style="margin-right:15px"/> 	
+			        			<input type="number" name="countProduct" style="margin-right:15px; height:30px"/> 	
 			        		</td>
 			        	</tr>
 		        	</table>					

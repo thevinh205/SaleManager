@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/template/index.jsp=UTF-8
 encoding//WebContent/WEB-INF/template/shop/product_list.jsp=UTF-8
+encoding//src/sale/base/BaseSale.java=UTF-8
 encoding//src/sale/controller/LoginController.java=UTF-8
 encoding//src/sale/controller/employee/EditEmployeeController.java=UTF-8
 encoding//src/sale/controller/employee/EmployeeController.java=UTF-8
