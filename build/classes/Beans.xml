@@ -31,4 +31,6 @@
    </bean>
    
    <bean id="shopDao" class="sale.dao.ShopDao" scope="singleton"/>  
+   
+   <bean id="orderDao" class="sale.dao.OrderDao" scope="singleton"/> 
 </beans>

@@ -168,3 +168,37 @@ function deleteProductInShop(){
 		// TODO: handle exception
 	}
 }
+
+function searchOrder(){
+	try{
+		showIconLoading();
+		var idOrderSearch = $("input[name*='idOrderSearch']");
+		var nameCusSearch = $("input[name*='nameCusSearch']");
+		var nameEmpSearch = $("input[name*='nameEmpSearch']");
+		var startDate = $("input[name*='startDate']");
+		var endDate = $("input[name*='endDate']");
+		var formData = new FormData();
+		formData.append('idOrderSearch', idOrderSearch);
+		formData.append('nameCusSearch', nameCusSearch);
+		formData.append('nameEmpSearch', nameEmpSearch);
+		formData.append('startDate', startDate);
+		formData.append('endDate', endDate);
+		var url = "/SaleManager/shop/searchOrder";
+		$.ajax({	
+		    type: 'POST', 
+		    url: url, 
+		    cache: false,
+		    data: formData,
+		    contentType: false,
+            processData: false,
+		    success: function(data){ 
+		    	hideIconLoading();
+		    	$("div[id*='contentListOrder']").html(data);
+		    },
+		    error: function(XMLHttpRequest, textStatus, errorThrown){
+		    }
+		}); 
+	}catch (e) {
+		// TODO: handle exception
+	}
+}

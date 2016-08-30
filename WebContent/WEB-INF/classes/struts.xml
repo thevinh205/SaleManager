@@ -253,7 +253,7 @@
 			<result name="error" type="redirect">/login</result>
 		</action>
 		
-		<action name="listOrder" class="shopDetailController" method="listOrder">
+		<action name="listOrder" class="shopOrderController" method="listOrder">
 			<result name="success">/WEB-INF/template/shop/order_list.jsp</result>
 			<result name="error" type="redirect">/login</result>
 		</action>
@@ -262,6 +262,10 @@
 			<result type="json">
 				<param name="root">errorMessage</param>
 			</result>
+		</action>
+		
+		<action name="searchOrder" class="shopOrderController" method="searchOrder">
+			<result name="success">/WEB-INF/template/shop/ajax/list_order_search.jsp</result>
 		</action>
 	</package>
 </struts>

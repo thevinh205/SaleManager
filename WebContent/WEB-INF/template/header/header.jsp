@@ -8,13 +8,14 @@
 		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/product.css' />">
 		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/bootstrap.min.css' />">
 		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/simple-sidebar.css' />">
-		
+		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/datepicker.css' />">
 		
 		<script type="text/javascript" src="<s:url value='/resources/js/jquery.min.js' />"></script>
 		<script type="text/javascript" src="<s:url value='/resources/js/bootstrap.min.js' />"></script>
 		<script type="text/javascript" src="<s:url value='/resources/js/common.js' />"></script>
 		<script type="text/javascript" src="<s:url value='/resources/js/nicEdit.js'/>"></script>
 		<script type="text/javascript" src="<s:url value='/resources/js/product.js' />"></script>
+		<script type="text/javascript" src="<s:url value='/resources/js/bootstrap-datepicker.js' />"></script>
 	</head>
 	<body>
 		<div id="loadingIcon"></div>

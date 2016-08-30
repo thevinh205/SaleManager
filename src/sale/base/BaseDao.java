@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import sale.dao.ImageDao;
 import sale.dao.MemberDao;
+import sale.dao.OrderDao;
 import sale.dao.ProductDao;
 import sale.model.Product;
 import sale.table.ProductTable;
@@ -17,6 +18,7 @@ public class BaseDao {
 	private ApplicationContext context; 
 	private ProductDao productDao;
 	private MemberDao memberDao;
+	private OrderDao orderDao;
 	
 	public ApplicationContext getContext(){
 		if(null == context)
@@ -48,6 +50,12 @@ public class BaseDao {
 		if(null == memberDao)
 			memberDao = (MemberDao)getContext().getBean("memberDao");
 		return memberDao;
+	}
+	
+	public OrderDao getOrderDao() {
+		if(null == orderDao)
+			orderDao = (OrderDao)getContext().getBean("orderDao");
+		return orderDao;
 	}
 
 	public Product converToProductView(ProductTable productTable){

@@ -26,16 +26,17 @@
 			  <div class="tab-content">
 			    <div id="contentTab" class="tab-pane fade in active" style="width: 100%">
 			      <s:include value="/WEB-INF/template/shop/product_list.jsp"></s:include>
+			      <s:property value="%{shopOrderController.listOrder"/>
 			    </div>
 			  </div>
 			</div>
 
 			<script>
-			$(document).ready(function(){
-			    $(".nav-tabs a").click(function(){
-			        $(this).tab('show');
-			    });
-			});
+				$(document).ready(function(){
+				    $(".nav-tabs a").click(function(){
+				        $(this).tab('show');
+				    });
+				});
 			</script>
 
 		</div>
