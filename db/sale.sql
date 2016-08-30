@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2016 at 04:36 PM
+-- Generation Time: Aug 30, 2016 at 12:52 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -154,6 +154,32 @@ INSERT INTO `member` (`id`, `username`, `email`, `phone_number`, `name`, `addres
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `order_header`
+--
+
+CREATE TABLE `order_header` (
+  `id` int(10) NOT NULL,
+  `customer_username` varchar(50) NOT NULL,
+  `employee_username` varchar(50) NOT NULL,
+  `shipper_id` int(10) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `create_date` date NOT NULL,
+  `require_date` date NOT NULL,
+  `shipped_date` date NOT NULL,
+  `total_price` bigint(15) NOT NULL,
+  `shop_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_header`
+--
+
+INSERT INTO `order_header` (`id`, `customer_username`, `employee_username`, `shipper_id`, `status`, `create_date`, `require_date`, `shipped_date`, `total_price`, `shop_id`) VALUES
+(1, 'thevinh', 'thuytrang', 1, 'new', '2016-08-30', '2016-08-31', '2016-08-31', 150000, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
@@ -247,10 +273,19 @@ CREATE TABLE `shop_party_relationship` (
 INSERT INTO `shop_party_relationship` (`id`, `shop_id`, `product_id`, `member_userName`, `order_id`, `type`, `create_date`, `count`, `position`) VALUES
 (1, 1, '001', '0', 0, 'product', '2016-08-02', 4, NULL),
 (2, 1, '002', '0', 0, 'product', '2016-08-27', 10, NULL),
-(3, 1, '003', '0', 0, 'product', '2016-08-27', 6, NULL),
-(4, 1, '008', '0', 0, 'product', '2016-08-27', 7, NULL),
 (5, 1, NULL, 'thuytrang', 0, 'employee', '2016-08-04', 0, 'Nhân viên kinh doanh'),
-(8, 1, NULL, 'vinhdeptrai', 0, 'employee', '2016-08-28', 0, 'Nhân viên kinh doanh');
+(8, 1, NULL, 'vinhdeptrai', 0, 'employee', '2016-08-28', 0, 'Nhân viên kinh doanh'),
+(10, 1, NULL, 'thuytrang', 0, 'employee', '2016-08-29', 0, 'Quản lý'),
+(11, 1, '003', NULL, 0, 'product', '2016-08-29', 10, NULL),
+(12, 1, '005', NULL, 0, 'product', '2016-08-29', 2, NULL),
+(13, 1, '006', NULL, 0, 'product', '2016-08-29', 3, NULL),
+(14, 1, '007', NULL, 0, 'product', '2016-08-29', 3, NULL),
+(15, 1, '008', NULL, 0, 'product', '2016-08-29', 12, NULL),
+(16, 1, '009', NULL, 0, 'product', '2016-08-29', 4, NULL),
+(17, 1, '010', NULL, 0, 'product', '2016-08-29', 5, NULL),
+(18, 1, '011', NULL, 0, 'product', '2016-08-29', 2, NULL),
+(19, 1, '013', NULL, 0, 'product', '2016-08-29', 6, NULL),
+(20, 1, '014', NULL, 0, 'product', '2016-08-29', 2, NULL);
 
 --
 -- Indexes for dumped tables
@@ -272,6 +307,12 @@ ALTER TABLE `image`
 -- Indexes for table `member`
 --
 ALTER TABLE `member`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_header`
+--
+ALTER TABLE `order_header`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -312,6 +353,11 @@ ALTER TABLE `image`
 ALTER TABLE `member`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
+-- AUTO_INCREMENT for table `order_header`
+--
+ALTER TABLE `order_header`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
@@ -320,7 +366,7 @@ ALTER TABLE `shop`
 -- AUTO_INCREMENT for table `shop_party_relationship`
 --
 ALTER TABLE `shop_party_relationship`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
