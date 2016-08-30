@@ -1,29 +1,62 @@
-package sale.model;
+package sale.table;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import sale.table.Image;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Product implements Serializable{
+@Entity
+@Table(name="product")
+public class ProductTable implements Serializable{
+	@Id
+	@Column(name="id")
 	private String id;
+	
+	@Column(name="name")
 	private String productName;
+	
+	@Column(name="group_id")
 	private int groupId; //category
+	
+	@Column(name="price_buy")
 	private Long priceBuy;
+	
+	@Column(name="price_sell")
 	private Long priceSell;
+	
+	@Column(name="description")
 	private String description;
+	
+	@Column(name="create_date")
 	private Date createDate;
+	
+	@Column(name="type")
 	private String type;
+	
+	@Column(name="color")
 	private String color;
+	
+	@Column(name="size")
 	private String size;
+	
+	@Column(name="weight")
 	private int weight;
+	
+	@Column(name="style")
 	private String style;
-	private List<Image> images;
+	
+	@Column(name="avatar")
 	private String avatar;
+	
+	@Column(name="status")
 	private String status;
+	
+	@Column(name="category_name")
 	private String categoryName;
-	private Integer count;
 	
 	public String getId() {
 		return id;
@@ -91,14 +124,8 @@ public class Product implements Serializable{
 	public void setStyle(String style) {
 		this.style = style;
 	}
-	public List<Image> getImages() {
-		return images;
-	}
 	public String getAvatar() {
 		return avatar;
-	}
-	public void setImages(List<Image> images) {
-		this.images = images;
 	}
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
@@ -121,10 +148,6 @@ public class Product implements Serializable{
 	public void setPriceSell(Long priceSell) {
 		this.priceSell = priceSell;
 	}
-	public Integer getCount() {
-		return count;
-	}
-	public void setCount(Integer count) {
-		this.count = count;
-	}
+
+	
 }

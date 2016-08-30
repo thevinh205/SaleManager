@@ -19,8 +19,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import sale.base.BaseDao;
-import sale.model.Image;
-import sale.model.Member;
+import sale.table.Image;
+import sale.table.Member;
 import sale.model.Product;
 import sale.util.URLUtil;
 

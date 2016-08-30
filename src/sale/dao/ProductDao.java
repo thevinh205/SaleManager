@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import sale.base.BaseDao;
 import sale.model.CategoryProduct;
-import sale.model.Image;
+import sale.table.Image;
 import sale.model.Product;
 import sale.model.mapper.CategoryProductMapper;
 import sale.model.mapper.ProductMapper;

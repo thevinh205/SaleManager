@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import sale.controller.member.CustomerController;
 import sale.dao.MemberDao;
-import sale.model.Member;
+import sale.table.Member;
 
 public class BaseSale extends ActionSupport implements Serializable{
 	private String actionURL;

@@ -10,7 +10,6 @@ import com.opensymphony.xwork2.ActionContext;
 
 import sale.base.BaseSale;
 import sale.model.CategoryProduct;
-import sale.model.Price;
 import sale.model.Product;
 import sale.util.LookupBean;
 import sale.util.UserUtil;
@@ -71,11 +70,6 @@ public class AddProductController extends BaseSale{
 		else product.setGroupId(0);
 		product.setCreateDate(new Date());
 		product.setPriceBuy(Long.parseLong(buyPrice));
-		List<Price> priceSells = new LinkedList<>();
-		Price priceSell = new Price();
-		priceSell.setPrice(Long.parseLong(sellPrice));
-		priceSells.add(priceSell);
-		product.setListPriceSell(priceSells);
 		product.setStatus("open");
 		product.setDescription(description);
 		product.setAvatar(productId + "_0_thumb." + typeAvatar);

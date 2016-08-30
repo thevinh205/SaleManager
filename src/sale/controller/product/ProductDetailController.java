@@ -10,7 +10,6 @@ import com.opensymphony.xwork2.ActionContext;
 
 import sale.base.BaseSale;
 import sale.model.CategoryProduct;
-import sale.model.Price;
 import sale.model.Product;
 import sale.util.LookupBean;
 import sale.util.UserUtil;

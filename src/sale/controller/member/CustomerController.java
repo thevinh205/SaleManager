@@ -6,7 +6,7 @@ import java.util.*;
 import com.opensymphony.xwork2.util.ValueStack;
 
 import sale.base.BaseSale;
-import sale.model.Member;
+import sale.table.Member;
 import sale.util.LookupBean;
 import sale.util.UserUtil;
 

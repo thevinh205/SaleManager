@@ -12,12 +12,12 @@ import org.hibernate.Transaction;
 import com.sun.org.apache.bcel.internal.generic.ISUB;
 
 import sale.base.BaseDao;
-import sale.model.Image;
-import sale.model.Member;
+import sale.table.Image;
+import sale.table.Member;
 import sale.model.Product;
-import sale.model.ProductTable;
-import sale.model.Shop;
-import sale.model.ShopPartyRelationship;
+import sale.table.ProductTable;
+import sale.table.Shop;
+import sale.table.ShopPartyRelationship;
 import sale.model.ShopView;
 
 public class ShopDao extends BaseDao{

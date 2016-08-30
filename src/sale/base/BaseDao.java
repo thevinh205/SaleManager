@@ -9,7 +9,7 @@ import sale.dao.ImageDao;
 import sale.dao.MemberDao;
 import sale.dao.ProductDao;
 import sale.model.Product;
-import sale.model.ProductTable;
+import sale.table.ProductTable;
 
 public class BaseDao {
 	private SessionFactory factory;

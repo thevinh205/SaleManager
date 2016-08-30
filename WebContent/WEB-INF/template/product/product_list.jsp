@@ -32,7 +32,7 @@
 						</s:iterator>
 					</select>
 					
-					<input type="submit" value="Tìm kiếm" class="btnStyle" onclick="showIconLoading()"/>
+					<input type="submit" value="Tìm kiếm" class="btnStyle" onclick="showIconLoading();"/>
 				</form>
 				
 				<table class="tftable" border="1" style="text-align: center; width:95%">

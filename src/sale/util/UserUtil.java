@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import sale.model.Member;
+import sale.table.Member;
 
 public class UserUtil implements Serializable{
 	private Member member;

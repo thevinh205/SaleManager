@@ -21,10 +21,10 @@
    <property name="hibernate.connection.password">
    </property>
    
-   <mapping class="sale.model.Image"></mapping>
-   <mapping class="sale.model.Member"></mapping>
-   <mapping class="sale.model.Shop"></mapping>
-   <mapping class="sale.model.ProductTable"></mapping>
-   <mapping class="sale.model.ShopPartyRelationship"></mapping>
+   <mapping class="sale.table.Image"></mapping>
+   <mapping class="sale.table.Member"></mapping>
+   <mapping class="sale.table.Shop"></mapping>
+   <mapping class="sale.table.ProductTable"></mapping>
+   <mapping class="sale.table.ShopPartyRelationship"></mapping>
 </session-factory>
 </hibernate-configuration>

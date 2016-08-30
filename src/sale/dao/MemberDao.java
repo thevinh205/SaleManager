@@ -11,7 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import sale.base.BaseDao;
-import sale.model.Member;
+import sale.table.Member;
 
 
 public class MemberDao extends BaseDao{

@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import sale.model.Member;
+import sale.table.Member;
 
 public class MemberMapper implements RowMapper<Member> {
    public Member mapRow(ResultSet rs, int rowNum) throws SQLException {

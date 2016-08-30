@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import sale.base.BaseSale;
-import sale.model.Image;
+import sale.table.Image;
 import sale.model.Product;
 import sale.util.LookupBean;
 import sale.util.URLUtil;

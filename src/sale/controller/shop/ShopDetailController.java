@@ -6,10 +6,10 @@ import java.util.List;
 
 import sale.base.BaseSale;
 import sale.model.CategoryProduct;
-import sale.model.Member;
+import sale.table.Member;
 import sale.model.Product;
-import sale.model.Shop;
-import sale.model.ShopPartyRelationship;
+import sale.table.Shop;
+import sale.table.ShopPartyRelationship;
 import sale.model.ShopView;
 import sale.util.LookupBean;
 import sale.util.UserUtil;
@@ -304,7 +304,7 @@ public class ShopDetailController extends BaseSale{
 		return indexPage;
 	}
 
-	public void setIndexPage(String indexPage) {
-		this.indexPage = indexPage;
+	public int getTotalPage() {
+		return totalPage;
 	}
 }

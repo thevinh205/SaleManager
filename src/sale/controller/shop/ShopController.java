@@ -3,7 +3,7 @@ package sale.controller.shop;
 import java.util.List;
 
 import sale.base.BaseSale;
-import sale.model.Shop;
+import sale.table.Shop;
 import sale.util.LookupBean;
 import sale.util.UserUtil;
 
@@ -18,6 +18,7 @@ public class ShopController extends BaseSale{
 				return ERROR;
 			if(null == listShop)
 				listShop = lookupBean.getShopDao().getListShop();
+			setActionURL(getPath());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -27,7 +28,6 @@ public class ShopController extends BaseSale{
 	public List<Shop> getListShop() {
 		return listShop;
 	}
-
 
 	public void setListShop(List<Shop> listShop) {
 		this.listShop = listShop;

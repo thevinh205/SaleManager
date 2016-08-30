@@ -3,6 +3,9 @@ package sale.model;
 import java.io.Serializable;
 import java.util.List;
 
+import sale.table.Member;
+import sale.table.Shop;
+
 public class ShopView implements Serializable{
 	private int id;
 	private Shop shop;
