@@ -36,6 +36,11 @@ public class ShopController extends BaseSale{
 	public void setUserUtil(UserUtil userUtil) {
 		this.userUtil = userUtil;
 	}
+	
+	public UserUtil getUserUtil() {
+		return userUtil;
+	}
+
 	public void setLookupBean(LookupBean lookupBean) {
 		this.lookupBean = lookupBean;
 	}

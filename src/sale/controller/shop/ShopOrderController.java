@@ -1,5 +1,9 @@
 package sale.controller.shop;
 
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +22,7 @@ public class ShopOrderController extends BaseSale{
 	private String errorMessage;
 	private List<OrderHeader> listOrderHeader;
 	private ShopDetailController shopDetailController;
+	private DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
 	
 	public String listOrder(){
 		if(null == userUtil.getMember())
@@ -36,7 +41,21 @@ public class ShopOrderController extends BaseSale{
 			String endDate = findParam(params, "endDate");
 			ShopView shopView = shopDetailController.getShopView();
 			if(null != shopView){
-				listOrderHeader = lookupBean.getOrderDao().getListOrderHeader(shopView.getId());
+				int orderId = 0;
+				Date dateStart = null;
+				Date dateEnd = null;
+				if(!isBlankOrNull(idOrderSearch))
+					orderId = Integer.parseInt(idOrderSearch);
+				if(!isBlankOrNull(startDate)){
+					java.util.Date date = df.parse(startDate);
+					dateStart = new Date(date.getTime());
+				}
+				if(!isBlankOrNull(endDate)){
+					java.util.Date date = df.parse(endDate);
+					dateEnd = new Date(date.getTime());
+				}
+				listOrderHeader = lookupBean.getOrderDao().searchOrderHeader(shopView.getId(), 
+						orderId, nameCusSearch, nameEmpSearch, dateStart, dateEnd);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -52,6 +71,10 @@ public class ShopOrderController extends BaseSale{
 		this.userUtil = userUtil;
 	}
 	
+	public UserUtil getUserUtil() {
+		return userUtil;
+	}
+
 	public void setLookupBean(LookupBean lookupBean) {
 		this.lookupBean = lookupBean;
 	}

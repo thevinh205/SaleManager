@@ -130,7 +130,11 @@
    		<property name="lookupBean"  ref="lookupBean" />
    </bean>
    
-   <bean id="memberConverter" class="sale.converter.MemberConverter" scope="request">
+   <bean id="memberConverter" class="sale.converter.MemberConverter" scope="prototype">
+   		<property name="lookupBean"  ref="lookupBean" />
+   </bean>
+   
+   <bean id="statusConverter" class="sale.converter.StatusConverter" scope="prototype">
    		<property name="lookupBean"  ref="lookupBean" />
    </bean>
    

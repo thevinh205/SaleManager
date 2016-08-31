@@ -112,5 +112,7 @@ public class EmployeeController extends BaseSale{
 		this.phoneNumberSearch = phoneNumberSearch;
 	}
 	
-	
+	public UserUtil getUserUtil() {
+		return userUtil;
+	}
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2016 at 12:52 PM
+-- Generation Time: Aug 31, 2016 at 01:16 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -149,7 +149,7 @@ INSERT INTO `member` (`id`, `username`, `email`, `phone_number`, `name`, `addres
 (1, 'thevinh', 'thevinh205', '1663810003', 'thế vinh', 'tô ký, quận 12', 1, 'open', '1990-05-19 17:00:00', '2016-07-20 17:00:00', 'Nam', 'thevinh', 'customer', ''),
 (2, 'thuytrang', 'thuytrang@gmail.com', '1656502376', 'Thùy Trang', 'nha trang', 1, 'open', '2016-06-30 17:00:00', '2016-07-22 03:41:05', 'Nữ', 'thuytrang', 'employee', ''),
 (7, 'trangbaby', 'thuytrang@gmail.com', '01656502376', 'Nguyễn Thị Thùy Trang', 'suối cát, cam lâm, khánh hòa', 1, 'open', '2016-06-30 17:00:00', '2016-07-22 06:55:07', '', 'thuytrang', 'customer', ''),
-(13, 'vinhdeptrai', 'nhtvinh@gmail.com', '14325234342', 'Nguyễn Hoàng Thế Vinh', 'sài gòn - nha trang', 1, 'open', '2016-07-31 17:00:00', '2016-08-21 08:13:19', 'Nam', 'thevinh', 'employee', '');
+(13, 'vinhdeptrai', 'nhtvinh@gmail.com', '14325234342', 'Nguyễn Hoàng Thế Vinh', 'sài gòn - nha trang', 1, 'open', '2016-07-31 17:00:00', '2016-08-21 08:13:19', 'Nam', 'thevinh', 'customer', '');
 
 -- --------------------------------------------------------
 
@@ -175,7 +175,8 @@ CREATE TABLE `order_header` (
 --
 
 INSERT INTO `order_header` (`id`, `customer_username`, `employee_username`, `shipper_id`, `status`, `create_date`, `require_date`, `shipped_date`, `total_price`, `shop_id`) VALUES
-(1, 'thevinh', 'thuytrang', 1, 'new', '2016-08-30', '2016-08-31', '2016-08-31', 150000, 1);
+(1, 'thevinh', 'thuytrang', 1, 'new', '2016-08-30', '2016-08-31', '2016-08-31', 150000, 1),
+(2, 'vinhdeptrai', 'thuytrang', 1, 'new', '2016-08-12', '2016-08-18', '2016-08-19', 200000, 1);
 
 -- --------------------------------------------------------
 
@@ -224,6 +225,21 @@ INSERT INTO `product` (`id`, `name`, `group_id`, `description`, `create_date`, `
 ('018', 'test018', 1, 'test', '2016-07-26 14:29:57', NULL, NULL, NULL, 0, NULL, '018_0.jpg', 'open', 'Laptop', 0, 0),
 ('019', 'test 019', 1, 'test 019', '2016-07-26 14:31:28', NULL, NULL, NULL, 0, NULL, '019_0.jpg', 'open', 'Laptop', 0, 0),
 ('020', '123tesst', 1, 'hêh test', '2016-07-26 14:34:39', NULL, NULL, NULL, 0, NULL, '020_0.jpg', 'open', 'Laptop', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shipment`
+--
+
+CREATE TABLE `shipment` (
+  `id` int(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` text,
+  `address` varchar(200) DEFAULT NULL,
+  `phone_number` bigint(20) NOT NULL,
+  `url` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -287,6 +303,32 @@ INSERT INTO `shop_party_relationship` (`id`, `shop_id`, `product_id`, `member_us
 (19, 1, '013', NULL, 0, 'product', '2016-08-29', 6, NULL),
 (20, 1, '014', NULL, 0, 'product', '2016-08-29', 2, NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE `status` (
+  `id` int(5) NOT NULL,
+  `key` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
+  `type` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`id`, `key`, `name`, `description`, `type`) VALUES
+(1, 'new', 'Mới tạo', NULL, 'order'),
+(2, 'handling', 'Đang xử lý', NULL, 'order'),
+(3, 'cancle', 'Hủy bỏ', NULL, 'order'),
+(4, 'finish', 'Hoàn thành', NULL, 'order'),
+(5, 'close', 'Đóng', NULL, 'order'),
+(6, 'reOpen', 'Xử lý lại', NULL, 'order');
+
 --
 -- Indexes for dumped tables
 --
@@ -322,6 +364,12 @@ ALTER TABLE `product`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `shipment`
+--
+ALTER TABLE `shipment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `shop`
 --
 ALTER TABLE `shop`
@@ -331,6 +379,12 @@ ALTER TABLE `shop`
 -- Indexes for table `shop_party_relationship`
 --
 ALTER TABLE `shop_party_relationship`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -356,7 +410,12 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `order_header`
 --
 ALTER TABLE `order_header`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `shipment`
+--
+ALTER TABLE `shipment`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `shop`
 --
@@ -367,6 +426,11 @@ ALTER TABLE `shop`
 --
 ALTER TABLE `shop_party_relationship`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

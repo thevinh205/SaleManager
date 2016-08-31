@@ -172,11 +172,11 @@ function deleteProductInShop(){
 function searchOrder(){
 	try{
 		showIconLoading();
-		var idOrderSearch = $("input[name*='idOrderSearch']");
-		var nameCusSearch = $("input[name*='nameCusSearch']");
-		var nameEmpSearch = $("input[name*='nameEmpSearch']");
-		var startDate = $("input[name*='startDate']");
-		var endDate = $("input[name*='endDate']");
+		var idOrderSearch = $("input[name*='idOrderSearch']").val();
+		var nameCusSearch = $("input[name*='nameCusSearch']").val();
+		var nameEmpSearch = $("input[name*='nameEmpSearch']").val();
+		var startDate = $("input[name*='startDate']").val();
+		var endDate = $("input[name*='endDate']").val();
 		var formData = new FormData();
 		formData.append('idOrderSearch', idOrderSearch);
 		formData.append('nameCusSearch', nameCusSearch);
@@ -192,10 +192,10 @@ function searchOrder(){
 		    contentType: false,
             processData: false,
 		    success: function(data){ 
-		    	hideIconLoading();
 		    	$("div[id*='contentListOrder']").html(data);
 		    },
-		    error: function(XMLHttpRequest, textStatus, errorThrown){
+		    complete:function(data){
+		    	hideIconLoading();
 		    }
 		}); 
 	}catch (e) {

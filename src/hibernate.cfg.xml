@@ -27,5 +27,6 @@
    <mapping class="sale.table.ProductTable"></mapping>
    <mapping class="sale.table.ShopPartyRelationship"></mapping>
    <mapping class="sale.table.OrderHeader"></mapping>
+   <mapping class="sale.table.Status"></mapping>
 </session-factory>
 </hibernate-configuration>

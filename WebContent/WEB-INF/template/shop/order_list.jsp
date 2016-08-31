@@ -20,7 +20,7 @@
 			</div>
 			
 			 <div id=searchCustomer style="margin:10px 0 0 5px; width: calc(100% - 10px)" align="center">
-				<form >
+				<form>
 					<table>
 						<tr>
 							<td>
@@ -52,16 +52,16 @@
 								<strong>Từ ngày:</strong>
 							</td>
 							<td>
-								<input type="text" id="datepicker" name="startDate">
+								<input type="text" id="datepicker" name="startDate" placeholder="dd/mm/yyyy" style="text-align:center">
 							</td>
 							<td>
 								<strong>Đến ngày:</strong>
 							</td>
 							<td>
-								<input type="text" id="datepicker" name="endDate">
+								<input type="text" id="datepicker" name="endDate" placeholder="dd/mm/yyyy" style="text-align:center">
 							</td>
 							<td>
-								<input type="button" value="Tìm kiếm" class="btnStyle" onclick="searchOrder()"/>
+								<input type="submit" value="Tìm kiếm" class="btnStyle" onclick="searchOrder(); return false"/>
 							</td>
 						</tr>
 					</table>

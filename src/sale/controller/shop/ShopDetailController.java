@@ -262,6 +262,12 @@ public class ShopDetailController extends BaseSale{
 	}
 
 	public ShopView getShopView() {
+		String shopId = findParam("shopId");
+		if(!isBlankOrNull(shopId) && (null == shopView || shopView.getId() != Integer.parseInt(shopId))){
+			shopView = lookupBean.getShopDao().getShop(Integer.parseInt(shopId));
+			productList = null;
+			employeeList  = null;
+		}
 		return shopView;
 	}
 
@@ -307,4 +313,9 @@ public class ShopDetailController extends BaseSale{
 	public int getTotalPage() {
 		return totalPage;
 	}
+
+	public UserUtil getUserUtil() {
+		return userUtil;
+	}
+	
 }

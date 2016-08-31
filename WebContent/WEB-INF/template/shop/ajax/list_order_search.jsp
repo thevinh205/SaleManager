@@ -20,7 +20,7 @@
 				<tr id="rowPro<s:property value='id'/>">
 					<td><s:property value="id"/></td>
 					<td>
-						<s:bean name="sale.converter.MemberConverter" var="converter">
+						<s:bean name="memberConverter" var="converter">
 							<s:param name="memberUsername"><s:property value="customerUsername"/></s:param>
 							<s:property value="memberName" />
 						</s:bean>
@@ -39,7 +39,11 @@
 					</td>
 					<td>ShipChung</td>
 					<td>
-						<s:property value="status"/>	
+						<s:bean name="statusConverter" var="converter">
+							<s:param name="statusKey"><s:property value="status"/></s:param>
+							<s:param name="type">order</s:param>
+							<s:property value="statusName" />
+						</s:bean>
 					</td>
 					<td>
 					 	<a style="margin-right: 5px" href="editProduct?id=<s:property value='id'/>">Chi tiết</a>

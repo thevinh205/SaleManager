@@ -251,6 +251,4 @@ public class EditEmployeeController extends BaseSale{
 		this.lookupBean = lookupBean;
 	}
 	
-	
-	
 }

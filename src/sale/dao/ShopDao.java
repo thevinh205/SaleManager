@@ -21,7 +21,7 @@ import sale.table.ShopPartyRelationship;
 import sale.model.ShopView;
 
 public class ShopDao extends BaseDao{
-	private HashMap<Integer, ShopView> shopCache;
+	private HashMap<Integer, ShopView> shopCache = new LinkedHashMap<>();
 	
 	/**
 	 * Get list shop from db and check to put to shop cache
@@ -32,8 +32,7 @@ public class ShopDao extends BaseDao{
 		Transaction tx = session.beginTransaction();
 		String sql = "select s from " + Shop.class.getName() + " s";
 		List<Shop> listShop = (List<Shop>)session.createQuery(sql).list(); 
-		if(null != listShop && null == shopCache){
-			shopCache = new LinkedHashMap<>();
+		if(null != listShop && shopCache.size() == 0){
 			for(Shop shop : listShop){
 				if(!shopCache.containsKey(shop.getId())){
 					ShopView shopView = parseShopView(shop);
@@ -89,6 +88,7 @@ public class ShopDao extends BaseDao{
 			Transaction tx = session.beginTransaction();
 			String sql = "select s from " + Shop.class.getName() + " s where s.id=:id";
 			Query query = session.createQuery(sql);
+			query.setParameter("id", shopId);
 			Shop shop = (Shop)query.uniqueResult();
 			tx.commit();
 			session.close();
