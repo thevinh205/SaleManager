@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2016 at 01:16 PM
+-- Generation Time: Sep 01, 2016 at 11:22 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -241,6 +241,13 @@ CREATE TABLE `shipment` (
   `url` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `shipment`
+--
+
+INSERT INTO `shipment` (`id`, `name`, `description`, `address`, `phone_number`, `url`) VALUES
+(1, 'Shipchung', NULL, 'Lầu 6, tòa nhà Sumikura - 18H Cộng Hòa, P4, Quận Tân Bình, Hồ Chí Minh', 1901, 'https://www.shipchung.vn/');
+
 -- --------------------------------------------------------
 
 --
@@ -415,7 +422,7 @@ ALTER TABLE `order_header`
 -- AUTO_INCREMENT for table `shipment`
 --
 ALTER TABLE `shipment`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `shop`
 --

@@ -138,6 +138,10 @@
    		<property name="lookupBean"  ref="lookupBean" />
    </bean>
    
+   <bean id="shipmentConverter" class="sale.converter.ShipmentConverter" scope="prototype">
+   		<property name="lookupBean"  ref="lookupBean" />
+   </bean>
+   
    <bean id="imageAction" class="sale.servlet.ImageAction" scope="prototype">
    </bean>
    

@@ -78,39 +78,6 @@
 							<th style="text-align: center">Trạng thái</th>
 							<th style="text-align: center"></th>
 						</tr>
-						<s:iterator value="listOrderHeader" status="order">
-							<s:set var="varMbUsername" value="memberUsername" />
-							<tr id="rowPro<s:property value='id'/>">
-								<td><s:property value="id"/></td>
-								<td>
-									<s:bean name="sale.converter.MemberConverter" var="converter">
-										<s:param name="memberUsername"><s:property value="customerUsername"/></s:param>
-										<s:property value="memberName" />
-									</s:bean>
-								</td>
-								<td>
-									<s:bean name="sale.converter.MemberConverter" var="converter">
-										<s:param name="memberUsername"><s:property value="employeeUsername"/></s:param>
-										<s:property value="memberName" />
-									</s:bean>
-								</td>
-								<td>
-									<s:date name="createDate" format="dd/MM/yyyy" />						
-								</td>
-								<td>
-									<fmt:formatNumber groupingUsed="true" value="${totalPrice}" /> VNĐ
-								</td>
-								<td>ShipChung</td>
-								<td>
-									<s:property value="status"/>	
-								</td>
-								<td>
-								 	<a style="margin-right: 5px" href="editProduct?id=<s:property value='id'/>">Chi tiết</a>
-								  |	<a style="margin-left: 5px" href="javascipt:void(0)" data-toggle="modal" 
-								  	   onclick="setDeleteProduct('<s:property value="id"/>')" data-target="#myModal">Xóa</a>
-								</td>
-							</tr>
-						</s:iterator>
 					</table>
 					
 					<div class="paginator" style="margin: 20px 0 40px 0">
@@ -144,10 +111,10 @@
 	      <div class="modal-content">
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal">&times;</button>
-	          <h4 class="modal-title">Xóa sản phẩm</h4>
+	          <h4 class="modal-title">Xóa đơn hàng</h4>
 	        </div>
 	        <div class="modal-body">
-	          <p>Bạn có muốn xóa sản phẩm này</p>
+	          <p>Bạn có muốn xóa đơn hàng này</p>
 	        </div>
 	        <div class="modal-footer">
 	          <a class="btn btn-default" data-dismiss="modal" href="javascrip:void(0)" onclick="deleteProduct()">Đồng ý</a>
@@ -156,38 +123,40 @@
 	    </div>
 	  </div>
 	  
-	  <!-- Modal add new -->
+	  <!-- Modal create order -->
 	  <div class="modal fade" id="modalAddProduct" role="dialog">
-		    <div class="modal-dialog" style="width:380px">
+		    <div class="modal-dialog" style="width:780px">
 		      <!-- Modal content-->
 		      <div class="modal-content">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Thêm sản phẩm tới shop</h4>
+		          <h4 class="modal-title"><strong>Thêm đơn hàng</strong></h4>
 		        </div>
 		        <div class="modal-body">
 		        	<table>
 			        	<tr>
 			        		<td>
-			        			<strong>Mã sản phẩm:</strong> 
+			        			<strong>Khách hàng:</strong> 
 			        		</td>
 			        		<td>
-			        			<input type="text" name="idProdAdd" style="margin-right:15px"/> 	
+			        			<input type="text" name="customerId" style="margin-right:15px; width: 250px"/>  
+			        			<a href="javascript:void(0)">Tạo mới</a>	
 			        		</td>
 			        	</tr>
 			        	<tr>
 			        		<td>
-			        			<strong>Số lượng:</strong> 
+			        			<strong>Địa chỉ giao hàng:</strong> 
 			        		</td>
 			        		<td>
-			        			<input type="number" name="countProduct" style="margin-right:15px"/> 	
+			        			<textarea rows="5" cols="50"></textarea>
 			        		</td>
 			        	</tr>
-		        	</table>					
+		        	</table>
+		        	<p style="margin: 10px 0 0 20px; font-weight: bold;">Danh sách sản phẩm</p>					
 		        </div>
 		        <div class="modal-footer">
 		          <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal" style="background:red; color:white">Hủy bỏ</button>
-		          <button type="button" class="btn btn-default" style="background:green; color:white" onclick="addProductToShop()">Thêm</button>
+		          <button type="button" class="btn btn-default" style="background:green; color:white" onclick="createOrder">Tạo</button>
 		        </div>
 		      </div>
 		      

@@ -7,6 +7,7 @@ import sale.dao.ImageDao;
 import sale.dao.MemberDao;
 import sale.dao.OrderDao;
 import sale.dao.ProductDao;
+import sale.dao.ShipmentDao;
 import sale.dao.ShopDao;
 import sale.dao.StatusDao;
 
@@ -18,6 +19,7 @@ public class LookupBean {
 	private ShopDao shopDao;
 	private OrderDao orderDao;
 	private StatusDao statusDao;
+	private ShipmentDao shipmentDao;
 	
 	public ApplicationContext getContext(){
 		if(null == context)
@@ -60,4 +62,12 @@ public class LookupBean {
 			statusDao = (StatusDao)getContext().getBean("statusDao");
 		return statusDao;
 	}
+
+	public ShipmentDao getShipmentDao() {
+		if(null == shipmentDao)
+			shipmentDao = (ShipmentDao)getContext().getBean("shipmentDao");
+		return shipmentDao;
+	}
+	
+	
 }

@@ -202,3 +202,11 @@ function searchOrder(){
 		// TODO: handle exception
 	}
 }
+
+function createOrder(){
+	try{
+		
+	}catch (e) {
+		// TODO: handle exception
+	}
+}

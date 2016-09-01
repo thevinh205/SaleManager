@@ -26,7 +26,7 @@
 						</s:bean>
 					</td>
 					<td>
-						<s:bean name="sale.converter.MemberConverter" var="converter">
+						<s:bean name="memberConverter" var="converter">
 							<s:param name="memberUsername"><s:property value="employeeUsername"/></s:param>
 							<s:property value="memberName" />
 						</s:bean>
@@ -37,7 +37,12 @@
 					<td>
 						<fmt:formatNumber groupingUsed="true" value="${totalPrice}" /> VNĐ
 					</td>
-					<td>ShipChung</td>
+					<td>
+						<s:bean name="shipmentConverter" var="converter">
+							<s:param name="shipmentId"><s:property value='shipperId'/></s:param>
+							<s:property value="shipmentName" />
+						</s:bean>
+					</td>
 					<td>
 						<s:bean name="statusConverter" var="converter">
 							<s:param name="statusKey"><s:property value="status"/></s:param>

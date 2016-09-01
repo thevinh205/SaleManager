@@ -5,41 +5,63 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import sale.base.BaseDao;
-import sale.table.Status;
+import sale.table.Shipment;
 
 public class ShipmentDao extends BaseDao{
-	private List<Status> listStatusOrder;
-	private HashMap<String, Status> statusOrderHasmap;	
+	private List<Shipment> listShipment;
+	private HashMap<Integer, Shipment> shipmentHashmap = new LinkedHashMap<>();
 	
-	public Status getStatusOrder(String statusKey){
-		if(null == statusOrderHasmap){
-			statusOrderHasmap = new LinkedHashMap<>();
-			for(Status status : getStatusListOrder()){
-				if(!statusOrderHasmap.containsKey(status.getKey()))
-					statusOrderHasmap.put(status.getKey(), status);
+	public Shipment getShipment(int shipmentId){
+		Shipment shipment = shipmentHashmap.get(shipmentId);
+		if(null == shipment){
+			shipment = getShipmentDb(shipmentId);
+			if(null != shipment){
+				shipmentHashmap.put(shipmentId, shipment);
 			}
 		}
-		return statusOrderHasmap.get(statusKey);
+		return shipment;
 	}
 	
-	public List<Status> getStatusListOrder(){
-		if(null == listStatusOrder){
-			listStatusOrder = getStatusListOrderDb();
+	public Shipment getShipmentDb(int shipmentId){
+		try{
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select sm from " + Shipment.class.getName() + " sm where id=:shipmentId";
+			Query query = session.createQuery(sql);
+			query.setParameter("shipmentId", shipmentId);
+			Shipment shipment = (Shipment)query.uniqueResult();
+			tx.commit();
+			session.close();
+			return shipment;
+		}catch (Exception e) {
+			return null;
 		}
-		return listStatusOrder;
 	}
 	
-	public List<Status> getStatusListOrderDb(){
+	public List<Shipment> getListShipment(){
+		if(null == listShipment){
+			listShipment = getListShipmentDb();
+			for(Shipment shipment : listShipment){
+				if(!shipmentHashmap.containsKey(shipment.getId())){
+					shipmentHashmap.put(shipment.getId(), shipment);
+				}
+			}
+		}
+		return listShipment;
+	}
+	
+	public List<Shipment> getListShipmentDb(){
 		Session session = getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		String sql = "select st from " + Status.class.getName() + " st where type='order'";
-		List<Status> listStatus = session.createQuery(sql).list();
+		String sql = "select sm from " + Shipment.class.getName() + " sm ";
+		List<Shipment> listShipment = session.createQuery(sql).list();
 		tx.commit();
 		session.close();
-		return listStatus;
+		return listShipment;
 	}
 }
