@@ -4,11 +4,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/main.css' />">
-		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/product.css' />">
-		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/bootstrap.min.css' />">
-		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/simple-sidebar.css' />">
-		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/datepicker.css' />">
+		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/main.css' />"/>
+		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/product.css' />"/>
+		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/bootstrap.min.css' />"/>
+		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/simple-sidebar.css' />"/>
+		<link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/datepicker.css' />"/>
+		<%-- <link rel="stylesheet" type="text/css" href="<s:url value='/resources/css/jquery-ui.css' />"/> --%>
 		
 		<script type="text/javascript" src="<s:url value='/resources/js/jquery.min.js' />"></script>
 		<script type="text/javascript" src="<s:url value='/resources/js/bootstrap.min.js' />"></script>
@@ -16,6 +17,7 @@
 		<script type="text/javascript" src="<s:url value='/resources/js/nicEdit.js'/>"></script>
 		<script type="text/javascript" src="<s:url value='/resources/js/product.js' />"></script>
 		<script type="text/javascript" src="<s:url value='/resources/js/bootstrap-datepicker.js' />"></script>
+		<%-- <script type="text/javascript" src="<s:url value='/resources/js/jquery-ui.js' />"></script> --%>
 	</head>
 	<body>
 		<div id="loadingIcon"></div>
@@ -25,6 +27,7 @@
 					<img style="width:40px" src="<s:url value='/resources/images/home.png' />"></img>
 				</a>
 			</div>
+			
 			<div style="float:right; margin: 13px 30px 0 0">
 				<a href="javascript:void(0)" style="color:white"><s:property value="userUtil.member.name"/></a>
 				<div class="dropdownMember">
@@ -36,6 +39,10 @@
 				  	</div>
 				</div>
 			</div>
+		</div>
+		
+		<div id="divNotiMessage" class="notificationMessage">
+			<span id="notificationText"><span>
 		</div>
 	</body>
 </html>

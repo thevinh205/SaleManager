@@ -203,3 +203,16 @@ ul{
     height: 30px;
 }
 
+.notificationMessage{
+	position:fixed; 
+	left: 45%; 
+	top:10px;
+	padding: 5px 30px 5px 30px;
+	background-color: #0d8a2d;
+	color: white;
+	font-weight: bold;
+	font-size: 17px;
+	display: none;
+	border-radius: 5px;
+}
+

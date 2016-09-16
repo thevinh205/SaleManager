@@ -110,7 +110,7 @@ public class ShopDao extends BaseDao{
 			sql += " and rl.type=:type and rl.shopId=:shopId";
 		else sql += " and rl.type=:type and rl.shopId=:shopId and rl.productId like :productId"; 
 		if(null != productName && productName.trim().length() != 0)
-			sql += " and p.name like :productName ";
+			sql += " and p.productName like :productName ";
 		if(null != type && type.trim().length() != 0)
 			sql += " and p.categoryName = :groupName";
 		Query query = session.createQuery(sql);		

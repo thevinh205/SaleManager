@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2016 at 11:22 AM
+-- Generation Time: Sep 16, 2016 at 12:34 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -73,14 +73,9 @@ INSERT INTO `image` (`id`, `url`, `parent`, `type`, `create_date`, `party_id`, `
 (119, '001_1.jpg', '001', 'product', '2016-08-14 06:58:13', 0, '001_1_thumb.jpg'),
 (120, '001_2.jpg', '001', 'product', '2016-08-14 06:58:14', 0, '001_2_thumb.jpg'),
 (121, '005_0.jpg', '005', 'product', '2016-08-14 06:58:30', 0, '005_0_thumb.jpg'),
-(122, '005_1.jpg', '005', 'product', '2016-08-14 06:58:31', 0, '005_1_thumb.jpg'),
-(123, '005_2.jpg', '005', 'product', '2016-08-14 06:58:31', 0, '005_2_thumb.jpg'),
-(124, '005_3.jpg', '005', 'product', '2016-08-14 06:58:31', 0, '005_3_thumb.jpg'),
 (125, '006_0.jpg', '006', 'product', '2016-08-14 06:58:49', 0, '006_0_thumb.jpg'),
 (126, '006_1.jpg', '006', 'product', '2016-08-14 06:58:50', 0, '006_1_thumb.jpg'),
 (127, '006_2.jpg', '006', 'product', '2016-08-14 06:58:50', 0, '006_2_thumb.jpg'),
-(128, '006_3.jpg', '006', 'product', '2016-08-14 06:58:51', 0, '006_3_thumb.jpg'),
-(129, '006_4.jpg', '006', 'product', '2016-08-14 06:58:51', 0, '006_4_thumb.jpg'),
 (130, '007_0.jpg', '007', 'product', '2016-08-14 06:59:08', 0, '007_0_thumb.jpg'),
 (131, '007_1.jpg', '007', 'product', '2016-08-14 06:59:09', 0, '007_1_thumb.jpg'),
 (132, '007_2.jpg', '007', 'product', '2016-08-14 06:59:09', 0, '007_2_thumb.jpg'),
@@ -146,7 +141,7 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`id`, `username`, `email`, `phone_number`, `name`, `address`, `level`, `state`, `birthday`, `create_date`, `gender`, `password`, `role`, `position`) VALUES
-(1, 'thevinh', 'thevinh205', '1663810003', 'thế vinh', 'tô ký, quận 12', 1, 'open', '1990-05-19 17:00:00', '2016-07-20 17:00:00', 'Nam', 'thevinh', 'customer', ''),
+(1, 'thevinh', 'thevinh205', '01663810003', 'thế vinh', 'tô ký, quận 12', 1, 'open', '1990-05-19 17:00:00', '2016-07-20 17:00:00', 'Nam', 'thevinh', 'customer', ''),
 (2, 'thuytrang', 'thuytrang@gmail.com', '1656502376', 'Thùy Trang', 'nha trang', 1, 'open', '2016-06-30 17:00:00', '2016-07-22 03:41:05', 'Nữ', 'thuytrang', 'employee', ''),
 (7, 'trangbaby', 'thuytrang@gmail.com', '01656502376', 'Nguyễn Thị Thùy Trang', 'suối cát, cam lâm, khánh hòa', 1, 'open', '2016-06-30 17:00:00', '2016-07-22 06:55:07', '', 'thuytrang', 'customer', ''),
 (13, 'vinhdeptrai', 'nhtvinh@gmail.com', '14325234342', 'Nguyễn Hoàng Thế Vinh', 'sài gòn - nha trang', 1, 'open', '2016-07-31 17:00:00', '2016-08-21 08:13:19', 'Nam', 'thevinh', 'customer', '');
@@ -165,7 +160,7 @@ CREATE TABLE `order_header` (
   `status` varchar(20) NOT NULL,
   `create_date` date NOT NULL,
   `require_date` date NOT NULL,
-  `shipped_date` date NOT NULL,
+  `shipped_date` date DEFAULT NULL,
   `total_price` bigint(15) NOT NULL,
   `shop_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -176,7 +171,32 @@ CREATE TABLE `order_header` (
 
 INSERT INTO `order_header` (`id`, `customer_username`, `employee_username`, `shipper_id`, `status`, `create_date`, `require_date`, `shipped_date`, `total_price`, `shop_id`) VALUES
 (1, 'thevinh', 'thuytrang', 1, 'new', '2016-08-30', '2016-08-31', '2016-08-31', 150000, 1),
-(2, 'vinhdeptrai', 'thuytrang', 1, 'new', '2016-08-12', '2016-08-18', '2016-08-19', 200000, 1);
+(2, 'vinhdeptrai', 'thuytrang', 1, 'new', '2016-08-12', '2016-08-18', '2016-08-19', 200000, 1),
+(3, 'thevinh', 'thevinh', 1, 'new', '2016-09-16', '2016-09-16', NULL, 50000000, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_party_relationship`
+--
+
+CREATE TABLE `order_party_relationship` (
+  `id` int(10) NOT NULL,
+  `shop_id` int(10) NOT NULL,
+  `order_id` int(10) NOT NULL,
+  `product_id` varchar(20) NOT NULL,
+  `count` int(10) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `create_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_party_relationship`
+--
+
+INSERT INTO `order_party_relationship` (`id`, `shop_id`, `order_id`, `product_id`, `count`, `status`, `create_date`) VALUES
+(1, 1, 3, '002', 1, 'open', '2016-09-16'),
+(2, 1, 3, '001', 1, 'open', '2016-09-16');
 
 -- --------------------------------------------------------
 
@@ -209,7 +229,7 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `name`, `group_id`, `description`, `create_date`, `type`, `color`, `size`, `weight`, `style`, `avatar`, `status`, `category_name`, `price_buy`, `price_sell`) VALUES
 ('001', 'test001', 1, 'GrabPay - Tính năng thanh toán bằng thẻ qua ứng dụng Grab cho 2 dịch vụ GrabCar và GrabBike vừa mới ra mắt chưa lâu. Có lẽ vì vậy mà nhiều bạn vẫn chưa biết cách làm sao để nhập thông tin thẻ vào GrabPay, nhân đây Grab hướng dẫn bạn qua 4 bước đơn giản sau nha:✅ Bước 1: Chọn biểu tượng ba dấu gạch ngang ở góc trên cùng bên trái ứng dụng✅ Bước 2: Chọn GrabPay ✅ Bước 3: Chọn Thêm thẻ tín dụng/Thẻ ghi nợ (hoặc Add Credit/Debit Card)', '2016-08-14 09:00:01', NULL, NULL, NULL, 0, NULL, '001_0_thumb.jpg', 'open', 'Laptop', 1000000, 20000000),
 ('002', 'ngon', 1, 'When the question is specific, it makes sense for the answer to be specific.<div><br></div><div>&nbsp;As for NumberFormat.getInstance potentially not returning DecimalFormat - yes, that''s a possibility.&nbsp;</div><div><br></div><div>I''m not sure the best way round that, to be honest; the API isn''t particularly useful there :(</div>', '2016-08-14 09:13:17', NULL, NULL, NULL, 0, NULL, '002_0_thumb.jpg', 'open', 'Laptop', 10000000, 30000000),
-('003', 'sản phẩm ngon', 1, 'I haven''t bothered&nbsp;<div><br></div><div>with&nbsp;locales since you specifically&nbsp;</div><div><br></div><div>stated you wanted commas				            </div>', '2016-08-14 09:12:45', NULL, NULL, NULL, 0, NULL, '003_0_thumb.jpg', 'open', 'Laptop', 2222222, 4444444),
+('003', 'sản phẩm ngon', 1, 'I haven''t bothered&nbsp;<div><br></div><div>with&nbsp;locales since you specifically&nbsp;</div><div><br></div><div>stated you wanted commas				            </div>', '2016-09-16 08:41:10', NULL, NULL, NULL, 0, NULL, '003_0_thumb.png', 'open', 'Laptop', 2222222, 4444444),
 ('005', 'điện thoại samsung', 1, 'test 10', '2016-08-14 08:39:36', NULL, NULL, NULL, 0, NULL, '005_0_thumb.jpg', 'open', 'Laptop', 2132132, 1234567),
 ('006', 'iphone 6', 1, '<p>điện thoại iphone 6 trung quốc chính hãng</p>\r\n', '2016-08-14 06:40:32', NULL, NULL, NULL, 0, NULL, '006_0_thumb.jpg', 'open', 'Laptop', 0, 0),
 ('007', 'macbook', 1, 'máy tính macbook giá rẻ', '2016-08-14 06:59:10', NULL, NULL, NULL, 0, NULL, '007_0_thumb.jpg', 'open', 'Laptop', 0, 0),
@@ -365,6 +385,12 @@ ALTER TABLE `order_header`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `order_party_relationship`
+--
+ALTER TABLE `order_party_relationship`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
@@ -417,6 +443,11 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `order_header`
 --
 ALTER TABLE `order_header`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `order_party_relationship`
+--
+ALTER TABLE `order_party_relationship`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `shipment`

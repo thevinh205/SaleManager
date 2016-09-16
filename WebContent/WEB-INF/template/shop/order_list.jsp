@@ -16,7 +16,9 @@
 		<div>
 			<div style="width: calc(100%); float: right;">
 				<p  style="font-size: 20px; font-weight: bold; float:left; margin-left: 20px">Danh sách đơn hàng</p>
-				<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalAddProduct">Thêm đơn hàng</a>
+				<s:if test="userUtil.member.role=='employee'">
+					<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalCreateOrder">Thêm đơn hàng</a>
+				</s:if>
 			</div>
 			
 			 <div id=searchCustomer style="margin:10px 0 0 5px; width: calc(100% - 10px)" align="center">
@@ -124,23 +126,39 @@
 	  </div>
 	  
 	  <!-- Modal create order -->
-	  <div class="modal fade" id="modalAddProduct" role="dialog">
+	  <div class="modal fade" id="modalCreateOrder" role="dialog">
 		    <div class="modal-dialog" style="width:780px">
 		      <!-- Modal content-->
 		      <div class="modal-content">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title"><strong>Thêm đơn hàng</strong></h4>
+		          <h4 class="modal-title"><strong>Tạo đơn hàng</strong></h4>
 		        </div>
 		        <div class="modal-body">
-		        	<table>
+		        	<p style="color: red; display:none" align="center" id="errorCreateOrder"></p>
+		        	<table style="width:100%">
 			        	<tr>
 			        		<td>
-			        			<strong>Khách hàng:</strong> 
+			        			<strong>Tên khách hàng:</strong> 
 			        		</td>
 			        		<td>
-			        			<input type="text" name="customerId" style="margin-right:15px; width: 250px"/>  
-			        			<a href="javascript:void(0)">Tạo mới</a>	
+			        			<input type="text" name="customerName" style="margin-right:15px; width: 250px"/>  <span style="color:red">(*)</span>
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Địa chỉ email:</strong> 
+			        		</td>
+			        		<td>
+			        			<input type="text" name="cusEmail" style="margin-right:15px; width: 250px"/>  
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Số điện thoại:</strong> 
+			        		</td>
+			        		<td>
+			        			<input type="text" name="cusPhoneNumber" style="margin-right:15px; width: 250px"/> <span style="color:red">(*)</span> 
 			        		</td>
 			        	</tr>
 			        	<tr>
@@ -148,15 +166,160 @@
 			        			<strong>Địa chỉ giao hàng:</strong> 
 			        		</td>
 			        		<td>
-			        			<textarea rows="5" cols="50"></textarea>
+			        			<textarea rows="4" cols="50" name="cusAddress"></textarea> <span style="color:red; position: absolute; margin: 20px 0 0 20px">(*)</span>
 			        		</td>
 			        	</tr>
-		        	</table>
-		        	<p style="margin: 10px 0 0 20px; font-weight: bold;">Danh sách sản phẩm</p>					
+			        	<tr>
+			        		<td>
+			        			<strong>Nhà vận chuyển:</strong> 
+			        		</td>
+			        		<td>
+			        		
+			        		<s:bean name="shopDetailController" var="shopDetail">
+							</s:bean>
+				        		<select class="btnDropDown" name="shipperId">
+									<s:iterator value="#shopDetail.listShipment" status="shipment">
+										  <option value="<s:property value='id'/>"><s:property value="name"/></option>
+									</s:iterator>
+								</select>
+								<span style="color:red; margin-left:20px">(*)</span> 
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Danh sách sản phẩm:</strong> 
+			        		</td>
+			        		<td>
+			        			<a href="javascript:void(0)"  data-toggle="modal" data-target="#modalAddProduct">Thêm</a>
+			        		</td>
+			        	</tr>
+			        	</tr>
+			        		<td colspan="2">
+				        		<div id="popupTableListProdOrder">
+				        			<table class="tftable" border="1" style="text-align: center; width:720px">
+										<tr >
+											<th style="text-align: center; width: 10%">Mã sản phẩm</th>
+											<th style="text-align: center; width: 20%">Tên sản phẩm</th>
+											<th style="text-align: center; width: 10%">Loại</th>
+											<th style="text-align: center; width: 10%">Màu sắc</th>
+											<th style="text-align: center; width: 10%">Kích thước</th>
+											<th style="text-align: center; width: 10%">Số lượng</th>
+											<th style="text-align: center; width: 10%">Hình ảnh</th>
+											<th style="text-align: center; width: 15%">Giá thành</th>
+											<th style="text-align: center; width: 5%"></th>
+										</tr>
+									</table>
+								</div>
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Tổng tiền hàng:</strong> 
+			        		</td>
+			        		<td>
+			        			<span id="productMoney">0</span> VNĐ
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Tiền vận chuyển:</strong> 
+			        		</td>
+			        		<td>
+			        			<span id="feeShipment">0</span> VNĐ
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Tổng tiền:</strong> 
+			        		</td>
+			        		<td>
+			        			<span id="totalMoney">0</span> VNĐ
+			        		</td>
+			        	</tr>
+		        	</table>				
 		        </div>
 		        <div class="modal-footer">
 		          <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal" style="background:red; color:white">Hủy bỏ</button>
-		          <button type="button" class="btn btn-default" style="background:green; color:white" onclick="createOrder">Tạo</button>
+		          <button type="button" class="btn btn-default" style="background:green; color:white" onclick="createOrder()">Tạo</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		  
+		  
+		  <!-- Modal add new product -->
+	  	<div class="modal fade" id="modalAddProduct" role="dialog">
+		    <div class="modal-dialog" style="width:880px">
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Thêm sản phẩm</h4>
+		        </div>
+		        <div class="modal-body">
+		        	<p style="color: red" align="center" id="msgAddProd"></p>
+		        	<table style="width:100%" id="listSearchProduct">
+			        	<tr>
+			        		<td>
+			        			<strong>Mã sản phẩm:</strong> 
+			        		</td>
+			        		<td>
+			        			<input type="text" name="idProdSearch" style="margin-right:15px"/> 	
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Tên sản phẩm:</strong> 
+			        		</td>
+			        		<td>
+			        			<input type="text" name="nameProdSearch" style="margin-right:15px"/> 	
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Nhóm sản phẩm:</strong> 
+			        		</td>
+			        		<td>
+			        			<select class="btnDropDown" name="groupProductSearch">
+			        				<option value="">Tất cả</option>
+									<s:iterator value="categoryList" status="category">
+										  <option><s:property value="name"/></option>
+									</s:iterator>
+								</select>
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td></td>
+			        		<td>
+			        			<button type="button" class="btn btn-default" style="background:green; color:white" onclick="searchProductAdd()">Tìm kiếm</button>
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="2">
+			        		<div id="idTableProdSearch">
+			        			<table class="tftable" border="1" style="text-align: center; width:95%">
+									<tr >
+										<th style="text-align: center">Mã sản phẩm</th>
+										<th style="text-align: center">Tên sản phẩm</th>
+										<th style="text-align: center">Loại</th>
+										<th style="text-align: center">Màu sắc</th>
+										<th style="text-align: center">Kích thước</th>
+										<th style="text-align: center">Số lượng</th>
+										<th style="text-align: center">Hình ảnh</th>
+										<th style="text-align: center">Giá thành</th>
+										<th style="text-align: center"></th>
+									</tr>
+								</table>
+								</div>
+								
+			        		</td>
+			        	</tr>
+		        	</table>					
+		        </div>
+		        <div class="modal-footer">
+		          <button id="btnCancelAddProd" type="button" class="btn btn-default" data-dismiss="modal" style="background:red; color:white">Hủy bỏ</button>
+		          <button type="button" class="btn btn-default" style="background:green; color:white" onclick="addProductToShop()">Thêm</button>
 		        </div>
 		      </div>
 		      

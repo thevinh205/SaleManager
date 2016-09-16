@@ -29,5 +29,6 @@
    <mapping class="sale.table.OrderHeader"></mapping>
    <mapping class="sale.table.Status"></mapping>
    <mapping class="sale.table.Shipment"></mapping>
+   <mapping class="sale.table.OrderPartyRelationship"></mapping>
 </session-factory>
 </hibernate-configuration>

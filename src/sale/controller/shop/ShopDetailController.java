@@ -7,6 +7,7 @@ import java.util.List;
 import sale.base.BaseSale;
 import sale.model.CategoryProduct;
 import sale.table.Member;
+import sale.table.Shipment;
 import sale.model.Product;
 import sale.table.Shop;
 import sale.table.ShopPartyRelationship;
@@ -29,6 +30,7 @@ public class ShopDetailController extends BaseSale{
 	private List<String> listPageProd;
 	private String indexPage = "1";
 	private int totalPage;
+	private List<Shipment> listShipment;
 	
 	public String shopDetail(){
 		try{
@@ -235,6 +237,20 @@ public class ShopDetailController extends BaseSale{
 			e.printStackTrace();
 		}
 		return SUCCESS;
+	}
+	
+	public List<Shipment> getListShipment() {
+		try{
+			if(null == listShipment)
+				listShipment = lookupBean.getShipmentDao().getListShipment();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listShipment;
+	}
+
+	public void setListShipment(List<Shipment> listShipment) {
+		this.listShipment = listShipment;
 	}
 
 	public String getIdProdSearch() {

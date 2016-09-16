@@ -10,6 +10,9 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 
 import sale.base.BaseSale;
+import sale.controller.product.CategoryProductController;
+import sale.model.CategoryProduct;
+import sale.model.Product;
 import sale.model.ShopView;
 import sale.table.Member;
 import sale.table.OrderHeader;
@@ -23,6 +26,9 @@ public class ShopOrderController extends BaseSale{
 	private List<OrderHeader> listOrderHeader;
 	private ShopDetailController shopDetailController;
 	private DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
+	private List<CategoryProduct> categoryList;
+	private CategoryProductController categoryProductController;
+	
 	
 	public String listOrder(){
 		if(null == userUtil.getMember())
@@ -63,6 +69,11 @@ public class ShopOrderController extends BaseSale{
 		return SUCCESS;
 	}
 	
+	public List<CategoryProduct> getCategoryList() {
+		categoryList = categoryProductController.getListCategoryActive();
+		return categoryList;
+	}
+
 	public List<OrderHeader> getListOrderHeader() {
 		return listOrderHeader;
 	}
@@ -85,5 +96,9 @@ public class ShopOrderController extends BaseSale{
 
 	public void setShopDetailController(ShopDetailController shopDetailController) {
 		this.shopDetailController = shopDetailController;
+	}
+	
+	public void setCategoryProductController(CategoryProductController categoryProductController) {
+		this.categoryProductController = categoryProductController;
 	}
 }

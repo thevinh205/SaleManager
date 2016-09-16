@@ -192,4 +192,20 @@ public class MemberDao extends BaseDao{
 		session.close();
 		reloadMember(member.getUserName());
 	}
+	
+	public Member getMemberByPhoneNumber(String phoneNumber){
+		try{
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select m from " + Member.class.getName() + " m where phoneNumber = :phoneNumber";
+			Query query = session.createQuery(sql);
+			query.setParameter("phoneNumber", phoneNumber);
+			Member member = (Member)query.uniqueResult();
+			tx.commit();
+			session.close();
+			return member;
+		}catch (Exception e) {
+			return null;
+		}
+	}
 }

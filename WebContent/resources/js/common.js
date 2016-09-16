@@ -47,6 +47,12 @@ $("#menu-toggle").click(function(e) {
     $("#wrapper").toggleClass("toggled-2");
     $('#menu ul').hide();
 });
+ 
+ function addCommas(x) {
+	    var parts = x.toString().split(".");
+	    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	    return parts.join(".");
+}
 
  function initMenu() {
   $('#menu ul').hide();
@@ -120,4 +126,13 @@ function showIconLoading(){
 
 function hideIconLoading(){
 	$("#loadingIcon").hide();
+}
+
+function notifyMessage(message){
+	try{
+		$("span[id*='notificationText']").text(message);
+		$("div[id*='divNotiMessage']").show(300).delay(3000).fadeOut(500);
+	}catch (e) {
+		// TODO: handle exception
+	}
 }

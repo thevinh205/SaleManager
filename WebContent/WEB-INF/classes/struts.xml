@@ -267,5 +267,34 @@
 		<action name="searchOrder" class="shopOrderController" method="searchOrder">
 			<result name="success">/WEB-INF/template/shop/ajax/list_order_search.jsp</result>
 		</action>
+		
+		<action name="searchProductOrder" class="searchProductController" method="searchProductOrder">
+			<result name="success">/WEB-INF/template/shop/ajax/list_product_search.jsp</result>
+		</action>
+		
+		<action name="listProductOrderSearch" class="searchProductController" method="listProductOrderSearch">
+			<result name="success">/WEB-INF/template/shop/ajax/list_product_search.jsp</result>
+		</action>
+		
 	</package>
+	
+	<package name="order" extends="struts-default" namespace="/order">
+		<result-types>
+	        <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+	    </result-types>
+	    <interceptors>
+            <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+        </interceptors>	
+        
+        <action name="addProductOrder" class="createOrderController" method="addProductOrder">
+			<result name="success">/WEB-INF/template/shop/ajax/product_ajax.jsp</result>
+		</action>
+		
+		<action name="createOrder" class="createOrderController" method="createOrder">
+			<result type="json">
+				<param name="root">errorMessage</param>
+			</result>
+		</action>
+	</package>
+	
 </struts>

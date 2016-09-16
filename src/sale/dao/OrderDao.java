@@ -8,8 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import sale.base.BaseDao;
+import sale.model.Product;
 import sale.table.Member;
 import sale.table.OrderHeader;
+import sale.table.OrderPartyRelationship;
 
 public class OrderDao extends BaseDao{
 	
@@ -59,7 +61,43 @@ public class OrderDao extends BaseDao{
 			query.setParameter("endDate", endDate);
 		
 		List<OrderHeader> listOrderHeader = query.list();
+		tx.commit();
 		session.close();
 		return listOrderHeader;
+	}
+	
+	public void createOrder(OrderHeader orderHeader, List<OrderPartyRelationship> productList){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		try{
+			//create orderHeader
+			session.save(orderHeader);
+			
+			//create orderPartyRelationship
+			for(OrderPartyRelationship OrderPartyRelationship : productList){
+				session.save(OrderPartyRelationship);
+			}
+			tx.commit();
+		}catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		}
+		session.close();
+	}
+	
+	public int getMaxOrderId(){
+		try{
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select oh.id from " + OrderHeader.class.getName() + " oh order by oh.id desc"; 
+			Query query = session.createQuery(sql);
+			query.setMaxResults(1);
+			int orderIdMax = (Integer)query.uniqueResult();
+			tx.commit();
+			session.close();
+			return orderIdMax;
+		}catch (Exception e) {
+			return 0;
+		}
 	}
 }

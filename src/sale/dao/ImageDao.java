@@ -42,8 +42,13 @@ public class ImageDao extends BaseDao{
 	public void createImage(Image image){
 		 Session session = getSessionFactory().openSession();
 		 Transaction tx = session.beginTransaction();
-		 session.save(image);
-		 tx.commit();
+		 try{
+			 session.save(image);
+			 tx.commit();
+		 }catch (Exception e) {
+			 tx.rollback();
+			 e.printStackTrace();
+		}
 		 session.close();
 	}
 	

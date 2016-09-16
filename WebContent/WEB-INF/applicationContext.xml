@@ -123,6 +123,21 @@
    		<property name="userUtil"  ref="userUtil" />
    		<property name="lookupBean"  ref="lookupBean" />
    		<property name="shopDetailController"  ref="shopDetailController" />
+   		<property name="categoryProductController"  ref="categoryProductController" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="searchProductController" class="sale.controller.product.SearchProductController" scope="request">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<property name="shopDetailController"  ref="shopDetailController" />
+   		<aop:scoped-proxy/>
+   </bean>
+   
+   <bean id="createOrderController" class="sale.controller.order.CreateOrderController" scope="request">
+   		<property name="userUtil"  ref="userUtil" />
+   		<property name="lookupBean"  ref="lookupBean" />
+   		<property name="shopDetailController"  ref="shopDetailController" />
    		<aop:scoped-proxy/>
    </bean>
    
