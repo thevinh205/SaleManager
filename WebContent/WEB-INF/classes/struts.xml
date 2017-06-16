@@ -258,6 +258,11 @@
 			<result name="error" type="redirect">/login</result>
 		</action>
 		
+		<action name="statistic" class="shopDetailController" method="statistic">
+			<result name="success">/WEB-INF/template/shop/statistic.jsp</result>
+			<result name="error" type="redirect">/login</result>
+		</action>
+		
 		<action name="deleteProductInShop" class="shopDetailController" method="deleteProductInShop">
 			<result type="json">
 				<param name="root">errorMessage</param>

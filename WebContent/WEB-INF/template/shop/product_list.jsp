@@ -11,7 +11,7 @@
 				<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalAddProduct">Thêm mới</a>
 			</div>
 			 <div id=searchCustomer style="margin:10px 0 0 5px; width: calc(100% - 10px)" align="center">
-				<form method="POST" action="searchProduct">
+				<form method="POST" action="searchProduct" style="border-bottom: 1px solid #e4e0e0;">
 					<strong>Mã sản phẩm:</strong> 
 					<input type="text" name="idProdSearch" value="<s:property value='idProdSearch'/>" style="margin-right:10px"/>
 					

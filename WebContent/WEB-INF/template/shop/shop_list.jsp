@@ -16,7 +16,7 @@
 		<div class="divContent" style="min-height: calc(100% - 85px); border-bottom: none">
 			<s:iterator value="listShop" status="shop">
 				<div class="divShop">
-					<a href="shopDetail?shopId=<s:property value='id'/>" target="_blank">
+					<a href="shopDetail?shopId=<s:property value='id'/>">
 	                    <div class="sapo_services_item">
 	                    	<img class="imageIconShop" src="<s:url value='/resources/images/cua_hang.png' />"/>
 	                    </div>

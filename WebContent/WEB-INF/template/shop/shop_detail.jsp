@@ -20,7 +20,7 @@
 			    <li class="active"><a href="javascript:void(0)" onclick="changeTab('listProduct')"><strong>Sản phẩm</strong></a></li>
 			    <li><a href="javascript:void(0)" onclick="changeTab('listEmployee')"><strong>Nhân viên</strong></a></li>
 			    <li><a href="javascript:void(0)" onclick="changeTab('listOrder')"><strong>Đơn hàng</strong></a></li>
-			    <li><a href="#statistic"><strong>Thống kê</strong></a></li>
+			    <li><a href="javascript:void(0)" onclick="changeTab('statistic')"><strong>Thống kê</strong></a></li>
 			  </ul>
 			
 			  <div class="tab-content">

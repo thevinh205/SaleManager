@@ -22,7 +22,7 @@
 			</div>
 			
 			 <div id=searchCustomer style="margin:10px 0 0 5px; width: calc(100% - 10px)" align="center">
-				<form>
+				<form style="border-bottom: 1px solid #e4e0e0;">
 					<table>
 						<tr>
 							<td>

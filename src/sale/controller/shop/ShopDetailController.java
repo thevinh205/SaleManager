@@ -143,6 +143,12 @@ public class ShopDetailController extends BaseSale{
 		return SUCCESS;
 	}
 	
+	public String statistic(){
+		if(null == userUtil.getMember())
+			return ERROR;
+		return SUCCESS;
+	}
+	
 	public List<Member> getEmployeeList() {
 		return employeeList;
 	}
