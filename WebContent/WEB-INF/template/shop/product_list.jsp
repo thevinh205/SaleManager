@@ -6,7 +6,7 @@
 <html>
 	<body>
 		<div>
-			<div style="width: calc(100%); float: right;">
+			<div style="width: calc(100%); float: right; border-bottom: 1px solid #e4e0e0;">
 				<p  style="font-size: 20px; font-weight: bold; float:left; margin-left: 20px">Danh sách sản phẩm</p>
 				<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalAddProduct">Thêm mới</a>
 			</div>

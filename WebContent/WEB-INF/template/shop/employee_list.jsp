@@ -5,7 +5,7 @@
 	<body>
 		
 		<div id="listCustomer">
-			<div style="width: calc(100%); float: right; margin: 10px 0 10px 0">
+			<div style="width: calc(100%); float: right; margin: 10px 0 10px 0; border-bottom: 1px solid #e4e0e0;">
 				<p  style="font-size: 20px; font-weight: bold; float:left; margin-left: 20px">Danh sách nhân viên</p>
 				<a style="float: right; margin-right: 20px" href="javascipt:void(0)" data-toggle="modal" data-target="#modalAddEmp">Thêm mới</a>
 			</div>

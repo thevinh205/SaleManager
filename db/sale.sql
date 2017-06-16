@@ -6,7 +6,7 @@
 -- Generation Time: Sep 16, 2016 at 12:34 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
-
+use sale;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
