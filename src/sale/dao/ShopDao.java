@@ -280,4 +280,21 @@ public class ShopDao extends BaseDao{
 		tx.commit();
 		session.close();
 	}
+	
+	public ShopPartyRelationship getShopPartyRelationship(Integer shopId, String productId){
+		try{
+			Session session = getSessionFactory().openSession();
+			Transaction tx = session.beginTransaction();
+			String sql = "select  rl from " + ShopPartyRelationship.class.getName() + " rl where rl.productId=:productId and rl.shopId=:shopId";
+			Query query = session.createQuery(sql);		
+			query.setParameter("shopId",shopId);
+			query.setParameter("productId",productId);
+			ShopPartyRelationship count = (ShopPartyRelationship)query.uniqueResult();
+			tx.commit();
+			session.close();
+			return count;
+		}catch (Exception e) {
+			return null;
+		}
+	}
 }

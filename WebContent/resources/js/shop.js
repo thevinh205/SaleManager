@@ -315,16 +315,12 @@ function addProductOrder(productId){
 			}
 			
 			var priceProductSelect = $("span[id*=priceProductSelect" + productId + "]").text();
-			var productMoney = $("span[id*='productMoney']").text();
 			var totalMoney = $("span[id*='totalMoney']").text();
-			if(priceProductSelect.trim().length>0 && productMoney.trim().length>0 && totalMoney.trim().length>0){
-				priceProductSelect = priceProductSelect.trim().replace(/\,/g, "");
-				productMoney = productMoney.trim().replace(/\,/g, "");
-				totalMoney = totalMoney.trim().replace(/\,/g, "");
+			if(priceProductSelect.trim().length>0 && totalMoney.trim().length>0){
+				priceProductSelect = priceProductSelect.trim().replace(/\,/g, "").replace(/\./g, "");
+				totalMoney = totalMoney.trim().replace(/\,/g, "").replace(/\./g, "");
 				
-				productMoney = parseInt(productMoney) + (parseInt(priceProductSelect) * parseInt(countProduct));
 				totalMoney = parseInt(totalMoney) + (parseInt(priceProductSelect) * parseInt(countProduct));
-				$("span[id*='productMoney']").text(addCommas(productMoney));
 				$("span[id*='totalMoney']").text(addCommas(totalMoney));
 			}
 		}

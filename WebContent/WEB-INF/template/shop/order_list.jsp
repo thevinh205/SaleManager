@@ -136,7 +136,7 @@
 		        </div>
 		        <div class="modal-body">
 		        	<p style="color: red; display:none" align="center" id="errorCreateOrder"></p>
-		        	<table style="width:100%">
+		        	<%-- <table style="width:100%">
 			        	<tr>
 			        		<td>
 			        			<strong>Tên khách hàng:</strong> 
@@ -226,6 +226,44 @@
 			        		</td>
 			        		<td>
 			        			<span id="feeShipment">0</span> VNĐ
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<strong>Tổng tiền:</strong> 
+			        		</td>
+			        		<td>
+			        			<span id="totalMoney">0</span> VNĐ
+			        		</td>
+			        	</tr>
+		        	</table> --%>
+		        	
+		        	<table style="width:100%">
+			        	<tr>
+			        		<td>
+			        			<strong>Danh sách sản phẩm:</strong> 
+			        		</td>
+			        		<td>
+			        			<a href="javascript:void(0)"  data-toggle="modal" data-target="#modalAddProduct">Thêm</a>
+			        		</td>
+			        	</tr>
+			        	</tr>
+			        		<td colspan="2">
+				        		<div id="popupTableListProdOrder">
+				        			<table class="tftable" border="1" style="text-align: center; width:720px">
+										<tr >
+											<th style="text-align: center; width: 10%">Mã sản phẩm</th>
+											<th style="text-align: center; width: 20%">Tên sản phẩm</th>
+											<th style="text-align: center; width: 10%">Loại</th>
+											<th style="text-align: center; width: 10%">Màu sắc</th>
+											<th style="text-align: center; width: 10%">Kích thước</th>
+											<th style="text-align: center; width: 10%">Số lượng</th>
+											<th style="text-align: center; width: 10%">Hình ảnh</th>
+											<th style="text-align: center; width: 15%">Giá thành</th>
+											<th style="text-align: center; width: 5%"></th>
+										</tr>
+									</table>
+								</div>
 			        		</td>
 			        	</tr>
 			        	<tr>

@@ -9,6 +9,7 @@ import sale.dao.ImageDao;
 import sale.dao.MemberDao;
 import sale.dao.OrderDao;
 import sale.dao.ProductDao;
+import sale.dao.ShopDao;
 import sale.model.Product;
 import sale.table.ProductTable;
 
@@ -19,6 +20,7 @@ public class BaseDao {
 	private ProductDao productDao;
 	private MemberDao memberDao;
 	private OrderDao orderDao;
+	private ShopDao shopDao;
 	
 	public ApplicationContext getContext(){
 		if(null == context)
@@ -56,6 +58,12 @@ public class BaseDao {
 		if(null == orderDao)
 			orderDao = (OrderDao)getContext().getBean("orderDao");
 		return orderDao;
+	}
+	
+	public ShopDao getShopDao() {
+		if(null == shopDao)
+			shopDao = (ShopDao)getContext().getBean("shopDao");
+		return shopDao;
 	}
 
 	public Product converToProductView(ProductTable productTable){

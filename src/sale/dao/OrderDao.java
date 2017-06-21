@@ -12,6 +12,7 @@ import sale.model.Product;
 import sale.table.Member;
 import sale.table.OrderHeader;
 import sale.table.OrderPartyRelationship;
+import sale.table.ShopPartyRelationship;
 
 public class OrderDao extends BaseDao{
 	
@@ -74,8 +75,18 @@ public class OrderDao extends BaseDao{
 			session.save(orderHeader);
 			
 			//create orderPartyRelationship
-			for(OrderPartyRelationship OrderPartyRelationship : productList){
-				session.save(OrderPartyRelationship);
+			for(OrderPartyRelationship orderPartyRelationship : productList){
+				session.save(orderPartyRelationship);
+
+				String productId = orderPartyRelationship.getProductId();
+				Integer shopId = orderPartyRelationship.getShopId();
+				
+				ShopPartyRelationship shopPartyRelationship = getShopDao().getShopPartyRelationship(shopId, productId);
+				if(null != shopPartyRelationship) {
+					Integer count  = shopPartyRelationship.getCount() - orderPartyRelationship.getCount();
+					shopPartyRelationship.setCount(count);
+					session.saveOrUpdate(shopPartyRelationship);
+				}
 			}
 			tx.commit();
 		}catch (Exception e) {
@@ -84,6 +95,7 @@ public class OrderDao extends BaseDao{
 		}
 		session.close();
 	}
+	
 	
 	public int getMaxOrderId(){
 		try{

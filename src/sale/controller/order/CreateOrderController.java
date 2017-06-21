@@ -76,24 +76,24 @@ public class CreateOrderController extends BaseSale{
 		ShopView shopView = shopDetailController.getShopView();
 		//create order party relationship
 		String[] listIds = listProdId.split(";");
-		if(listIds.length > 1 && null != shopView){
-			Member member = lookupBean.getMemberDao().getMemberByPhoneNumber(phoneNumber);
-			//create customer
-			if(null == member){
-				member = new Member();
-				member.setUserName(phoneNumber);
-				member.setEmail(email);
-				member.setPhoneNumber(phoneNumber);
-				member.setName(cusName);
-				member.setAddress(address);
-				member.setLevel(1);
-				member.setState("open");
-				member.setBirthDate(new Date());
-				member.setCreateDate(new Date());
-				member.setRole("customer");
-				
-				lookupBean.getMemberDao().registerMember(member, phoneNumber);
-			}
+		if(listIds.length >= 1 && null != shopView){
+//			Member member = lookupBean.getMemberDao().getMemberByPhoneNumber(phoneNumber);
+//			//create customer
+//			if(null == member){
+//				member = new Member();
+//				member.setUserName(phoneNumber);
+//				member.setEmail(email);
+//				member.setPhoneNumber(phoneNumber);
+//				member.setName(cusName);
+//				member.setAddress(address);
+//				member.setLevel(1);
+//				member.setState("open");
+//				member.setBirthDate(new Date());
+//				member.setCreateDate(new Date());
+//				member.setRole("customer");
+//				
+//				lookupBean.getMemberDao().registerMember(member, phoneNumber);
+//			}
 			
 			int orderId = lookupBean.getOrderDao().getMaxOrderId() + 1;
 			List<OrderPartyRelationship> listOrderPartyRelationship = new LinkedList<>();
@@ -120,10 +120,10 @@ public class CreateOrderController extends BaseSale{
 			OrderHeader orderHeader = new OrderHeader();
 			orderHeader.setId(orderId);
 			orderHeader.setCreateDate(new Date());
-			orderHeader.setCustomerUsername(member.getUserName());
+			orderHeader.setCustomerUsername("guess");
 			orderHeader.setEmployeeUsername(userUtil.getMember().getUserName());
-			orderHeader.setShipperId(Integer.parseInt(shipperId));
-			orderHeader.setStatus("new");
+			//orderHeader.setShipperId(Integer.parseInt(shipperId));
+			orderHeader.setStatus("resolve");
 			orderHeader.setCreateDate(new Date());
 			orderHeader.setRequireDate(new Date());
 			orderHeader.setShopId(shopView.getId());
@@ -135,33 +135,33 @@ public class CreateOrderController extends BaseSale{
 	
 	public Boolean validateInput(String cusName, String phoneNumber, 
 									String address, String shipperId, String listProductString){
-		if(isBlankOrNull(cusName)){
-			errorMessage = "Tên khách hàng không được để trống !";
-			return false;
-		}
-		
-		if(isBlankOrNull(phoneNumber)){
-			errorMessage = "Số điệnt thoại không được để trống !";
-			return false;
-		}
-		
-		if(!isNumeric(phoneNumber)){
-			errorMessage = "Số điện thoại phải là số !";
-			return false;
-		}
-		
-		if(isBlankOrNull(address)){
-			errorMessage = "Địa chỉ không được để trống !";
-			return false;
-		}
-		
-		if(isBlankOrNull(shipperId)){
-			errorMessage = "Vui lòng chọn nhà vận chuyển !";
-			return false;
-		}
+//		if(isBlankOrNull(cusName)){
+//			errorMessage = "Tên khách hàng không được để trống !";
+//			return false;
+//		}
+//		
+//		if(isBlankOrNull(phoneNumber)){
+//			errorMessage = "Số điệnt thoại không được để trống !";
+//			return false;
+//		}
+//		
+//		if(!isNumeric(phoneNumber)){
+//			errorMessage = "Số điện thoại phải là số !";
+//			return false;
+//		}
+//		
+//		if(isBlankOrNull(address)){
+//			errorMessage = "Địa chỉ không được để trống !";
+//			return false;
+//		}
+//		
+//		if(isBlankOrNull(shipperId)){
+//			errorMessage = "Vui lòng chọn nhà vận chuyển !";
+//			return false;
+//		}
 		
 		if(isBlankOrNull(listProductString)){
-			errorMessage = "Vui lòng thêm sản phẩm !";
+			errorMessage = "Vui lòng chọn sản phẩm !";
 			return false;
 		}
 		return true;
